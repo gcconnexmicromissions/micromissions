@@ -1,0 +1,36 @@
+This plugin adds a section to the gcconnex user profile where the person can opt-in to multiple types of micro-missions.
+The types include missions, job swapping, etc.
+
+This plugin is made to work on top of b_extended_profile, version 1.0.
+
+--------------------------------------------------------------------------------------------------------------
+
+This plugin code is copied from 3 of the original files and then modified.
+These modified version overrode the originals.
+
+The filepaths of these modified files are as follows:
+mod/missions_profile_extend/actions/b_extended_profile/edit_profile.php
+mod/missions_profile_extend/js/endorsements/gcconnex-profile.js
+mod/missions_profile_extend/views/default/profile/wrapper.php
+
+All modified code is between MODIFIED CODE and END MODIFIED CODE comments.
+
+--------------------------------------------------------------------------------------------------------------
+
+This plugin has two additional views in order to display the opt-in section.
+mod/missions_profile_extend/views/default/b_extended_profile/edit_opt-in.php
+mod/missions_profile_extend/views/default/b_extended_profile/opt-in.php
+
+--------------------------------------------------------------------------------------------------------------
+
+This plugin stores the opt-in data as an array of strings named opt_in_set.
+This data is stored directly under the user as metadata.
+This array is not an associative array so the index is as follows:
+opt_in_set[0]: Micro Missions
+opt_in_set[1]: Job Swap
+opt_in_set[2]: Mentored
+opt_in_set[3]: Mentoring
+opt_in_set[4]: Shadowed
+opt_in_set[5]: Shadowing
+opt_in_set[6]: Peer Coached
+opt_in_set[7]: Peer Coaching
