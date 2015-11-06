@@ -610,13 +610,13 @@
 		$close_button = '';
 		
 		// Button to send an application e-mail to the mission creator.
-		if($mission->owner_guid != elgg_get_logged_in_user_guid()) {
+		/*if($mission->owner_guid != elgg_get_logged_in_user_guid()) {
 			$apply_button = elgg_view('output/url', array(
 					'href' => elgg_get_site_url() . 'missions/mission-application?mid=' . $mission->guid,
 					'text' => elgg_echo('missions:apply'),
 					'class' => 'elgg-button',
 			));
-		}
+		}*/
 		$returner['apply_button'] = $apply_button;
 		
 		// Button to close the mission.
