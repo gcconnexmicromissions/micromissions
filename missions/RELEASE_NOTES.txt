@@ -1,0 +1,39 @@
+This plugin adds micro mission functionality to the GCConnex webpage. 
+Current functionality includes posting a job opportunity, displaying the job opportunity and searching for a job opportunity with a simple and advanced search.
+
+--------------------------------------------------------------------------------------------------------------
+
+OVERVIEW:
+
+This plugin adds a menu item to the left hand side menu on GCConnex.
+This menu item leads the user to the missions front page where they can see a river of the most recently created missions or nothing if no missions have been posted yet.
+On this page, there is a right hand side menu which the user can follow to the plugin's other pages.
+
+Post opportunity will lead the user to a form. When they are done filling out that form and submit it they will have a second form to complete.
+Once that form is complete and submitted they will have one final form to complete. 
+Upon submission their mission will be created and they will be forwarded to a display of the mission information.
+The design of these pages was guided by the given wireframes.
+
+Search will give the user a single text input search field.
+Upon submission, the missions title, type and description will be searched for the given input.
+
+Advanced search will allow users to customize the search behavior by selecting a certain number of search parameters.
+Upon selection, input fields will be generated accordingly.
+Upon submission, the search will check the given parameters and use logic appropriate to each.
+
+Browse latest will display the latest missions.
+Searches will display missions in an abbreviated format.
+Missions display design was guided by the given wireframes.
+
+Posting an opportunity, clicking on the title link in the river or clicking the read more button from the search display will take the user to a display of the mission information.
+From here, the user who created the mission may delete it.
+
+In the administration panel and under settings, there is a Micro Missions page.
+
+--------------------------------------------------------------------------------------------------------------
+
+SOLUTIONS:
+
+If the dropdown fields are not populated in any of the forms, go to the Micro Missions setting page in the administration panel and save the settings.
+
+Micro Missions CSS is still a work in progress so a smaller screen (like a laptops) might have some display issues.
