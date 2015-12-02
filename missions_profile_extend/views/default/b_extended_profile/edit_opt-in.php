@@ -26,13 +26,30 @@ if (elgg_is_xhr) {
 	echo elgg_view ( 'input/access', $params );
 	
 	// Decides whether or not the checkbox should start checked.
-	$opt_in_set = $user->opt_in_set;
-	for($i = 0; $i < count ( $opt_in_set ); $i ++) {
-		if ($opt_in_set [$i] == 'gcconnex_profile:opt:yes') {
-			$opt_in_set [$i] = true;
-		} else {
-			$opt_in_set [$i] = false;
-		}
+	$opt_in_set = array();
+	if($user->opt_in_missions == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[0] = true;
+	}
+	if($user->opt_in_swap == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[1] = true;
+	}
+	if($user->opt_in_mentored == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[2] = true;
+	}
+	if($user->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[3] = true;
+	}
+	if($user->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[4] = true;
+	}
+	if($user->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[5] = true;
+	}
+	if($user->opt_in_peer_coached == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[6] = true;
+	}
+	if($user->opt_in_peer_coaching == 'gcconnex_profile:opt:yes') {
+	    $opt_in_set[7] = true;
 	}
 	
 	echo '<table class="gcconnex-profile-opt-in-options-table table table-bordered" style="margin: 10px;">';
