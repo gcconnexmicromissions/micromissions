@@ -4,6 +4,7 @@ Current functionality includes posting a job opportunity, displaying the job opp
 --------------------------------------------------------------------------------------------------------------
 
 OVERVIEW:
+1)
 
 This plugin adds a menu item to the left hand side menu on GCConnex.
 This menu item leads the user to the missions front page where they can see a river of the most recently created missions or nothing if no missions have been posted yet.
@@ -30,6 +31,21 @@ From here, the user who created the mission may delete it.
 
 In the administration panel and under settings, there is a Micro Missions page.
 
+2)
+Both search and advanced search can search for candidates according to some of their profile information (education, experience, skills and portfolio).
+Search and advanced search now have two buttons which allow users to switch between mission and candidate searching.
+Functionality is otherwise the same.
+
+Candidates can be invited to a mission from the mission display page (fill button) or the candidate search result page (invite button).
+Inviting a user sends them a notification with a link to an invitation page from which they can accept or deny the invitation.
+Either choice will also message back the mission owner.
+
+Candidates can also apply to a mission through the mission display.
+This will allow them to write a block of text to which their profile information (education, experience and skills) will be appended.
+This information is then send to the mission owner through a notification.
+
+My Missions will display missions which are related to the logged in user whether the user generated the missions or has accepted a posting to one of those missions.
+
 --------------------------------------------------------------------------------------------------------------
 
 SOLUTIONS:
@@ -37,3 +53,5 @@ SOLUTIONS:
 If the dropdown fields are not populated in any of the forms, go to the Micro Missions setting page in the administration panel and save the settings.
 
 Micro Missions CSS is still a work in progress so a smaller screen (like a laptops) might have some display issues.
+
+If notifications are not appearing to a user then they will have to go to the /notifications/personal/{username} page and check the site checkbox under personal notifications.

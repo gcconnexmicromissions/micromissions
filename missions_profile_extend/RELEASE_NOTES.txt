@@ -23,14 +23,12 @@ mod/missions_profile_extend/views/default/b_extended_profile/opt-in.php
 
 --------------------------------------------------------------------------------------------------------------
 
-This plugin stores the opt-in data as an array of strings named opt_in_set.
-This data is stored directly under the user as metadata.
-This array is not an associative array so the index is as follows:
-opt_in_set[0]: Micro Missions
-opt_in_set[1]: Job Swap
-opt_in_set[2]: Mentored
-opt_in_set[3]: Mentoring
-opt_in_set[4]: Shadowed
-opt_in_set[5]: Shadowing
-opt_in_set[6]: Peer Coached
-opt_in_set[7]: Peer Coaching
+This plugin stores the opt-in data as a metadata strings.
+$user->opt_in_missions
+$user->opt_in_swap
+$user->opt_in_mentored
+$user->opt_in_mentoring
+$user->opt_in_shadowed
+$user->opt_in_shadowing
+$user->opt_in_peer_coached
+$user->opt_in_peer_coaching

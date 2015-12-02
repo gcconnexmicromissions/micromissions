@@ -376,7 +376,14 @@
 	        	$opt_in_set = get_input('opt_in_set');
 	        	$access = get_input('access');
 	        	
-	        	$user->opt_in_set = $opt_in_set;
+	        	$user->opt_in_missions = $opt_in_set[0];
+	        	$user->opt_in_swap = $opt_in_set[1];
+	        	$user->opt_in_mentored = $opt_in_set[2];
+	        	$user->opt_in_mentoring = $opt_in_set[3];
+	        	$user->opt_in_shadowed = $opt_in_set[4];
+	        	$user->opt_in_shadowing = $opt_in_set[5];
+	        	$user->opt_in_peer_coached = $opt_in_set[6];
+	        	$user->opt_in_peer_coaching = $opt_in_set[7];
 	        	
 	        	// Not saving this at the moment because it is not in use.
 	        	//$user->optaccess = $access;
