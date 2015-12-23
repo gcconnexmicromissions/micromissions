@@ -66,7 +66,7 @@ $input_description = elgg_view('input/plaintext', array(
 <div>
 	<table class="mission-post-table">
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-title-text-input'><?php echo elgg_echo('missions:opportunity_title') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-title-text-input'><?php echo elgg_echo('missions:opportunity_title') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -75,7 +75,7 @@ $input_description = elgg_view('input/plaintext', array(
 			</td>
 		</tr>
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-type-text-input'><?php echo elgg_echo('missions:opportunity_type') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-type-text-input'><?php echo elgg_echo('missions:opportunity_type') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -84,7 +84,7 @@ $input_description = elgg_view('input/plaintext', array(
 			</td>
 		</tr>
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-number-dropdown-input'l><?php echo elgg_echo('missions:opportunity_number') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-number-dropdown-input'><?php echo elgg_echo('missions:opportunity_number') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -93,7 +93,7 @@ $input_description = elgg_view('input/plaintext', array(
 			</td>
 		</tr>
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-start-date-input'><?php echo elgg_echo('missions:ideal_start_date') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-start-date-input'><?php echo elgg_echo('missions:ideal_start_date') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -102,7 +102,7 @@ $input_description = elgg_view('input/plaintext', array(
 			</td>
 		</tr>
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-completion-date-input'><?php echo elgg_echo('missions:ideal_completion_date') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-completion-date-input'><?php echo elgg_echo('missions:ideal_completion_date') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -120,7 +120,7 @@ $input_description = elgg_view('input/plaintext', array(
 			</td>
 		</tr>
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-deadline-date-input'><?php echo elgg_echo('missions:application_deadline') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-deadline-date-input'><?php echo elgg_echo('missions:application_deadline') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -139,5 +139,8 @@ $input_description = elgg_view('input/plaintext', array(
 		</tr>
 	</table>
 </div>
+<p>
+	<?php echo elgg_echo('missions:required_fields_star');?>
+</p>
 
 <div class="form-button"> <?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:next'))); ?> </div>

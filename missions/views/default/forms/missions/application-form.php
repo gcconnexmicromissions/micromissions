@@ -6,6 +6,10 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Form which allows the user to generate a simple foreword for their application via longtext input.
+ */
 $current_uri = $_SERVER['REQUEST_URI'];
 $exploded_uri = explode('/', $current_uri);
 $current_guid = array_pop($exploded_uri);

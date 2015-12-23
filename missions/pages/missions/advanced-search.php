@@ -6,8 +6,13 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Page from which the user can create complicated seraches consisting of multiple queries.
+ */
 gatekeeper();
 
+// Defaults to searching for missions.
 if($_SESSION['mission_search_switch'] == '') {
     $_SESSION['mission_search_switch'] = 'mission';
 }
@@ -27,7 +32,6 @@ $content .= elgg_view_form('missions/advanced-search-form', array(
 $sidebar = elgg_view_menu('mission_main', array(
     'sort_by' => 'priority'
 ));
-// $sidebar .= elgg_view_menu('mission_browse', array('sort_by' => 'priority'));
 
 $body = elgg_view_layout('one_sidebar', array(
     'content' => $content,

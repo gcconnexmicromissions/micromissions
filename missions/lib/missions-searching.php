@@ -516,13 +516,23 @@ function mm_search_candidate_database($query_array, $query_operand)
     $unique_owners = array_unique($entity_owners);
 
     // Turns the array of user GUIDs into an array of user objects.
-    $count = 0;
-    $unique_owners_entity = array();
+    $count_c = 0;
+    $count_p = 0;
+    $candidates_users = array();
+    $potentials_users = array();
     foreach($unique_owners as $unique_owner) {
-        $unique_owners_entity[$count] = get_user($unique_owner);
-        $count++;
+        $user_temp = get_user($unique_owner);
+        if($user_temp->opt_in_missions == 'gcconnex_profile:opt:yes') {
+            $candidates_users[$count_c] = $user_temp;
+            $count_c++;
+        }
+        else {
+        	$potentials_users[$count_p] = $user_temp;
+        	$count_p++;
+        }
     }
 
+    $unique_owners_entity = array_merge($candidates_users, $potentials_users);
     $candidate_count = count($unique_owners_entity);
 
     if ($candidate_count == 0) {
@@ -557,39 +567,6 @@ function mm_adv_search_candidate_database($query_array, $query_operand) {
 
     // Handles each query individually.
     foreach($filtered_array as $array) {
-        // Handles the skill array setup.
-        /*if($array['name-two'] != '') {
-         $options_attribute['type'] = 'object';
-         $options_attribute['subtype'] = 'MySkill';
-         $options_attribute['joins'] = array('INNER JOIN ' . elgg_get_config('dbprefix') . 'objects_entity g ON (g.guid = e.guid)');
-         $options_attribute['wheres'] = array("g." . $array['name'] . " " . $array['operand'] . " '" . $array['value'] . "'");
-         $options_attribute['limit'] = elgg_get_plugin_setting('search_limit', 'missions');
-         $entities = elgg_get_entities($options_attribute);
-
-         $entity_owners = array();
-         $count = 0;
-         foreach($entities as $entity) {
-         $entity_owners[$count] = $entity->owner_guid;
-         }
-         $entity_owners_first = array_unique($entity_owners);
-
-         $options_attribute['type'] = 'object';
-         $options_attribute['subtype'] = 'MySkill';
-         $options_metadata['metadata_name_value_pairs'] = array('name' => $array['name'], 'operand' => $array['operand'], 'value' => $array['value']);
-         $options_attribute['limit'] = elgg_get_plugin_setting('search_limit', 'missions');
-         $entities = elgg_get_entities_from_metadata($options);
-
-         $entity_owners = array();
-         $count = 0;
-         foreach($entities as $entity) {
-         $entity_owners[$count] = $entity->owner_guid;
-         }
-         $entity_owners_second = array_unique($entity_owners);
-
-         $entity_owners = array_intersect($entity_owners_first,  $entity_owners_second);
-         $users_returned_by_combo = array_unique(array_merge($users_returned_by_combo, $entity_owners));
-         }*/
-
         // Sets up an education and experience array search for title (not metadata).
         if($array['name'] == 'title') {
             $options_attribute['type'] = 'object';
@@ -647,32 +624,6 @@ function mm_adv_search_candidate_database($query_array, $query_operand) {
         }
     }
 
-    /*if(!empty($users_returned_by_combo)) {
-     if(!empty($users_returned_by_attribute)) {
-     $candidates = array_intersect($users_returned_by_combo, $users_returned_by_attribute);
-     if(!empty($users_returned_by_metadata)) {
-     $candidates = array_intersect($candidates, $users_returned_by_metadata);
-     }
-     }
-     elseif(!empty($users_returned_by_metadata)) {
-     $candidates = array_intersect($users_returned_by_combo, $users_returned_by_metadata);
-     }
-     else {
-     $candidates = $users_returned_by_combo;
-     }
-     }
-     else if(!empty($users_returned_by_attribute)) {
-     if(!empty($users_returned_by_metadata)) {
-     $candidates = array_intersect($users_returned_by_attribute, $users_returned_by_metadata);
-     }
-     else {
-     $candidates = $users_returned_by_attribute;
-     }
-     }
-     else if(!empty($users_returned_by_metadata)) {
-     $candidates = $users_returned_by_metadata;
-     }*/
-
     // Intersects the results into a single pool.
     if($is_attribute_searched && $is_metadata_searched) {
         $candidates = array_intersect($users_returned_by_attribute, $users_returned_by_metadata);
@@ -686,21 +637,31 @@ function mm_adv_search_candidate_database($query_array, $query_operand) {
     }
 
     // Turns an array of guids into an array of entities.
-    $count = 0;
+    $count_c = 0;
+    $count_p = 0;
     $candidates_users = array();
+    $potentials_users = array();
     foreach($candidates as $candidate) {
-        $candidates_users[$count] = get_user($candidate);
-        $count++;
+        $user_temp = get_user($candidate);
+        if($user_temp->opt_in_missions == 'gcconnex_profile:opt:yes') {
+            $candidates_users[$count_c] = $user_temp;
+            $count_c++;
+        }
+        else {
+        	$potentials_users[$count_p] = $user_temp;
+        	$count_p++;
+        }
     }
 
-    $candidate_count = count($candidates_users);
+    $final_users = array_merge($candidates_users, $potentials_users);
+    $final_count = count($final_users);
 
-    if ($candidate_count == 0) {
+    if ($final_count == 0) {
         register_error(elgg_echo('missions:error:candidate_does_not_exist'));
         return false;
     } else {
-        $_SESSION['candidate_count'] = $candidate_count;
-        $_SESSION['candidate_search_set'] = $candidates_users;
+        $_SESSION['candidate_count'] = $final_count;
+        $_SESSION['candidate_search_set'] = $final_users;
         $_SESSION['candidate_search_feedback'] = '';
 
         return true;

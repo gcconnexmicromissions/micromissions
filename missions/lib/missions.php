@@ -75,134 +75,6 @@ function mm_write_tab_links($context, $url)
 }
 
 /*
- * A regex which returns true if the input is a phone number.
- * Regular expression created by Eric Holmes (http://ericholmes.ca/php-phone-number-validation-revisited/)
- * Valid:
- * 5555555555
- * 555-555-5555
- * 555 555 5555
- * 1(555) 555-5555
- * 1 (555) 555-5555
- * 1-555-555-5555
- * Invalid:
- * 5
- * 555-5555
- * 1-(555)-555-5555
- */
-function mm_is_valid_phone_number($number)
-{
-    $regex = "/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i";
-    
-    return preg_match($regex, (string) $number);
-}
-
-/*
- * A regex which checks that no numbers are in the expression.
- * Valid:
- * Eileen
- * Eileen Williamson
- * Valid but Wrong:
- * %$@#%$#&/:'.']}
- * Invalid:
- * 4Wesley
- * Wes7ley
- * Wesley9
- */
-function mm_is_valid_person_name($name)
-{
-    $regex = "/^[^0-9]+$/";
-    
-    return preg_match($regex, $name);
-}
-
-/*
- * A regex which checks that only numbers are in the expression.
- * Valid:
- * 5
- * 673445
- * Invalid:
- * 532K351
- * @578(532)
- */
-function mm_is_guid_number($num)
-{
-    $regex = "/^[0-9]*$/";
-    
-    return preg_match($regex, $num);
-}
-
-/*
- * Tests all days of the week given the form input.
- */
-function mm_validate_time_all(&$input_array)
-{
-    $err = '';
-    
-    $err .= mm_validate_time('mon', $input_array);
-    $err .= mm_validate_time('tue', $input_array);
-    $err .= mm_validate_time('wed', $input_array);
-    $err .= mm_validate_time('thu', $input_array);
-    $err .= mm_validate_time('fri', $input_array);
-    $err .= mm_validate_time('sat', $input_array);
-    $err .= mm_validate_time('sun', $input_array);
-    
-    return $err;
-}
-
-/*
- * Tests a the start time and duration of the given day of the week.
- * Also defaults the minutes to '00' if the hour is set and the minute value is null.
- */
-function mm_validate_time($day, &$input_array)
-{
-    $start_hour = $input_array[$day . '_start_hour'];
-    $start_min = $input_array[$day . '_start_min'];
-    $duration_hour = $input_array[$day . '_duration_hour'];
-    $duration_min = $input_array[$day . '_duration_min'];
-    $day_full = elgg_echo('missions:' . $day);
-    $err = '';
-    
-    if ($_SESSION['language'] == 'fr') {
-        $day_full = strtolower($day_full);
-    }
-    
-    // If one hour value is not empty then the other cannot be empty and the associated minute value cannot be NULL.
-    if (! empty($start_hour)) {
-        if (empty($duration_hour) && empty($duration_min)) {
-            $err .= elgg_echo('missions:duration_must_be_set') . $day_full . ".\n";
-        }
-        if (empty($start_min)) {
-            $input_array[$day . '_start_min'] = '00';
-            $start_min = '00';
-        }
-    }
-    if (! empty($duration_hour) || ! empty($duration_min)) {
-        if (empty($start_hour)) {
-            $err .= elgg_echo('missions:start_hour_must_be_set') . $day_full . ".\n";
-        }
-        if (empty($duration_hour)) {
-            $input_array[$day . '_duration_hour'] = '0';
-            $duration_hour = '0';
-        }
-        if (empty($duration_min)) {
-            $input_array[$day . '_duration_min'] = '00';
-            $duration_min = '00';
-        }
-    }
-    
-    // The start time cannot occur after the duration time.
-    /*
-     * if(!empty($start_hour) && !empty($duration_hour)) {
-     * if((int)($start_hour . $start_min) > (int)($duration_hour . $duration_min)) {
-     * $err .= elgg_echo('missions:error:start_after_duration_time') . $day_full . ".\n";
-     * }
-     * }
-     */
-    
-    return $err;
-}
-
-/*
  * Packs the language variables for a single language into a single string.
  */
 function mm_pack_language($lwc, $lwe, $lop, $lang)
@@ -273,11 +145,10 @@ function mm_pack_time($hour, $min, $day)
     $value = strtolower($day);
     $returner .= $day;
     
-    if($min == '') {
-        $min = '00';
-    }
-    
     if (! empty($hour)) {
+        if($min == '') {
+            $min = '00';
+        }
         $returner .= $hour . $min;
     }
     
@@ -341,30 +212,39 @@ function mm_unpack_mission($entity)
 /*
  * Returns an array of buttons for actions taken with regards to a mission.
  */
-function mm_create_button_set($mission)
+function mm_create_button_set($mission, $is_extended_set)
 {
     $returner = array();
-    $apply_button = '';
-    $close_button = '';
     
     // Button to send an application e-mail to the mission creator.
     if ($mission->owner_guid != elgg_get_logged_in_user_guid()) {
         $apply_button = elgg_view('output/url', array(
             'href' => elgg_get_site_url() . 'missions/mission-application/' . $mission->guid,
             'text' => elgg_echo('missions:apply'),
-            'class' => 'elgg-button'
+            'class' => 'elgg-button btn btn-default'
         ));
     }
     $returner['apply_button'] = $apply_button;
     
+    // Button to add candidates to a mission.
     if ($mission->owner_guid == elgg_get_logged_in_user_guid()) {
         $fill_button = elgg_view('output/url', array(
             'href' => elgg_get_site_url() . 'missions/mission-fill/' . $mission->guid,
             'text' => elgg_echo('missions:fill'),
-            'class' => 'elgg-button'
+            'class' => 'elgg-button btn btn-default'
         ));
     }
     $returner['fill_button'] = $fill_button;
+    
+    // Button to edit mission parameters.
+    if ($mission->owner_guid == elgg_get_logged_in_user_guid()) {
+        $edit_button = elgg_view('output/url', array(
+            'href' => elgg_get_site_url() . 'missions/mission-edit/' . $mission->guid,
+            'text' => elgg_echo('missions:edit'),
+            'class' => 'elgg-button btn btn-default'
+        ));
+    }
+    $returner['edit_button'] = $edit_button;
     
     // Button to close the mission.
     // TODO: This currently deletes the mission. It will change later on when mission filling and mission completion are implemented.
@@ -373,10 +253,21 @@ function mm_create_button_set($mission)
             'href' => elgg_get_site_url() . 'action/missions/close-from-display?mission_guid=' . $mission->guid,
             'text' => elgg_echo('missions:delete'),
             'is_action' => true,
-            'class' => 'elgg-button'
+            'class' => 'elgg-button btn btn-default'
         ));
     }
     $returner['close_button'] = $close_button;
+    
+    // Button to remove all tentative relationships between the mission and candidates.
+    /*if ($mission->owner_guid == elgg_get_logged_in_user_guid() && $is_extended_set) {
+        $remove_pending_button = '</br>' . elgg_view('output/confirmlink', array(
+            'href' => elgg_get_site_url() . 'action/missions/remove-pending-invites?mission_guid=' . $mission->guid,
+            'text' => elgg_echo('missions:remove_pending_invites'),
+            'is_action' => true,
+            'class' => 'elgg-button btn btn-default'
+        ));
+    }
+    $returner['remove_pending_button'] = $remove_pending_button;*/
     
     return $returner;
 }
@@ -389,7 +280,7 @@ function mm_create_switch_buttons() {
     
     $active_mission_button = 'not_active';
     $active_candidate_button = 'not_active';
-    if($_SESSION['mission_search_switch'] == 'mission') {
+    if($_SESSION['mission_search_switch'] == 'mission' || $_SESSION['mission_search_switch'] == '') {
         $active_mission_button = 'active';
     }
     if($_SESSION['mission_search_switch'] == 'candidate') {
@@ -400,13 +291,13 @@ function mm_create_switch_buttons() {
         'href' => elgg_get_site_url() . 'action/missions/search-switch?switch=mission',
         'text' => elgg_echo('missions:mission'),
         'is_action' => true,
-        'class' => 'elgg-button' . ' ' . $active_mission_button
+        'class' => 'elgg-button btn btn-default' . ' ' . $active_mission_button
     ));
     $returner['candidate_button'] = elgg_view('output/url', array(
         'href' => elgg_get_site_url() . 'action/missions/search-switch?switch=candidate',
         'text' => elgg_echo('missions:candidate'),
         'is_action' => true,
-        'class' => 'elgg-button' . ' ' . $active_candidate_button
+        'class' => 'elgg-button btn btn-default' . ' ' . $active_candidate_button
     ));
     
     return $returner;
@@ -421,13 +312,27 @@ function mm_send_notification_invite($target, $mission) {
         'href' => elgg_get_site_url() . 'missions/mission-invitation/' . $mission->guid,
         'text' => elgg_echo('missions:mission_invitation')
     ));
+    //system_message(elgg_get_site_url() . 'missions/mission-invitation/' . $mission->guid . '!');
     
     $subject = get_user($mission->owner_guid)->name . elgg_echo('missions:invited_you', array(), $target->language) . $mission->title;
     $body = $invitation_link;
-    notify_user($target->guid, $mission->owner_guid, $subject, $body);
+    $params = array(
+    		'object' => $mission,
+    		'action' => 'invite-user',
+    		'summary' => $subject
+    );
+    $methods = array('email', 'site');
+    $test_returned = notify_user($target->guid, $mission->owner_guid, $subject, $body, $params, $methods);
+    //$test_returned_again = messages_send($subject, $body, $target_guid);
+    //system_message($target->guid . ':' . $mission->owner_guid . ';' . $subject);
+    //if($test_returned[$target->guid]['site']) {
+    //	system_message('It worked!');
+    //}
     
     // Create a tentative relationship between mission and user for identification purposes.
-    add_entity_relationship($mission->guid, 'mission_tentative', $target->guid);
+    if(!check_entity_relationship($mission->guid, 'mission_accepted', $target->guid)) {
+        add_entity_relationship($mission->guid, 'mission_tentative', $target->guid);
+    }
     
     return true;
 }

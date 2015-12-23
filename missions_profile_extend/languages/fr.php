@@ -1,5 +1,5 @@
 <?php
-$french = array(
+return array(
 	// labels
 		'gcconnex_profile:opt:opt-in' => "S'Engager",
 		'gcconnex_profile:opt:set_empty' => "Aucune option d'engagement ont été sélectionnés.",
@@ -15,5 +15,3 @@ $french = array(
 		'gcconnex_profile:opt:yes' => 'Oui',
 		'gcconnex_profile:opt:no' => 'Non'
 );
-
-add_translation("fr", $french);

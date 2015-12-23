@@ -22,10 +22,8 @@ $third_form = elgg_get_sticky_values('thirdfill');
 
 $err = '';
 
-// Checks to see if location is empty
-if (empty($third_form['location'])) {
-    $err .= elgg_echo('missions:error:location_needs_input') . "\n";
-}
+// Error checking function.
+$err .= mm_third_post_error_check($third_form);
 
 // A specialized function for checking for errors in the time fields
 $err .= mm_validate_time_all($third_form);
@@ -61,7 +59,7 @@ if ($err != '') {
     $mission->descriptor = $second_form['description'];
     
     $mission->remotely = $third_form['remotely'];
-    $mission->flexibility = $third_form['flexibility'];
+    //$mission->flexibility = $third_form['flexibility'];
     $mission->security = $third_form['security'];
     $mission->location = $third_form['location'];
     
@@ -92,7 +90,13 @@ if ($err != '') {
     add_entity_relationship($mission->owner_guid, 'mission_posted', $mission->guid);
     
     // Add to the river so it can be seen on the main page.
-    add_to_river('river/object/mission/create', 'create', $mission->owner_guid, $mission->getGUID());
+    elgg_create_river_item(array(
+        'view' => 'river/object/mission/create',
+        'action_type' => 'create',
+        'subject_guid' => $mission->owner_guid,
+        'object_guid' => $mission->getGUID()
+    ));
+    //add_to_river('river/object/mission/create', 'create', $mission->owner_guid, $mission->getGUID());
     
     // Clears all the sticky forms that have been in use so far.
     elgg_clear_sticky_form('firstfill');

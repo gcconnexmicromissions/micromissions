@@ -5,7 +5,6 @@ Current functionality includes posting a job opportunity, displaying the job opp
 
 OVERVIEW:
 1)
-
 This plugin adds a menu item to the left hand side menu on GCConnex.
 This menu item leads the user to the missions front page where they can see a river of the most recently created missions or nothing if no missions have been posted yet.
 On this page, there is a right hand side menu which the user can follow to the plugin's other pages.
@@ -45,6 +44,22 @@ This will allow them to write a block of text to which their profile information
 This information is then send to the mission owner through a notification.
 
 My Missions will display missions which are related to the logged in user whether the user generated the missions or has accepted a posting to one of those missions.
+
+3)
+Plugins now work with GCconnex 1.12.
+Some aesthetic changes were made to improve visual design.
+
+Mission managers can now edit their missions by clicking the edit button in the mission view.
+This allows them to change all the same field values from the post opportunity forms.
+
+Candidates can be removed from a mission from the mission view by pressing the remove button next to the candidates name.
+
+Some functionality is inactive if a user has not opted in to micro missions from their profile.
+Users may opt in or opt out directly from the micro missions main page.
+Users who have not opted in can not be invited to micro missions.
+Users who have opted in will be displayed first in a candidate search.
+Users who have not opted in can not post a mission.
+Users who apply to a missions are opted in if they were not previously.
 
 --------------------------------------------------------------------------------------------------------------
 

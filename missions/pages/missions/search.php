@@ -8,26 +8,9 @@
  */
 
 /*
- *
+ * Page which allows users to generate a search from a single text input.
  */
 gatekeeper();
-
-/*$search_type = $_SESSION['search_page_type'];
-unset($_SESSION['search_page_type']);
-
-// TODO remove later when 4 search method gets removed
-$refine = false;
-if (get_input('ref')) {
-    $refine = get_input('ref');
-}
-$_SESSION['refinement'] = $refine;
-
-if($_SESSION['mission_search_switch'] == '') {
-    $_SESSION['mission_search_switch'] = 'mission';
-}
-
-$temp_form_title = 'missions:' . $search_type . '_search';
-$temp_form_path = 'missions/search-' . $search_type;*/
 
 $title = elgg_echo('missions:search');
 $content = elgg_view_title($title);

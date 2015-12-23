@@ -29,33 +29,41 @@ $array_duration = explode(',', elgg_get_plugin_setting('duration_string', 'missi
 if($further == 'true') {
     switch ($dropdown_value) {
         case elgg_echo('missions:publication_date'):
+        	$content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_operand',
                 'value' => '=',
                 'options' => array('=', '>=', '<='),
                 'class' => 'advanced-element'
             ));
+            $content .= '</span>';
+            $content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/date', array(
                 'name' => $dropdown_name . '_value',
                 'value' => '',
                 'class' => 'advanced-element'
             ));
+            $content .= '</span>';
             break;
             
         case elgg_echo('missions:end_year'):
+        	$content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_operand',
                 'value' => '=',
                 'options' => array('=', '>=', '<='),
                 'class' => 'advanced-element'
             ));
+            $content .= '</span>';
             
         default:
+        	$content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/text', array(
                 'name' => $dropdown_name . '_value',
                 'value' => '',
                 'class' => 'advanced-element'
             ));
+            $content .= '</span>';
             break;
     }
 }
@@ -110,19 +118,23 @@ else {
                 'class' => 'advanced-element'
             ));
             $content .= '</br>';
+            $content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_hour',
                 'value' => '',
                 'options' => $time_or_duration,
                 'class' => 'advanced-element time-dropdown'
             ));
+            $content .= '</span>';
             $content .= '<span style="font-size:16pt;"> :</span>';
+            $content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_min',
                 'value' => '',
                 'options' => $array_min,
                 'class' => 'advanced-element time-dropdown'
             ));
+            $content .= '</span>';
             break;
         
         case elgg_echo('missions:language'):
@@ -137,26 +149,32 @@ else {
             ));
             $content .= '</br>';
             $content .= elgg_echo('missions:reading') . ':';
+            $content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_lwc',
                 'value' => '',
                 'options' => $array_lang,
                 'class' => 'advanced-element language-dropdown'
             ));
+            $content .= '</span>';
             $content .= elgg_echo('missions:writing') . ':';
+            $content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_lwe',
                 'value' => '',
                 'options' => $array_lang,
                 'class' => 'advanced-element language-dropdown'
             ));
+            $content .= '</span>';
             $content .= elgg_echo('missions:oral') . ':';
+            $content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_lop',
                 'value' => '',
                 'options' => $array_lang,
                 'class' => 'advanced-element language-dropdown'
             ));
+            $content .= '</span>';
             break;
         
         case elgg_echo('missions:security_clearance'):

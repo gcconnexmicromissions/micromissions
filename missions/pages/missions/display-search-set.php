@@ -6,18 +6,18 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Page which displays the results of a users search, simple or advanced.
+ */
 gatekeeper();
 
 $search_typing = $_SESSION['mission_search_switch'];
-if($_SESSION['mission_search_switch_override'] != '') {
-    $search_typing = 'mission';
-    $_SESSION['mission_search_switch_override'] = '';
-}
 
 // Variables to help set up pagination
 $count = $_SESSION[$search_typing . '_count'];
 $offset = (int) get_input('offset', 0);
-$max = 4;
+$max = elgg_get_plugin_setting('search_result_per_page', 'missions');
 
 // Calls a limited amount of missions for display
 $search_set = $_SESSION[$search_typing . '_search_set'];

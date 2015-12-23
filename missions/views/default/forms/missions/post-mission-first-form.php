@@ -44,7 +44,7 @@ $input_phone = elgg_view('input/text', array(
 <div>
 	<table class="mission-post-table">
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-name-text-input'><?php echo elgg_echo('missions:your_name') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-name-text-input'><?php echo elgg_echo('missions:your_name') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -53,7 +53,7 @@ $input_phone = elgg_view('input/text', array(
 			</td>
 		</tr>
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-department-text-input'><?php echo elgg_echo('missions:your_department') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-department-text-input'><?php echo elgg_echo('missions:your_department') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -68,7 +68,7 @@ $input_phone = elgg_view('input/text', array(
 </p>
 <div>
 	<table class="mission-post-table">
-		<td class="mission-post-table-lefty"><label for='post-mission-email-text-input'><?php echo elgg_echo('missions:your_email') . ':';?></label><br />
+		<td class="mission-post-table-lefty"><label for='post-mission-email-text-input'><?php echo elgg_echo('missions:your_email') . '*:';?></label><br />
 		</td>
 		<td class="mission-post-table-righty">
 			<div>
@@ -93,5 +93,8 @@ $input_phone = elgg_view('input/text', array(
 </div>
 <p>
 	<?php echo elgg_echo('missions:first_post:paragraph_four');?>
+</p>
+<p>
+	<?php echo elgg_echo('missions:required_fields_star');?>
 </p>
 <div class="form-button"> <?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:next'))); ?> </div>

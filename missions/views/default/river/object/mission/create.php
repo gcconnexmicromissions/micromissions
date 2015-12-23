@@ -6,12 +6,17 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * River item for a mission object.
+ */
 $object = $vars['item']->getObjectEntity();
 
 // URL to the display for the mission.
 $link = elgg_view('output/url', array(
     'text' => $object->job_title,
-    'href' => $object->getURL()
+    'href' => $object->getURL(),
+	'class' => 'mission-emphasis mission-link-color'
 ));
 
 $summary = $link . ', ' . $object->job_type;

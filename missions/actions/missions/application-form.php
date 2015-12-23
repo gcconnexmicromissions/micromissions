@@ -115,4 +115,11 @@ $body .= elgg_view('output/url', array(
 ));
 
 notify_user($mission->owner_guid, $applicant->guid, $subject, $body);
+
+// Opt in applicant if they are not opted in yet.
+if($applicant->opt_in_missions != 'gcconnex_profile:opt:yes') {
+	$applicant->opt_in_missions = 'gcconnex_profile:opt:yes';
+	$applicant->save();
+}
+
 forward(elgg_get_site_url() . 'missions/main');

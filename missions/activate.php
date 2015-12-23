@@ -2,11 +2,12 @@
 /*
  * Preset all plugin settings.
  */
- 
 elgg_set_plugin_setting('search_limit', '100', 'missions');
 elgg_set_plugin_setting('river_message_limit', '100', 'missions');
 elgg_set_plugin_setting('advanced_element_limit', 6, 'missions');
 elgg_set_plugin_setting('river_element_limit', 10, 'missions');
+elgg_set_plugin_setting('search_result_per_page', 4, 'missions');
+elgg_set_plugin_setting('mission_developer_tools_on', 'YES', 'missions');
 
 $hour_string = ' ,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23';
 elgg_set_plugin_setting('hour_string', $hour_string, 'missions');

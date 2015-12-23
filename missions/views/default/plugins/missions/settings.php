@@ -26,6 +26,16 @@ if (empty($river_element_limit)) {
     $river_element_limit = 10;
 }
 
+$search_result_per_page = $vars['entity']->search_result_per_page;
+if (empty($search_result_per_page)) {
+    $search_result_per_page = 4;
+}
+
+$mission_developer_tools_on = $vars['entity']->mission_developer_tools_on;
+if (empty($mission_developer_tools_on)) {
+    $mission_developer_tools_on = 'YES';
+}
+
 /*$hour_string = ' ,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23';
 elgg_set_plugin_setting('hour_string', $hour_string, 'missions');
 
@@ -49,6 +59,19 @@ $duration_string = ' ,1,2,3,4,5,6,7,8';
 elgg_set_plugin_setting('duration_string', $duration_string, 'missions');*/
 ?>
 
+<div>
+	<?php echo elgg_echo('missions:settings:developer_tools'); ?>
+	<?php
+
+echo elgg_view('input/dropdown', array(
+    'name' => 'params[mission_developer_tools_on]',
+    'options' => array(
+        'YES',
+        'NO'
+    ),
+    'value' => $mission_developer_tools_on
+));
+?>
 <div>
 	<?php echo elgg_echo('missions:settings:search_limit'); ?>
 	<?php
@@ -119,6 +142,23 @@ echo elgg_view('input/dropdown', array(
         10
     ),
     'value' => $advanced_element_limit
+));
+?>
+</div>
+
+<div>
+	<?php echo elgg_echo('missions:settings:search_result_per_page'); ?>
+	<?php
+
+echo elgg_view('input/dropdown', array(
+    'name' => 'params[search_result_per_page]',
+    'options' => array(
+        4,
+        6,
+        8,
+        10
+    ),
+    'value' => $search_result_per_page
 ));
 ?>
 </div>

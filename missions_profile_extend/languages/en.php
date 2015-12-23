@@ -1,5 +1,5 @@
 <?php
-$english = array(
+return array(
 	// labels
 		'gcconnex_profile:opt:opt-in' => 'Opt In',
 		'gcconnex_profile:opt:set_empty' => 'No opt-in options were selected.',
@@ -15,5 +15,3 @@ $english = array(
 		'gcconnex_profile:opt:yes' => 'Yes',
 		'gcconnex_profile:opt:no' => 'No'
 );
-
-add_translation("en", $english);

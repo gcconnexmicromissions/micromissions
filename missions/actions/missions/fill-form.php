@@ -32,7 +32,15 @@ else {
         if($fill_form['applicant_' . $i] != '') {
             $applicant = get_user_by_username($fill_form['applicant_' . $i]);
             if ($applicant->guid != '') {
-                mm_send_notification_invite($applicant, $mission);
+            	// Candidate must be opted in to micro missions to receive an invitation.
+                if($applicant->opt_in_missions == 'gcconnex_profile:opt:yes') {
+                    mm_send_notification_invite($applicant, $mission);
+                    // This works!
+                    //elgg_send_email($applicant->email, $mission->email, "Email Test", "Test");
+                }
+                else {
+                    $err .= $applicant->name . elgg_echo('missions:error:not_participating_in_missions');
+                }
             }
             else {
                 $err .= $fill_form['applicant_' . $i] . elgg_echo('missions:error:does_not exist') . "\n";
@@ -42,9 +50,6 @@ else {
     
     if ($err != '') {
         register_error($err);
-        forward(REFERER);
     }
-    else {
-        forward($mission->getURL());
-    }
+    forward($mission->getURL());
 }

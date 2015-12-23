@@ -15,34 +15,102 @@ $hourarray = explode(',', elgg_get_plugin_setting('hour_string', 'missions'));
 $minarray = explode(',', elgg_get_plugin_setting('minute_string', 'missions'));
 $durationarray = explode(',', elgg_get_plugin_setting('duration_string', 'missions'));
 
-$mon_start_hour = get_input('itmsh');
-$mon_start_min = get_input('itmsm');
-$tue_start_hour = get_input('ittsh');
-$tue_start_min = get_input('ittsm');
-$wed_start_hour = get_input('itwsh');
-$wed_start_min = get_input('itwsm');
-$thu_start_hour = get_input('itthsh');
-$thu_start_min = get_input('itthsm');
-$fri_start_hour = get_input('itfsh');
-$fri_start_min = get_input('itfsm');
-$mon_duration_hour = get_input('itmeh');
-$mon_duration_min = get_input('itmem');
-$tue_duration_hour = get_input('itteh');
-$tue_duration_min = get_input('ittem');
-$wed_duration_hour = get_input('itweh');
-$wed_duration_min = get_input('itwem');
-$thu_duration_hour = get_input('ittheh');
-$thu_duration_min = get_input('itthem');
-$fri_duration_hour = get_input('itfeh');
-$fri_duration_min = get_input('itfem');
-$sat_start_hour = get_input('itssh');
-$sat_start_min = get_input('itssm');
-$sun_start_hour = get_input('itsush');
-$sun_start_min = get_input('itsusm');
-$sat_duration_hour = get_input('itseh');
-$sat_duration_min = get_input('itsem');
-$sun_duration_hour = get_input('itsueh');
-$sun_duration_min = get_input('itsuem');
+$weekend_array = array();
+
+if($vars['mission_metadata']['mon_start_hour']) {
+    $mon_start_hour = $vars['mission_metadata']['mon_start_hour'];
+}
+if($vars['mission_metadata']['mon_start_min']) {
+    $mon_start_min = $vars['mission_metadata']['mon_start_min'];
+}
+if($vars['mission_metadata']['tue_start_hour']) {
+    $tue_start_hour = $vars['mission_metadata']['tue_start_hour'];
+}
+if($vars['mission_metadata']['tue_start_min']) {
+    $tue_start_min = $vars['mission_metadata']['tue_start_min'];
+}
+if($vars['mission_metadata']['wed_start_hour']) {
+    $wed_start_hour = $vars['mission_metadata']['wed_start_hour'];
+}
+if($vars['mission_metadata']['wed_start_min']) {
+    $wed_start_min = $vars['mission_metadata']['wed_start_min'];
+}
+if($vars['mission_metadata']['thu_start_hour']) {
+    $thu_start_hour = $vars['mission_metadata']['thu_start_hour'];
+}
+if($vars['mission_metadata']['thu_start_min']) {
+    $thu_start_min = $vars['mission_metadata']['thu_start_min'];
+}
+if($vars['mission_metadata']['fri_start_hour']) {
+    $fri_start_hour = $vars['mission_metadata']['fri_start_hour'];
+}
+if($vars['mission_metadata']['fri_start_min']) {
+    $fri_start_min = $vars['mission_metadata']['fri_start_min'];
+}
+if($vars['mission_metadata']['mon_duration_hour']) {
+    $mon_duration_hour = $vars['mission_metadata']['mon_duration_hour'];
+}
+if($vars['mission_metadata']['mon_duration_min']) {
+    $mon_duration_min = $vars['mission_metadata']['mon_duration_min'];
+}
+if($vars['mission_metadata']['tue_duration_hour']) {
+    $tue_duration_hour = $vars['mission_metadata']['tue_duration_hour'];
+}
+if($vars['mission_metadata']['tue_duration_min']) {
+    $tue_duration_min = $vars['mission_metadata']['tue_duration_min'];
+}
+if($vars['mission_metadata']['wed_duration_hour']) {
+    $wed_duration_hour = $vars['mission_metadata']['wed_duration_hour'];
+}
+if($vars['mission_metadata']['wed_duration_min']) {
+    $wed_duration_min = $vars['mission_metadata']['wed_duration_min'];
+}
+if($vars['mission_metadata']['thu_duration_hour']) {
+    $thu_duration_hour = $vars['mission_metadata']['thu_duration_hour'];
+}
+if($vars['mission_metadata']['thu_duration_min']) {
+    $thu_duration_min = $vars['mission_metadata']['thu_duration_min'];
+}
+if($vars['mission_metadata']['fri_duration_hour']) {
+    $fri_duration_hour = $vars['mission_metadata']['fri_duration_hour'];
+}
+if($vars['mission_metadata']['fri_duration_min']) {
+    $fri_duration_min = $vars['mission_metadata']['fri_duration_min'];
+}
+if($vars['mission_metadata']['sat_start_hour']) {
+    $sat_start_hour = $vars['mission_metadata']['sat_start_hour'];
+    $weekend_array['sat_start_hour'] =  $sat_start_hour;
+}
+if($vars['mission_metadata']['sat_start_min']) {
+    $sat_start_min = $vars['mission_metadata']['sat_start_min'];
+    $weekend_array['sat_start_min'] = $sat_start_min;
+}
+if($vars['mission_metadata']['sun_start_hour']) {
+    $sun_start_hour = $vars['mission_metadata']['sun_start_hour'];
+    $weekend_array['sun_start_hour'] = $sun_start_hour;
+}
+if($vars['mission_metadata']['sun_start_min']) {
+    $sun_start_min = $vars['mission_metadata']['sun_start_min'];
+    $weekend_array['sun_start_min'] = $sun_start_min;
+}
+if($vars['mission_metadata']['sat_duration_hour']) {
+    $sat_duration_hour = $vars['mission_metadata']['sat_duration_hour'];
+    $weekend_array['sat_duration_hour'] = $sat_duration_hour;
+}
+if($vars['mission_metadata']['sat_duration_min']) {
+    $sat_duration_min = $vars['mission_metadata']['sat_duration_min'];
+    $weekend_array['sat_duration_min'] = $sat_duration_min;
+}
+if($vars['mission_metadata']['sun_duration_hour']) {
+    $sun_duration_hour = $vars['mission_metadata']['sun_duration_hour'];
+    $weekend_array['sun_duration_hour'] = $sun_duration_hour;
+}
+if($vars['mission_metadata']['sun_duration_min']) {
+    $sun_duration_min = $vars['mission_metadata']['sun_duration_min'];
+    $weekend_array['sun_duration_min'] = $sun_duration_min;
+}
+
+$_SESSION['weekend_array'] = $weekend_array;
 
 if (elgg_is_sticky_form('tdropfill')) {
     extract(elgg_get_sticky_values('tdropfill'));
@@ -189,67 +257,24 @@ $input_friday_duration_minute = elgg_view('input/dropdown', array(
     'class' => 'time-dropdown',
     'id' => 'time-friday-duration-minute-dropdown-input'
 ));
-$input_saturday_start_hour = elgg_view('input/dropdown', array(
-    'name' => 'sat_start_hour',
-    'value' => $sat_start_hour,
-    'options' => $hourarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-saturday-start-hour-dropdown-input'
+
+$weekend_button = elgg_view('output/url', array(
+		'text' => elgg_echo('missions:weekend'),
+		'class' => 'elgg-button btn btn-default',
+		'id' => 'time-table-weekend-button',
+		'onclick' => 'set_weekend()'
 ));
-$input_saturday_start_minute = elgg_view('input/dropdown', array(
-    'name' => 'sat_start_min',
-    'value' => $sat_start_min,
-    'options' => $minarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-saturday-start-minute-dropdown-input'
-));
-$input_sunday_start_hour = elgg_view('input/dropdown', array(
-    'name' => 'sun_start_hour',
-    'value' => $sun_start_hour,
-    'options' => $hourarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-sunday-start-hour-dropdown-input'
-));
-$input_sunday_start_minute = elgg_view('input/dropdown', array(
-    'name' => 'sun_start_min',
-    'value' => $sun_start_min,
-    'options' => $minarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-sunday-start-minute-dropdown-input'
-));
-$input_saturday_duration_hour = elgg_view('input/dropdown', array(
-    'name' => 'sat_duration_hour',
-    'value' => $sat_duration_hour,
-    'options' => $durationarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-saturday-duration-hour-dropdown-input'
-));
-$input_saturday_duration_minute = elgg_view('input/dropdown', array(
-    'name' => 'sat_duration_min',
-    'value' => $sat_duration_min,
-    'options' => $minarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-saturday-duration-minute-dropdown-input'
-));
-$input_sunday_duration_hour = elgg_view('input/dropdown', array(
-    'name' => 'sun_duration_hour',
-    'value' => $sun_duration_hour,
-    'options' => $durationarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-sunday-duration-hour-dropdown-input'
-));
-$input_sunday_duration_minute = elgg_view('input/dropdown', array(
-    'name' => 'sun_duration_min',
-    'value' => $sun_duration_min,
-    'options' => $minarray,
-    'class' => 'time-dropdown',
-    'id' => 'time-sunday-duration-minute-dropdown-input'
+
+$no_weekend_button = elgg_view('output/url', array(
+		'text' => elgg_echo('missions:no_weekend'),
+		'class' => 'elgg-button btn btn-default',
+		'id' => 'time-table-no-weekend-button',
+		'onclick' => 'unset_weekend()'
 ));
 ?>
 
 <table class="mission-post-table-day">
 	<tr><td>
-
 	</td></tr>
 	<tr><td>
     	<h3> <?php echo elgg_echo('missions:start_time');?> </h3>
@@ -264,16 +289,16 @@ $input_sunday_duration_minute = elgg_view('input/dropdown', array(
 	</td></tr>
 	<tr><td>
 		<div><?php
-            echo $input_monday_start_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_monday_start_minute;
+            echo '<span class="missions-inline-drop">' . $input_monday_start_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_monday_start_minute . '</span>';
         ?></div>
 	</td></tr>
 	<tr><td>
 		<div><?php
-            echo $input_monday_duration_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_monday_duration_minute;
+            echo '<span class="missions-inline-drop">' . $input_monday_duration_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_monday_duration_minute . '</span>';
         ?></div>
 	</td></tr>
 </table>
@@ -283,16 +308,16 @@ $input_sunday_duration_minute = elgg_view('input/dropdown', array(
 	</td></tr>
 	<tr><td>
 		<div><?php
-            echo $input_tuesday_start_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_tuesday_start_minute;
+            echo '<span class="missions-inline-drop">' . $input_tuesday_start_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_tuesday_start_minute . '</span>';
         ?></div>
 	</td></tr>
 	<tr><td>
 		<div><?php
-            echo $input_tuesday_duration_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_tuesday_duration_minute;
+            echo '<span class="missions-inline-drop">' . $input_tuesday_duration_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_tuesday_duration_minute . '</span>';
         ?></div>
 	</td></tr>
 </table>
@@ -302,16 +327,16 @@ $input_sunday_duration_minute = elgg_view('input/dropdown', array(
 	</td></tr>
 	<tr><td>
     	<div><?php
-            echo $input_wednesday_start_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_wednesday_start_minute;
+            echo '<span class="missions-inline-drop">' . $input_wednesday_start_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_wednesday_start_minute . '</span>';
         ?></div>
 	</td></tr>
 	<tr><td>
 		<div><?php
-            echo $input_wednesday_duration_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_wednesday_duration_minute;
+            echo '<span class="missions-inline-drop">' . $input_wednesday_duration_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_wednesday_duration_minute . '</span>';
         ?></div>
 	</td></tr>
 </table>
@@ -321,16 +346,16 @@ $input_sunday_duration_minute = elgg_view('input/dropdown', array(
 	</td></tr>
 	<tr><td>
     	<div><?php
-            echo $input_thursday_start_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_thursday_start_minute;
+            echo '<span class="missions-inline-drop">' . $input_thursday_start_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_thursday_start_minute . '</span>';
         ?></div>
 	</td></tr>
 	<tr><td>
 		<div><?php
-            echo $input_thursday_duration_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_thursday_duration_minute;
+            echo '<span class="missions-inline-drop">' . $input_thursday_duration_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_thursday_duration_minute . '</span>';
         ?></div>
 	</td></tr>
 </table>
@@ -340,54 +365,53 @@ $input_sunday_duration_minute = elgg_view('input/dropdown', array(
 	</td></tr>
 	<tr><td>
     	<div><?php
-            echo $input_friday_start_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_friday_start_minute;
+            echo '<span class="missions-inline-drop">' . $input_friday_start_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_friday_start_minute . '</span>';
         ?></div>
 	</td></tr>
 	<tr><td>
 		<div><?php
-            echo $input_friday_duration_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_friday_duration_minute;
+            echo '<span class="missions-inline-drop">' . $input_friday_duration_hour . '</span>';
+            echo '<span style="font-size:16pt;"> : </span>';
+            echo '<span class="missions-inline-drop">' . $input_friday_duration_minute . '</span>';
         ?></div>
 	</td></tr>
 </table>
-<table class="mission-post-table-day">
+<table class="mission-post-table-day" style="display:none;" id="weekend-button-section">
 	<tr><td>
-		<h4> <?php echo elgg_echo('missions:sat'); ?> </h4>
 	</td></tr>
 	<tr><td>
-		<div><?php
-            echo $input_saturday_start_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_saturday_start_minute;
-        ?></div>
+		<?php echo $weekend_button; ?>
 	</td></tr>
 	<tr><td>
-		<div><?php
-            echo $input_saturday_duration_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_saturday_duration_minute;
-        ?></div>
+		<?php echo $no_weekend_button; ?>
 	</td></tr>
 </table>
-<table class="mission-post-table-day">
-	<tr><td>
-		<h4> <?php echo elgg_echo('missions:sun'); ?> </h4>
-	</td></tr>
-	<tr><td>
-		<div><?php
-            echo $input_sunday_start_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_sunday_start_minute;
-        ?></div>
-	</td></tr>
-	<tr><td>
-		<div><?php
-            echo $input_sunday_duration_hour;
-            echo '<span style="font-size:16pt;">: </span>';
-            echo $input_sunday_duration_minute;
-        ?></div>
-	</td></tr>
-</table>
+</br>
+<span id="weekend-section">
+	<noscript>
+		<?php 
+			echo elgg_view('missions/weekend');
+		?>
+	</noscript>
+</span>
+
+<script>
+	document.getElementById("weekend-button-section").style.display = "inline-block";
+
+	function set_weekend() {
+		var section = "#weekend-section";
+		
+		elgg.get('ajax/view/missions/weekend', {
+			success: function(result, success, xhr) {
+				$(section).html(result);
+			}
+		});
+	}
+
+	function unset_weekend() {
+		var section = "#weekend-section";
+		$(section).html("");
+	}
+</script>

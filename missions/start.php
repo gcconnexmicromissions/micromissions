@@ -19,8 +19,10 @@ function missions_init()
     // Register the custom library of methods for use in the plugin
     elgg_register_library('elgg:missions', elgg_get_plugins_path() . 'missions/lib/missions.php');
     elgg_register_library('elgg:missions-searching', elgg_get_plugins_path() . 'missions/lib/missions-searching.php');
+    elgg_register_library('elgg:missions-errors', elgg_get_plugins_path() . 'missions/lib/missions-errors.php');
     elgg_load_library('elgg:missions');
     elgg_load_library('elgg:missions-searching');
+    elgg_load_library('elgg:missions-errors');
 
     //Register to run unit tests
 	register_plugin_hook('unit_test', 'system', 'missions_unit_tests');
@@ -61,20 +63,44 @@ function missions_init()
     elgg_register_action("missions/accept-invite", elgg_get_plugins_path() . "missions/actions/missions/accept-invite.php");
     elgg_register_action("missions/decline-invite", elgg_get_plugins_path() . "missions/actions/missions/decline-invite.php");
     elgg_register_action("missions/invite-user", elgg_get_plugins_path() . "missions/actions/missions/invite-user.php");
+    elgg_register_action("missions/remove-pending-invites", elgg_get_plugins_path() . "missions/actions/missions/remove-pending-invites.php");
+    elgg_register_action("missions/change-mission-form", elgg_get_plugins_path() . "missions/actions/missions/change-mission-form.php");
+    elgg_register_action("missions/opt-from-main", elgg_get_plugins_path() . "missions/actions/missions/opt-from-main.php");
 
     // Register a new subtype of object for categorizing our mission object.
     elgg_register_entity_type('object', 'mission');
 
     // Register an ajax view for the advanced search page.
     elgg_register_ajax_view('missions/element-select');
+    
+   	// Register an ajax view for the weekend dropdown elements.
+    elgg_register_ajax_view('missions/weekend');
 
+    //Hook which sets the url for object entities upon creation.
+    elgg_register_plugin_hook_handler('entity:url', 'object', 'mission_set_url');
+    
     // Hook which changes how user entities are displayed.
     elgg_register_plugin_hook_handler('view', 'user/default', 'alter_mission_user_view');
+    
+    // Changes the manager's owner block in the mission view.
     elgg_register_plugin_hook_handler('view', 'page/elements/owner_block', 'alter_mission_owner_block');
+    
+    // Change the profile owner block for visiting users.
+    elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'append_profile_owner_block');
 
     // Adds a menu item to the original GCConnex sidebar that links to our plugin main page left side menu.
-    $item = new ElggMenuItem('mission_main', elgg_echo('missions:micromissions'), 'missions/main');
-    elgg_register_menu_item('site', $item);
+    //$item = new ElggMenuItem('mission_main', elgg_echo('missions:micromissions'), 'missions/main');
+    //elgg_register_menu_item('user_menu', $item);
+    elgg_register_menu_item('user_menu', array(
+    		'name' => 'mission_main',
+    		'href' => elgg_get_site_url() . 'missions/main',
+    		'text' => '<i class="fa fa-newspaper-o fa-lg mrgn-rght-sm"></i>' . elgg_echo('missions:micromissions'),
+    		'priority' => 1,
+    		'item_class' => 'brdr-rght'
+    ));
+    
+    // Testing purposes only (so far).
+    //elgg_register_plugin_hook_handler('send', 'notification:site', 'missions_site_notifications_send');
 }
 
 /*
@@ -242,6 +268,12 @@ function missions_main_page_handler($segments)
         case 'mission-select-invite':
             include elgg_get_plugins_path() . 'missions/pages/missions/mission-select-invite.php';
             break;
+        case 'mission-edit':
+            include elgg_get_plugins_path() . 'missions/pages/missions/mission-edit.php';
+            break;
+        case 'view':
+        	include elgg_get_plugins_path() . 'missions/pages/missions/mission-view.php';
+            break;
     }
 }
 
@@ -260,9 +292,16 @@ function missions_main_page_handler($segments)
  *
  */
 function missions_unit_tests($hook, $type, $value, $params) {
-	global $CONFIG;
-	$value[] = $CONFIG->path . 'mod/missions/testable/simpletest/missionPluginTest.php';
+	//global $CONFIG;
+	$value[] = /*$CONFIG->path*/ elgg_get_config('path') . 'mod/missions/testable/simpletest/missionPluginTest.php';
 	return $value;
+}
+
+function mission_set_url($hook, $type, $returnvalue, $params) {
+	$entity = $params['entity'];
+	if(elgg_instanceof($entity, 'object', 'mission')) {
+		return 'missions/view/' . $entity->guid;
+	}
 }
 
 // Changes the view of the user entity if the context is 'mission'.
@@ -298,3 +337,24 @@ function alter_mission_owner_block($hook, $type, $returnvalue, $params) {
         }
     }
 }
+
+// Changes the profile owner block to allow the profile owner to be invited by another user reading their profile.
+function append_profile_owner_block($hook, $type, $returnvalue, $params) {
+    $user = get_user(elgg_get_page_owner_guid());
+    if(elgg_get_logged_in_user_guid() != elgg_get_page_owner_guid() && $user->opt_in_missions == 'gcconnex_profile:opt:yes') {
+        $returnvalue[] = new ElggMenuItem('user_invite_from_profile', elgg_echo('missions:invite_to_a_mission'), 'missions/mission-select-invite/' . elgg_get_page_owner_guid());
+        return $returnvalue;
+    }
+    else {
+        return $returnvalue;
+    }
+}
+
+// Testing functionality to try and debug site notifications.
+/*function missions_site_notifications_send($hook, $type, $returnvalue, $params) {
+	//system_message('MESSAGE HOOK!');
+	//system_message($params['notification']->getSenderGUID() . '@' . $params['notification']->getRecipientGUID());
+	//system_message($params['notification']->guid . '#');
+	
+	return $params['notification'];
+}*/

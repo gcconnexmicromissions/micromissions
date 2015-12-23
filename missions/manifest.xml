@@ -4,7 +4,7 @@
 	<id>missions</id>
 	<author>National Research Council Canada</author>
 	<website>http://www.nrc-cnrc.gc.ca/eng/rd/ict/</website>
-	<version>2</version>
+	<version>3</version>
 	<description>Allows managers to post micro-missions (tasks of short
 		durations and matching particular skills profiles) and users to apply
 		for them.</description>
@@ -12,6 +12,6 @@
 	<license>Creative Commons Attribution 3.0 Unported License</license>
 	<requires>
 		<type>elgg_release</type>
-		<version>1.8</version>
+		<version>1.12</version>
 	</requires>
 </plugin_manifest>

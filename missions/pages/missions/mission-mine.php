@@ -6,6 +6,10 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Page which displays all the missions related to the logged in user.
+ */
 gatekeeper();
 
 // Selects the last section of the current URI.
@@ -70,11 +74,13 @@ $navigation_tabs = array(
         'selected' => $highlight_accepted
     )
 );
-$content .= elgg_view('navigation/tabs', array('tabs' => $navigation_tabs));
+$content .= elgg_view('navigation/tabs', array(
+		'class' => 'elgg-menu elgg-menu-filter list-inline mrgn-lft-sm elgg-menu-filter-default',
+		'tabs' => $navigation_tabs));
 
 $count = count($entity_list);
 $offset = (int) get_input('offset', 0);
-$max = 4;
+$max = elgg_get_plugin_setting('search_result_per_page', 'missions');
 
 // Displays the list of mission entities.
 $content .= elgg_view_entity_list(array_slice($entity_list, $offset, $max), array(

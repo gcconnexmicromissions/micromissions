@@ -60,10 +60,10 @@ $input_duration_minute = elgg_view('input/dropdown', array(
 		</td>
 		<td class="mission-post-table-righty">
 			<?php
-echo $input_start_hour;
-echo '<span style="font-size:16pt;">: </span>';
-echo $input_start_minute;
-?> 
+				echo '<span class="missions-inline-drop">' . $input_start_hour . '</span>';
+				echo '<span style="font-size:16pt;">: </span>';
+				echo '<span class="missions-inline-drop">' . $input_start_minute . '</span>';
+			?> 
 		</td>
 	</tr>
 	<tr>
@@ -74,10 +74,10 @@ echo $input_start_minute;
 		</td>
 		<td class="mission-post-table-righty">
 			<?php
-echo $input_duration_hour;
-echo '<span style="font-size:16pt;">: </span>';
-echo $input_duration_minute;
-?> 
+				echo '<span class="missions-inline-drop">' . $input_duration_hour . '</span>';
+				echo '<span style="font-size:16pt;">: </span>';
+				echo '<span class="missions-inline-drop">' . $input_duration_minute . '</span>';
+			?> 
 		</td>
 	</tr>
 </table>

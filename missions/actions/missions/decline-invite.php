@@ -7,12 +7,17 @@
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
 
+/*
+ * Declines the invitation sent to a candidate.
+ */
 $applicant = get_user(get_input('applicant'));
 $mission = get_entity(get_input('mission'));
 $manager = get_user($mission->owner_guid);
 
+// Deletes the tentative relationship between mission and applicant.
 remove_entity_relationship($mission->guid, 'mission_tentative', $applicant->guid);
 
+// Notifies the mission manager of the candidates refusal.
 $mission_link = elgg_view('output/url', array(
     'href' => $mission->getURL(),
     'text' => $mission->title

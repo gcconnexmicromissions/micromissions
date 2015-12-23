@@ -16,7 +16,7 @@ if (elgg_is_sticky_form('thirdfill')) {
     // elgg_clear_sticky_form('thirdfill');
 }
 
-$input_flexibility = elgg_view('input/radio', array(
+/*$input_flexibility = elgg_view('input/radio', array(
     'name' => 'flexibility',
     'value' => $flexibility,
     'options' => array(
@@ -24,10 +24,10 @@ $input_flexibility = elgg_view('input/radio', array(
         elgg_echo('missions:specific') => 'specific'
     ),
     'id' => 'post-mission-flexibility-radio-input'
-));
+));*/
 $input_remotely = elgg_view('input/checkbox', array(
     'name' => 'remotely',
-    'value' => $remotely,
+    'checked' => $remotely,
     'id' => 'post-mission-remotely-checkbox-input'
 ));
 $input_location = elgg_view('input/text', array(
@@ -51,15 +51,15 @@ $input_timezone = elgg_view('input/dropdown', array(
 
 <div>
 	<table class="mission-post-table">
-		<tr>
+		<!-- <tr>
 			<td class="mission-post-table-lefty"><label for='post-mission-flexibility-radio-input'><?php echo elgg_echo('missions:time_commitment') . ':';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
-				<?php echo $input_flexibility; ?>
+				<?php //echo $input_flexibility; ?>
 			</div>
 			</td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td class="mission-post-table-lefty"><label for='post-mission-timezone-dropdown-input'><?php echo elgg_echo('missions:timezone') . ':';?></label><br />
 			</td>
@@ -71,9 +71,7 @@ $input_timezone = elgg_view('input/dropdown', array(
 		</tr>
 		<tr>
 			<td colspan="2">
-				<?php
-    echo elgg_view('page/elements/time-table', $vars);
-    ?>
+				<?php echo elgg_view('page/elements/time-table', $vars); ?>
 			</td>
 		</tr>
 		<tr>
@@ -86,7 +84,7 @@ $input_timezone = elgg_view('input/dropdown', array(
 			</td>
 		</tr>
 		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-location-text-input'><?php echo elgg_echo('missions:opportunity_location') . ':';?></label><br />
+			<td class="mission-post-table-lefty"><label for='post-mission-location-text-input'><?php echo elgg_echo('missions:opportunity_location') . '*:';?></label><br />
 			</td>
 			<td class="mission-post-table-righty">
 				<div>
@@ -106,10 +104,11 @@ $input_timezone = elgg_view('input/dropdown', array(
 	</table>
 	<br>
 	<div>
-		<?php
-echo elgg_view('page/elements/language-dropdown', $vars);
-?>
+		<?php echo elgg_view('page/elements/language-dropdown', $vars); ?>
 	</div>
 </div>
+<p>
+	<?php echo elgg_echo('missions:required_fields_star');?>
+</p>
 
 <div class="form-button"> <?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:next'))); ?> </div>

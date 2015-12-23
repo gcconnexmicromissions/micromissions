@@ -14,12 +14,24 @@
  */
 $array = explode(',', elgg_get_plugin_setting('language_string', 'missions'));
 
-$language_written_comprehension_english = get_input('ilwce');
-$language_written_comprehension_french = get_input('ilwcf');
-$language_written_expression_english = get_input('ilwee');
-$language_written_expression_french = get_input('ilwef');
-$language_oral_proficiency_english = get_input('ilope');
-$language_oral_proficiency_french = get_input('ilopf');
+if($vars['mission_metadata']['lwc_english']) {
+    $language_written_comprehension_english = $vars['mission_metadata']['lwc_english'];
+}
+if($vars['mission_metadata']['lwc_french']) {
+    $language_written_comprehension_french = $vars['mission_metadata']['lwc_french'];
+}
+if($vars['mission_metadata']['lwe_english']) {
+    $language_written_expression_english = $vars['mission_metadata']['lwe_english'];
+}
+if($vars['mission_metadata']['lwe_french']) {
+    $language_written_expression_french = $vars['mission_metadata']['lwe_french'];
+}
+if($vars['mission_metadata']['lop_english']) {
+    $language_oral_proficiency_english = $vars['mission_metadata']['lop_english'];
+}
+if($vars['mission_metadata']['lop_french']) {
+    $language_oral_proficiency_french = $vars['mission_metadata']['lop_french'];
+}
 
 if (elgg_is_sticky_form('ldropfill')) {
     extract(elgg_get_sticky_values('ldropfill'));

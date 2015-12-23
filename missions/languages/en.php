@@ -6,7 +6,7 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
-$english = array(
+return array(
     // labels
     'item:object:mission' => 'Missions',
     'missions:first_post:paragraph_one' => 'All opportunities must be posted by the manager who will be responsible for the candidate(s). Managers posting a micro-mission have a responsibility to provide the selected candidate(s) with appropriate guidance and feedback.',
@@ -199,7 +199,26 @@ $english = array(
     'missions:see_full_profile' => 'See full user profile',
     'missions:see_full_mission' => 'See full mission profile',
     'missions:paragraph:fill_mission' => 'You can invite users to your mission by entering their usernames in the fields below.',
-    'missions:search_results_display' => 'Search results display'
+    'missions:search_results_display' => 'Search results display',
+    'missions:settings:search_result_per_page' => 'How many search results per page?',
+    'missions:invite_to_a_mission' => 'Invite to a mission',
+    'missions:remove_pending_invites' => 'Remove pending invites',
+    'missions:edit' => 'Edit',
+    'missions:save' => 'Save',
+    'missions:edit_mission' => 'Edit mission',
+    'missions:error:not_participating_in_missions' => ' is not participating in the micro missions initiative.',
+    'missions:settings:developer_tools' => 'Display Micro Missions developer plugins?',
+	'missions:mission_view' => 'Mission view',
+	'missions:required_fields_star' => 'Required fields have a * symbol next to them.',
+	'missions:not_participating_in_missions' => 'Not participating in micro missions initiative.',
+	'missions:weekend' => '7 Days',
+	'missions:no_weekend' => '5 Days',
+    'missions:formatted:english' => 'English (%s)',
+    'missions:formatted:french' => 'French (%s)',
+	'missions:formatted:time' => 'Start at %s:%s for %sh%sm',
+	'missions:opt_in_paragraph' => 'Participating in the micro missions initiative means that you can post, apply to or receive invitations to micro missions. If you would like to be a part of this initiative, please click on the button below.',
+	'missions:opt_out_paragraph' => 'If you would like to stop participating in the micro missions initiative, please click the button below.',
+	'missions:opt_in' => 'Opt In',
+	'missions:opt_out' => 'Opt Out',
+	'missions:error:need_to_opt_in' => 'You need to opt in to micro missions to access that page.'
 );
-
-add_translation("en", $english);

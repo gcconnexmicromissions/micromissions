@@ -6,9 +6,15 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Page which allows a mission applicant to create a foreword for their application.
+ * The rest of their application is automatically generated according to their profile.
+ */
 gatekeeper();
 
 $title = elgg_echo('missions:apply_to_mission');
+
 $content = elgg_view_title($title);
 $content .= elgg_echo('missions:application_paragraph');
 $content .= elgg_view_form('missions/application-form', array(

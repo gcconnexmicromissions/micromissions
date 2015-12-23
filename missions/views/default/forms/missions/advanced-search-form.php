@@ -6,6 +6,11 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Form which contains the input fields for the advanced search.
+ * Input fields are generated dynamically using javascript.
+ */
 $selection_zeroth = get_input('assz');
 $selection_first = get_input('assf');
 $selection_second = get_input('asss');
@@ -21,19 +26,6 @@ $selection_ninth = get_input('assn');
     extract(elgg_get_sticky_values('advancedfill'));
     elgg_clear_sticky_form('advancedfill');
 }*/
-
-$variable_array = array(
-    0 => $selection_zeroth,
-    1 => $selection_first,
-    2 => $selection_second,
-    3 => $selection_third,
-    4 => $selection_fourth,
-    5 => $selection_fifth,
-    6 => $selection_sixth,
-    7 => $selection_seventh,
-    8 => $selection_eigth,
-    9 => $selection_ninth
-);
 
 // The arrays are different depending on whether the user is searching for missions or candidates.
 if($_SESSION['mission_search_switch'] == 'candidate') {
@@ -71,7 +63,7 @@ for ($i = 0; $i < $number_of_rows; $i ++) {
     // Dropdown with a name that is numbered according to its row.
     echo elgg_view('input/dropdown', array(
         'name' => 'selection_' . $i,
-        'value' => $variable_array[$i],
+        'value' => '',
         'options' => $search_fields,
         'class' => 'advanced-drop',
         'onchange' => 'element_switch(this)',

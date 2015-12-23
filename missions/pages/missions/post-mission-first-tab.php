@@ -14,6 +14,12 @@ if ($_SESSION['tab_context'] == 'missions' || $_SESSION['tab_context'] == '') {
     $_SESSION['tab_context'] = 'firstpost';
 }
 
+// Don't allow users who have not opted in to post missions.
+if(elgg_get_logged_in_user_entity()->opt_in_missions != 'gcconnex_profile:opt:yes') {
+	register_error(elgg_echo('missions:error:need_to_opt_in'));
+	forward(REFERER);
+}
+
 $content = elgg_view_form('missions/post-mission-first-form', array(
     'class' => 'mission-form'
 ));

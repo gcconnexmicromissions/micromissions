@@ -30,8 +30,7 @@ if (! empty($mission->remotely)) {
 $read_more_button = elgg_view('output/url', array(
     'href' => $mission->getURL(),
     'text' => elgg_echo('missions:read_more'),
-    'is_action' => true,
-    'class' => 'elgg-button'
+    'class' => 'elgg-button btn btn-default'
 ));
 
 $class_string = 'class="mission-printer"';
@@ -43,7 +42,7 @@ if (! $full_view) {
 
 // Sets the buttons to the bottom of whichever view is used.
 if(!$vars['override_buttons']) {
-    $button_set = mm_create_button_set($mission);
+    $button_set = mm_create_button_set($mission, false);
 }
 ?>
 

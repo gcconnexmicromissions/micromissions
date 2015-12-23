@@ -6,6 +6,10 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Page which displays the mission the candidate has been invited to and allows them to accept or decline.
+ */
 gatekeeper();
 
 $current_uri = $_SERVER['REQUEST_URI'];
@@ -25,13 +29,13 @@ $content .= elgg_view('output/url', array(
     'href' => elgg_get_site_url() . 'action/missions/accept-invite?applicant=' . $applicant . '&mission=' . $mission->guid,
     'text' => elgg_echo('missions:accept'),
     'is_action' => true,
-    'class' => 'elgg-button'
+    'class' => 'elgg-button btn btn-default'
 ));
 $content .= elgg_view('output/url', array(
     'href' => elgg_get_site_url() . 'action/missions/decline-invite?applicant=' . $applicant . '&mission=' . $mission->guid,
     'text' => elgg_echo('missions:decline'),
     'is_action' => true,
-    'class' => 'elgg-button'
+    'class' => 'elgg-button btn btn-default'
 ));
 
 echo elgg_view_page($title, $content);

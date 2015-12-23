@@ -6,6 +6,10 @@
  * License: Creative Commons Attribution 3.0 Unported License
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
+ 
+/*
+ * Form with a single text input for a simple search.
+ */
 $simple = get_input('ss');
 
 if (elgg_is_sticky_form('searchsimplefill')) {

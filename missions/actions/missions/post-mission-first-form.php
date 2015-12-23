@@ -15,29 +15,8 @@ elgg_make_sticky_form('firstfill');
 $err = '';
 $first_form = elgg_get_sticky_values('firstfill');
 
-// Checks if the name field is empty then checks to see that there are no numbers in the name
-if (empty($first_form['name'])) {
-    $err .= elgg_echo('missions:error:name_needs_input') . "\n";
-} else {
-    if (! mm_is_valid_person_name($first_form['name'])) {
-        $err .= elgg_echo('missions:error:name_no_numbers') . "\n";
-    }
-}
-
-// Checks if the department is empty
-if (empty($first_form['department'])) {
-    $err .= elgg_echo('missions:error:department_needs_input') . "\n";
-}
-
-// Checks if the email is empty
-if (! filter_var($first_form['email'], FILTER_VALIDATE_EMAIL)) {
-    $err .= elgg_echo('missions:error:email_invalid') . "\n";
-}
-
-// Checks if the phone number is empty
-if (! mm_is_valid_phone_number($first_form['phone']) && ! empty($first_form['phone'])) {
-    $err .= elgg_echo('missions:error:phone_invalid') . "\n";
-}
+// Error checking function.
+$err .= mm_first_post_error_check($first_form);
 
 // If there is an error message it will be posted on the same page that will be reloaded
 // If not then the next page will be loaded

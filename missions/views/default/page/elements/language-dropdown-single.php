@@ -51,7 +51,7 @@ $input_oral_proficiency = elgg_view('input/dropdown', array(
 		</td>
 		<td class="mission-post-table-center">
 			<div>
-			<?php echo $input_written_comprehension; ?>
+			<?php echo '<span class="missions-inline-drop">' . $input_written_comprehension . '</span>'; ?>
 		</div>
 		</td>
 	</tr>
@@ -60,7 +60,7 @@ $input_oral_proficiency = elgg_view('input/dropdown', array(
 		</td>
 		<td class="mission-post-table-center">
 			<div>
-			<?php echo $input_written_expression; ?>
+			<?php echo '<span class="missions-inline-drop">' . $input_written_expression . '</span>'; ?>
 		</div>
 		</td>
 	</tr>
@@ -69,7 +69,7 @@ $input_oral_proficiency = elgg_view('input/dropdown', array(
 		</td>
 		<td class="mission-post-table-center">
 			<div>
-			<?php echo $input_oral_proficiency; ?>
+			<?php echo '<span class="missions-inline-drop">' . $input_oral_proficiency . '</span>'; ?>
 		</div>
 		</td>
 	</tr>
