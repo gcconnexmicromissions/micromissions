@@ -10,16 +10,15 @@
 /*
  * User display within the context of the micro missions plugin.
  */
-$user_guid = $vars['user']->guid;
-$user = get_user($user_guid);
-$feedback_string = $_SESSION['candidate_search_feedback'][$user_guid];
+$user = $vars['user'];
+$feedback_string = $_SESSION['candidate_search_feedback'][$user->guid];
 
 // Creates a gray background if the user is not opted in to micro missions.
 if($user->opt_in_missions == 'gcconnex_profile:opt:yes') {
 	echo '<div>';
 }
 else {
-	echo '<div class="mm-drab-back">';
+	echo '<div style="background-color:#D3D3D3">';
 }
 
 // Displays search feedback from simple search.
@@ -34,13 +33,20 @@ if($feedback_string != '') {
     }
 }
 
+$mission_guid = $_SESSION['mission_that_invites'];
+$mission = get_entity($mission_guid);
+
 // Displays invitation button if the user is opted in to micro missions.
-if($user->opt_in_missions == 'gcconnex_profile:opt:yes') {
+if($user->opt_in_missions == 'gcconnex_profile:opt:yes' && $user->guid != $mission->owner_guid) {
     echo elgg_view('output/url', array(
-        'href' => elgg_get_site_url() . 'missions/mission-select-invite/' . $user_guid,
+        'href' => elgg_get_site_url() . 'action/missions/invite-user?aid=' . $user->guid . '&mid=' . $mission_guid,
         'text' => elgg_echo('missions:invite'),
-        'class' => 'elgg-button btn btn-default advanced-drop'
+		'is_action' => true,
+        'class' => 'elgg-button btn btn-default'
     ));
+}
+elseif($user->guid == $mission->owner_guid) {
+	echo '';
 }
 else {
 	echo '<h4>' . elgg_echo('missions:not_participating_in_missions') . '</h4>';

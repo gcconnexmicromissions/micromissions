@@ -23,7 +23,11 @@ function mm_search_database($query_array, $query_operand, $refinement)
         register_error(elgg_echo('missions:error:no_search_values'));
         return false;
     }
-
+	
+    foreach($filtered_array as $key => $array) {
+    	$filtered_array[$key]['operand'] = htmlspecialchars_decode($array['operand']);
+    }
+    
     // Setting options with which the query will be built.
     $options['type'] = 'object';
     $options['subtype'] = 'mission';
@@ -96,7 +100,7 @@ function mm_analyze_selection($place, $array)
                     case elgg_echo('missions:title'):
                         $name_option = 'title';
                         break;
-                    case elgg_echo('missions:end_year'):
+                    case elgg_echo('missions:publication_date'):
                         $name_option = 'pubdate';
                         $operand_option = $array['selection_' . $place . '_element_operand'];
                         $value_option = $array['selection_' . $place . '_element_value'];
@@ -171,11 +175,13 @@ function mm_analyze_selection($place, $array)
             }
             break;
 
+        //
+        case elgg_echo('missions:start_time'):
         case elgg_echo('missions:duration'):
-            if ($array['selection_' . $place . '_element_hour'] || $array['selection_' . $place . '_element_min']) {
+            if ($array['selection_' . $place . '_element']) {
                 $name_option = '';
                 // Selects which day will be searched.
-                switch ($array['selection_' . $place . '_element']) {
+                switch ($array['selection_' . $place . '_element_day']) {
                     case elgg_echo('missions:mon'):
                         $name_option = 'mon';
                         break;
@@ -198,55 +204,35 @@ function mm_analyze_selection($place, $array)
                         $name_option = 'sun';
                         break;
                 }
-                $name_option .= '_duration';
-                $operand_option = '<=';
+                
+                if($array['selection_' . $place] == elgg_echo('missions:start_time')) {
+                	$name_option .= '_start';
+                }
+                if($array['selection_' . $place] == elgg_echo('missions:duration')) {
+                	 $name_option .= '_duration';
+                }
+                
+                $operand_option = $array['selection_' . $place . '_operand'];
                 // Packs the input hour and time for comparison with the packed elements in the database.
-                $option_value = mm_pack_time($array['selection_' . $place . '_element_hour'], $array['selection_' . $place . '_element_min'], $name_option);
                 $returner['name'] = $name_option;
-                $returner['operand'] = $operand_option;
-                $returner['value'] = $option_value;
+                $returner['operand'] = $array['selection_' . $place . '_operand'];
+                $returner['value'] = $array['selection_' . $place . '_element'];
             }
             break;
-
-        // Selects time element which requires packing.
+        
+        case elgg_echo('missions:period'):
+        	$returner['name'] = 'time_interval';
+        	$returner['operand'] = '=';
+        	$returner['value'] = $array['selection_' . $place . '_element'];
+          	break;
+            
         case elgg_echo('missions:time'):
-            if ($array['selection_' . $place . '_element_hour'] != '') {
-                $name_option = '';
-                // Selects which day will be searched.
-                switch ($array['selection_' . $place . '_element']) {
-                    case elgg_echo('missions:mon'):
-                        $name_option = 'mon';
-                        break;
-                    case elgg_echo('missions:tue'):
-                        $name_option = 'tue';
-                        break;
-                    case elgg_echo('missions:wed'):
-                        $name_option = 'wed';
-                        break;
-                    case elgg_echo('missions:thu'):
-                        $name_option = 'thu';
-                        break;
-                    case elgg_echo('missions:fri'):
-                        $name_option = 'fri';
-                        break;
-                    case elgg_echo('missions:sat'):
-                        $name_option = 'sat';
-                        break;
-                    case elgg_echo('missions:sun'):
-                        $name_option = 'sun';
-                        break;
-                }
-                $name_option .= '_start';
-                $operand_option = '>=';
-                // Packs the input hour and time for comparison with the packed elements in the database.
-                $option_value = mm_pack_time($array['selection_' . $place . '_element_hour'], $array['selection_' . $place . '_element_min'], $name_option);
-                $returner['name'] = $name_option;
-                $returner['operand'] = $operand_option;
-                $returner['value'] = $option_value;
-            }
-            break;
+        	$returner['name'] = 'time_commitment';
+        	$returner['operand'] = $array['selection_' . $place . '_operand'];
+        	$returner['value'] = $array['selection_' . $place . '_element'];
+        	break;
 
-            // Selects language element which requires packing.
+        // Selects language element which requires packing.
         case elgg_echo('missions:language'):
             if ($array['selection_' . $place . '_element_lwc'] != '' || $array['selection_' . $place . '_element_lwe'] != '' || $array['selection_' . $place . '_element_lop'] != '') {
                 $name_option = '';
@@ -267,7 +253,7 @@ function mm_analyze_selection($place, $array)
             }
             break;
 
-            // The next 3 are select elements that require a MySQL LIKE comparison.
+        // The next 3 are select elements that require a MySQL LIKE comparison.
         case elgg_echo('missions:key_skills'):
             if ($array['selection_' . $place . '_element'] != '') {
                 $returner['name'] = 'key_skills';
@@ -287,8 +273,8 @@ function mm_analyze_selection($place, $array)
         case elgg_echo('missions:type'):
             if ($array['selection_' . $place . '_element'] != '') {
                 $returner['name'] = 'job_type';
-                $returner['operand'] = 'LIKE';
-                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
+                $returner['operand'] = '=';
+                $returner['value'] = $array['selection_' . $place . '_element'];
             }
             break;
 
@@ -296,13 +282,15 @@ function mm_analyze_selection($place, $array)
         case elgg_echo('missions:title'):
             if ($array['selection_' . $place . '_element'] != '') {
                 $returner['name'] = 'job_title';
-                $returner['value'] = $array['selection_' . $place . '_element'];
+                $returner['operand'] = 'LIKE';
+                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
             }
             break;
 
         case elgg_echo('missions:security'):
             if ($array['selection_' . $place . '_element'] != '') {
                 $returner['name'] = 'security';
+                $returner['operand'] = '=';
                 $returner['value'] = $array['selection_' . $place . '_element'];
             }
             break;
@@ -310,6 +298,7 @@ function mm_analyze_selection($place, $array)
         case elgg_echo('missions:department'):
             if ($array['selection_' . $place . '_element'] != '') {
                 $returner['name'] = 'department';
+                $returner['operand'] = '=';
                 $returner['value'] = $array['selection_' . $place . '_element'];
             }
             break;
@@ -375,7 +364,7 @@ function mm_analyze_backup($place, $array)
                 $operand_option = '>=';
                 break;
                 // In the time case, the value needs to have the format {day}_{start/end}{hour}:{min}
-            case elgg_echo('missions:time'):
+            case elgg_echo('missions:start_time'):
                 switch ($array['backup_' . $place]) {
                     case (strpos($array['backup_' . $place], 'mon_start') !== false):
                         $name_option = 'mon_start';
@@ -422,14 +411,15 @@ function mm_analyze_backup($place, $array)
                     default:
                         return array();
                 }
-                switch ($array['backup_' . $place]) {
+                $operand_option = '=';
+                /*switch ($array['backup_' . $place]) {
                     case (strpos($array['backup_' . $place], 'start') !== false):
                         $operand_option = '>=';
                         break;
                     case (strpos($array['backup_' . $place], 'duration') !== false):
                         $operand_option = '<=';
                         break;
-                }
+                }*/
                 break;
             case elgg_echo('missions:skill'):
                 $name_option = 'title';
@@ -513,26 +503,7 @@ function mm_search_candidate_database($query_array, $query_operand)
         $count++;
     }
 
-    $unique_owners = array_unique($entity_owners);
-
-    // Turns the array of user GUIDs into an array of user objects.
-    $count_c = 0;
-    $count_p = 0;
-    $candidates_users = array();
-    $potentials_users = array();
-    foreach($unique_owners as $unique_owner) {
-        $user_temp = get_user($unique_owner);
-        if($user_temp->opt_in_missions == 'gcconnex_profile:opt:yes') {
-            $candidates_users[$count_c] = $user_temp;
-            $count_c++;
-        }
-        else {
-        	$potentials_users[$count_p] = $user_temp;
-        	$count_p++;
-        }
-    }
-
-    $unique_owners_entity = array_merge($candidates_users, $potentials_users);
+    $unique_owners_entity = mm_guids_to_entities_with_opt(array_unique($entity_owners));
     $candidate_count = count($unique_owners_entity);
 
     if ($candidate_count == 0) {
@@ -554,7 +525,6 @@ function mm_search_candidate_database($query_array, $query_operand)
 function mm_adv_search_candidate_database($query_array, $query_operand) {
     $users_returned_by_attribute = array();
     $users_returned_by_metadata = array();
-    $users_returned_by_combo = array();
     $is_attribute_searched = false;
     $is_metadata_searched = false;
     $candidates = array();
@@ -635,25 +605,8 @@ function mm_adv_search_candidate_database($query_array, $query_operand) {
     if(!$is_attribute_searched && $is_metadata_searched) {
         $candidates = $users_returned_by_metadata;
     }
-
-    // Turns an array of guids into an array of entities.
-    $count_c = 0;
-    $count_p = 0;
-    $candidates_users = array();
-    $potentials_users = array();
-    foreach($candidates as $candidate) {
-        $user_temp = get_user($candidate);
-        if($user_temp->opt_in_missions == 'gcconnex_profile:opt:yes') {
-            $candidates_users[$count_c] = $user_temp;
-            $count_c++;
-        }
-        else {
-        	$potentials_users[$count_p] = $user_temp;
-        	$count_p++;
-        }
-    }
-
-    $final_users = array_merge($candidates_users, $potentials_users);
+    
+    $final_users = mm_guids_to_entities_with_opt($candidates);
     $final_count = count($final_users);
 
     if ($final_count == 0) {
@@ -666,4 +619,27 @@ function mm_adv_search_candidate_database($query_array, $query_operand) {
 
         return true;
     }
+}
+
+/*
+ * Turns an array of guids into an array of entities.
+ */ 
+function mm_guids_to_entities_with_opt($candidates) {
+	$count_c = 0;
+	$count_p = 0;
+	$candidates_users = array();
+	$potentials_users = array();
+	foreach($candidates as $candidate) {
+		$user_temp = get_user($candidate);
+		if($user_temp->opt_in_missions == 'gcconnex_profile:opt:yes') {
+			$candidates_users[$count_c] = $user_temp;
+			$count_c++;
+		}
+		else {
+			$potentials_users[$count_p] = $user_temp;
+			$count_p++;
+		}
+	}
+	
+	return array_merge($candidates_users, $potentials_users);
 }

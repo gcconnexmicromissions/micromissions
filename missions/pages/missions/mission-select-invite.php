@@ -20,34 +20,6 @@ $user_guid = array_pop($exploded_uri);
 $title = elgg_echo('missions:invite_user_to_mission');
 $content = elgg_view_title($title);
 
-$entity_list = elgg_get_entities_from_relationship(array(
-    'relationship' => 'mission_posted',
-    'relationship_guid' => elgg_get_logged_in_user_guid()
-));
-
-$content = '<table class="mission-post-table">';
-foreach($entity_list as $entity) {
-    $count = count(elgg_get_entities_from_relationship(array(
-        'relationship' => 'mission_accepted',
-        'relationship_guid' => $entity->guid
-    )));
-    
-    // Does not display missions which have filled all the available spots.
-    if($count < $entity->number) {
-        $content .= '<tr><td>' . elgg_view('output/url', array(
-            'href' => $entity->getURL(),
-            'text' => $entity->job_title,
-            'class' => 'mission-emphasis mission-link-color'
-        )) . '</br>';
-        $content .= $count . '/' . $entity->number . elgg_echo('missions:spots_filled') . '</td>';
-        $content .= '<td>' . elgg_view('output/url', array(
-            'href' => elgg_get_site_url() . 'action/missions/invite-user?aid=' . $user_guid . '&mid=' . $entity->guid,
-            'text' => elgg_echo('missions:select'),
-            'is_action' => true,
-            'class' => 'elgg-button btn btn-default tab'
-        )) . '</td></tr>';
-    }
-}
-$content .= '</table>';
+$content .= elgg_view('page/elements/invitable-missions', array('candidate_guid' => $user_guid));
 
 echo elgg_view_page($title, $content);

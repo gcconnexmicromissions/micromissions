@@ -11,83 +11,83 @@
  * This view displays some of the mission metadata. It is meant to be a first glance summary.
  */
 $mission = '';
-$full_view = '';
 if (isset($vars['entity'])) {
     $mission = $vars['entity'];
 }
-if (isset($vars['full_view'])) {
-    $full_view = $vars['full_view'];
-}
 
-$pic_url = elgg_get_site_url() . 'mod/missions/graphics/person-icon.png';
-
-$output_remote = '';
-if (! empty($mission->remotely)) {
-    $output_remote = elgg_view_icon('home') . elgg_echo('missions:work_from_home');
-}
-
-// Button for calling the extended mission view.
-$read_more_button = elgg_view('output/url', array(
-    'href' => $mission->getURL(),
-    'text' => elgg_echo('missions:read_more'),
-    'class' => 'elgg-button btn btn-default'
-));
-
-$class_string = 'class="mission-printer"';
-$description_string = $mission->description;
-if (! $full_view) {
-    $class_string = 'class="mission-printer mission-less"';
-    $description_string = elgg_get_excerpt($description_string, 200);
-}
+$description_string = elgg_get_excerpt($mission->description, 200);
+$card_height = '450';
 
 // Sets the buttons to the bottom of whichever view is used.
 if(!$vars['override_buttons']) {
-    $button_set = mm_create_button_set($mission, false);
+    $button_set = mm_create_button_set_base($mission, false);
 }
+else {
+	$card_height = '400';
+}
+
+$mission_state = '';
+if($mission->state == 'completed' || $mission->state == 'cancelled') {
+	$mission_state = '(' . $mission->state . ')';
+}
+
+// Linking to the mission managers profile.
+$manager = get_entity($mission->owner_guid);
+$manager_profile = elgg_view('output/url', array(
+		'href' => elgg_get_site_url() . 'profile/' . $manager->username,
+		'text' => $mission->name
+));
 ?>
 
-<div <?php echo $class_string; ?>>
-	<table class="short-table">
-		<tr>
-			<td rowspan="3"><img src="<?php echo $pic_url; ?>"
-				alt="Person Pictograph"></td>
-			<td>
-				<?php echo $output_remote;?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?php echo elgg_view_icon('file') . ' ' . elgg_echo('missions:email_manager');?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?php echo elgg_view_icon('arrow-right') . ' ' . elgg_echo('missions:share_with_colleague');?>
-			</td>
-		</tr>
-	</table>
+<div class="mission-printer mission-less" style="height:<?php echo $card_height;?>px;">
 	<div>
-		<h2><?php echo $mission->job_title;?></h2>
+		<h2>
+			<?php echo $mission->job_title;?>
+			<div style="font-style:italic;font-size:small;display:inline-block;">
+				<?php echo $mission_state; ?>
+			</div>
+		</h2>
 	</div>
-	<div>
-		<h3><?php echo elgg_echo('missions:opportunity_type') . ':';?></h3> 
-		<?php echo $mission->job_type;?>
-	</div>
-	<div>
+	<div style="max-height:115px;overflow:hidden;">
 		<?php echo $description_string;?>
 	</div>
+	</br>
 	<div>
-		<h3><?php echo elgg_echo('missions:deadline') . ':';?></h3>
-		<?php echo $mission->deadline;?>
+		<div style="display:inline-block;">
+			<h5><?php echo elgg_echo('missions:posted_by') . ':';?></h5>
+		</div>
+		<div style="display:inline-block;">
+			<?php echo $manager_profile;?>
+		</div>
+	</div>
+	</br>
+	<div>
+		<div style="display:inline-block;vertical-align:top;">
+			<h5><?php echo elgg_echo('missions:date') . ':';?></h5>
+		</div>
+		<div style="display:inline-block;">
+			<?php echo $mission->start_date . ' - ' . $mission->completion_date;?>
+			<div style="font-style:italic;">
+				<?php echo $mission->time_commitment . ' ' . elgg_echo('missions:hours') . ' ' . $mission->time_interval;?>
+			</div>
+		</div>
+	</div>
+	</br>
+	<div>
+		<div style="display:inline-block;">
+			<h5><?php echo elgg_echo('missions:apply_by') . ':';?></h5>
+		</div>
+		<div style="display:inline-block;">
+			<?php echo $mission->deadline;?>
+		</div>
 	</div>
 	<div class="mission-button-set">
 		<?php
-if (! $full_view) {
-    echo $read_more_button;
-    foreach ($button_set as $value) {
-        echo $value;
-    }
-}
-?>
+			if (! $full_view) {
+			    foreach ($button_set as $value) {
+			        echo $value;
+			    }
+			}
+		?>
 	</div>
 </div>

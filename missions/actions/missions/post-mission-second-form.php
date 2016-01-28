@@ -19,7 +19,7 @@ $second_form = elgg_get_sticky_values('secondfill');
 $err .= mm_second_post_error_check($second_form);
 
 if ($err == '') {
-    forward(elgg_get_site_url() . 'missions/post-mission-third-tab');
+    forward(elgg_get_site_url() . 'missions/mission-post/step-three');
 } else {
     register_error($err);
     forward(REFERER);

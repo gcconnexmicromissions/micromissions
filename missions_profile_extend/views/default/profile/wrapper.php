@@ -83,7 +83,18 @@ elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (set
             echo elgg_view('b_extended_profile/work-experience');
             finit_ajax_block('work-experience');
         }
-
+		
+        /*
+         * MODIFIED CODE
+         * Constructs the opt-in section according to the original plugin methodology.
+         */
+        if(elgg_is_active_plugin('missions') && $user->opt_in_missions == 'gcconnex_profile:opt:yes') {
+        	echo elgg_view('missions/completed-missions');
+        }
+        /*
+         * END MODIFIED CODE
+         */
+        
         if(elgg_is_logged_in()){
             if ( has_content($user, 'gc_skills') ) {
                 init_ajax_block(elgg_echo('gcconnex_profile:gc_skills'), 'skills', $user);

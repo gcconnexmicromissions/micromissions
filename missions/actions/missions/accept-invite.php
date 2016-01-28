@@ -73,4 +73,5 @@ if ($err != '') {
     register_error($err);
 }
 // Returns the user to their inbox.
-forward(elgg_get_site_url() . 'messages/inbox/' . $applicant->username);
+//forward(elgg_get_site_url() . 'messages/inbox/' . $applicant->username);
+forward($mission->getURL());

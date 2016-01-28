@@ -11,7 +11,7 @@
  * Form which contains the input fields for the advanced search.
  * Input fields are generated dynamically using javascript.
  */
-$selection_zeroth = get_input('assz');
+/*$selection_zeroth = get_input('assz');
 $selection_first = get_input('assf');
 $selection_second = get_input('asss');
 $selection_third = get_input('asst');
@@ -20,7 +20,7 @@ $selection_fifth = get_input('assfi');
 $selection_sixth = get_input('asssi');
 $selection_seventh = get_input('assse');
 $selection_eigth = get_input('asse');
-$selection_ninth = get_input('assn');
+$selection_ninth = get_input('assn');*/
 
 /*if (elgg_is_sticky_form('advancedfill')) {
     extract(elgg_get_sticky_values('advancedfill'));
@@ -36,6 +36,8 @@ if($_SESSION['mission_search_switch'] == 'candidate') {
         elgg_echo('missions:skill'),
         elgg_echo('missions:portfolio')
     );
+    
+    $subtitle = elgg_echo('missions:advanced_search_for_candidates');
 }
 else {
     $search_fields = array(
@@ -48,41 +50,49 @@ else {
         elgg_echo('missions:location'),
         elgg_echo('missions:language'),
         elgg_echo('missions:time'),
+        elgg_echo('missions:period'),
+        elgg_echo('missions:start_time'),
         elgg_echo('missions:duration')
     );
+    
+    $subtitle = elgg_echo('missions:advanced_search_for_opportunities');
 }
 
 $number_of_rows = elgg_get_plugin_setting('advanced_element_limit', 'missions');
-echo '<table class="advanced-table"><tr>';
-echo '<td><span class="mission-emphasis-extra">' . elgg_echo('missions:field') . '</span></td>';
-echo '<td><span class="mission-emphasis-extra">' . elgg_echo('missions:value') . '</span></td></tr>';
+$content = '<div class="form-group">';
+$content .= '<div class="mission-emphasis-extra col-sm-offset-1 col-sm-4">' . elgg_echo('missions:field') . '</div>';
+$content .= '<div class="mission-emphasis-extra col-sm-4">' . elgg_echo('missions:value') . '</div></div>';
 
 // Generates the rows of the form according to the settings.
 for ($i = 0; $i < $number_of_rows; $i ++) {
-    echo '<tr><td><span>';
+    $content .= '<div class="form-group">';
     // Dropdown with a name that is numbered according to its row.
-    echo elgg_view('input/dropdown', array(
+    $content .= '<div class="mission-emphasis-extra col-sm-offset-1 col-sm-4">';
+    $content .= elgg_view('input/dropdown', array(
         'name' => 'selection_' . $i,
         'value' => '',
         'options' => $search_fields,
-        'class' => 'advanced-drop',
         'onchange' => 'element_switch(this)',
         'onload' => 'element_switch(this)',
         'id' => 'search-mission-advanced-selection-' . $i . '-dropdown-input'
     ));
-    echo '</span></td><td><span id="selection_' . $i . '" class="advanced-section"></span><span id="selection_' . $i . '_element" class="advanced-section"></span><noscript>';
+    $content .= '</div>';
+    $content .= '<div class="mission-emphasis-extra col-sm-3" id="selection_' . $i . '"></div>';
+    $content .= '<div class="mission-emphasis-extra col-sm-3" id="selection_' . $i . '_element"></div>';
     // Backup dropdown for when Javascript is disabled.
-    echo elgg_view('input/text', array(
+    $content .= '<noscript>';
+    $content .= elgg_view('input/text', array(
         'name' => 'backup_' . $i,
         'value' => $variable_array[$i],
-        'class' => 'advanced-element',
         'id' => 'search-mission-advanced-selection-' . $i . '-dropdown-input-backup'
     ));
-    echo '</noscript></td></tr>';
+    $content .= '</noscript></div>';
 }
-echo '</table>';
+$content .= '</table>';
 ?>
 
+<h4><?php echo $subtitle . ':'; ?></h4>
+<?php echo $content; ?>
 <p>
 	<?php echo elgg_echo('missions:advanced_note_paragraph_one'); ?>
 </p>
@@ -92,7 +102,7 @@ echo '</table>';
 </p>
 </noscript>
 
-<div class="form-button"> <?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:next'))); ?> </div>
+<div style="text-align:right;"> <?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:search'))); ?> </div>
 
 <script>
 	// Gets called when the dropdown value changes.
@@ -112,7 +122,7 @@ echo '</table>';
 				// Name and value of the dropdown that was modified.
 				caller_name: control.name,
 				caller_value: control.value,
-				caller_further: further
+				caller_second: further
 			},
 			success: function(result, success, xhr) {
 				$(section).html(result);

@@ -27,4 +27,5 @@ $subject = $applicant->name . elgg_echo('missions:declines_invitation', array(),
 $body = $applicant->name . elgg_echo('missions:declines_invitation_more', array(), $manager->language) . $mission_link . '.';
 notify_user($manager->guid, $applicant->guid, $subject, $body);
                 
-forward(elgg_get_site_url() . 'messages/inbox/' . $applicant->username);
+//forward(elgg_get_site_url() . 'messages/inbox/' . $applicant->username);
+forward(elgg_get_site_url() . 'missions/main');

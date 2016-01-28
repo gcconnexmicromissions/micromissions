@@ -37,18 +37,23 @@ class MissionPluginTest extends ElggCoreUnitTest {
 		//$this->assertTrue(array_key_exists('missions/search-prereq', _elgg_services()->actions->getAllActions()));
 		//$this->assertTrue(array_key_exists('missions/search-language', _elgg_services()->actions->getAllActions()));
 		//$this->assertTrue(array_key_exists('missions/search-time', _elgg_services()->actions->getAllActions()));
-		$this->assertTrue(array_key_exists('missions/browse-display', _elgg_services()->actions->getAllActions()));
+		//$this->assertTrue(array_key_exists('missions/browse-display', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/advanced-search-form', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/application-form', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/accept-invite', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/decline-invite', _elgg_services()->actions->getAllActions()));
-		$this->assertTrue(array_key_exists('missions/fill-form', _elgg_services()->actions->getAllActions()));
+		//$this->assertTrue(array_key_exists('missions/fill-form', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/invite-user', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/remove-applicant', _elgg_services()->actions->getAllActions()));
-		$this->assertTrue(array_key_exists('missions/search-switch', _elgg_services()->actions->getAllActions()));
+		//$this->assertTrue(array_key_exists('missions/search-switch', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/change-mission-form', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/remove-pending-invites', _elgg_services()->actions->getAllActions()));
 		$this->assertTrue(array_key_exists('missions/opt-from-main', _elgg_services()->actions->getAllActions()));
+		$this->assertTrue(array_key_exists('missions/cancel-mission', _elgg_services()->actions->getAllActions()));
+		$this->assertTrue(array_key_exists('missions/complete-mission', _elgg_services()->actions->getAllActions()));
+		$this->assertTrue(array_key_exists('missions/feedback-form', _elgg_services()->actions->getAllActions()));
+		$this->assertTrue(array_key_exists('missions/refine-my-missions-form', _elgg_services()->actions->getAllActions()));
+		$this->assertTrue(array_key_exists('missions/reopen-mission', _elgg_services()->actions->getAllActions()));
 
 		$this->assertTrue(elgg_action_exists('missions/post-mission-first-form'));
 		$this->assertTrue(elgg_action_exists('missions/post-mission-second-form'));
@@ -60,18 +65,23 @@ class MissionPluginTest extends ElggCoreUnitTest {
 		//$this->assertTrue(elgg_action_exists('missions/search-prereq'));
 		//$this->assertTrue(elgg_action_exists('missions/search-language'));
 		//$this->assertTrue(elgg_action_exists('missions/search-time'));
-		$this->assertTrue(elgg_action_exists('missions/browse-display'));
+		//$this->assertTrue(elgg_action_exists('missions/browse-display'));
 		$this->assertTrue(elgg_action_exists('missions/advanced-search-form'));
 		$this->assertTrue(elgg_action_exists('missions/application-form'));
 		$this->assertTrue(elgg_action_exists('missions/accept-invite'));
 		$this->assertTrue(elgg_action_exists('missions/decline-invite'));
-		$this->assertTrue(elgg_action_exists('missions/fill-form'));
+		//$this->assertTrue(elgg_action_exists('missions/fill-form'));
 		$this->assertTrue(elgg_action_exists('missions/invite-user'));
 		$this->assertTrue(elgg_action_exists('missions/remove-applicant'));
-		$this->assertTrue(elgg_action_exists('missions/search-switch'));
+		//$this->assertTrue(elgg_action_exists('missions/search-switch'));
 		$this->assertTrue(elgg_action_exists('missions/change-mission-form'));
 		$this->assertTrue(elgg_action_exists('missions/remove-pending-invites'));
 		$this->assertTrue(elgg_action_exists('missions/opt-from-main'));
+		$this->assertTrue(elgg_action_exists('missions/cancel-mission'));
+		$this->assertTrue(elgg_action_exists('missions/complete-mission'));
+		$this->assertTrue(elgg_action_exists('missions/feedback-form'));
+		$this->assertTrue(elgg_action_exists('missions/refine-my-missions-form'));
+		$this->assertTrue(elgg_action_exists('missions/reopen-mission'));
 	}
 
 	public function testMissionEntityMustBeRegistered() {
@@ -83,9 +93,9 @@ class MissionPluginTest extends ElggCoreUnitTest {
 		$this->assertTrue(elgg_view_exists('missions/element-select'));
 	}
 
-	public function testMissionMenuMustBeRegistered() {
+	/*public function testMissionMenuMustBeRegistered() {
 		$this->assertTrue(elgg_is_menu_item_registered('user_menu', 'mission_main'));
-	}
+	}*/
 
 	/*public function testMissionPageHandlerMustBeRegistered() {
 		//global $CONFIG;
@@ -125,7 +135,7 @@ class MissionPluginTest extends ElggCoreUnitTest {
 	}
 
 	public function testTimezoneStringsMustBeLoaded_En() {
-		$expected = " ,Canada/Pacific (-8),Canada/Mountain (-7),Canada/Central (-6),Canada/Eastern (-5),Canada/Atlantic (-4),Canada/Newfoundland (-3.5)";
+		$expected = "Canada/Pacific (-8),Canada/Mountain (-7),Canada/Central (-6),Canada/Eastern (-5),Canada/Atlantic (-4),Canada/Newfoundland (-3.5)";
 		$actual = elgg_get_plugin_setting('timezone_string', 'missions');
 		$this->assertIdentical($expected, $actual);
 	}

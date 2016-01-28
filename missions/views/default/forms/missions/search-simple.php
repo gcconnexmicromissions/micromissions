@@ -12,6 +12,11 @@
  */
 $simple = get_input('ss');
 
+$label = elgg_echo('missions:search_for_opportunities');
+if($_SESSION['mission_search_switch'] == 'candidate') {
+	$label = elgg_echo('missions:search_for_candidates');
+}
+
 if (elgg_is_sticky_form('searchsimplefill')) {
     extract(elgg_get_sticky_values('searchsimplefill'));
     elgg_clear_sticky_form('searchsimplefill');
@@ -24,18 +29,12 @@ $input_simple_text = elgg_view('input/text', array(
 ));
 ?>
 
-<div>
-	<table class="mission-post-table">
-		<tr>
-			<td class="mission-post-table-lefty">
-				<label for='search-mission-simple-text-input'> <?php echo $input_simple_text; ?> </label>
-			</td>
-			<td class="mission-post-table-righty">
-				<div>
-					<div class="form-button mission-search-simple-button"
-						style="text-align: left;"> <?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:search'))); ?> </div>
-				</div>
-			</td>
-		</tr>
-	</table>
+<div class="form-group">
+	<h4><label for="search-mission-simple-text-input"><?php echo $label . ':'; ?></label></h4>
+	<div style="display:inline-block;">
+		<?php echo $input_simple_text; ?> 
+	</div>
+	<div style="display:inline-block;">
+		<?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:search'))); ?>
+	</div>
 </div>

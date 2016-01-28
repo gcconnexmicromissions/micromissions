@@ -10,10 +10,32 @@ $name = get_input('fn');
 $department = get_input('fd');
 $email = get_input('fe');
 $phone = get_input('fp');
+$disclaimer = get_input('fd');
 
 if (elgg_is_sticky_form('firstfill')) {
     extract(elgg_get_sticky_values('firstfill'));
     // elgg_clear_sticky_form('firstfill');
+}
+
+if($disclaimer == 'YES') {
+	$disclaimer = true;
+}
+else {
+	$disclaimer = false;
+}
+
+$user = get_entity(elgg_get_logged_in_user_guid());
+if(!$name) {
+	$name = $user->name;
+}
+if(!$department) {
+	$department = $user->department;
+}
+if(!$email) {
+	$email = $user->email;
+}
+if(!$phone) {
+	$phone = $user->phone;
 }
 
 $input_name = elgg_view('input/text', array(
@@ -36,65 +58,64 @@ $input_phone = elgg_view('input/text', array(
     'value' => $phone,
     'id' => 'post-mission-phone-text-input'
 ));
+$input_dislaimer = elgg_view('input/checkbox', array(
+		'name' => 'disclaimer',
+		'value' => 'YES',
+		'checked' => $disclaimer,
+		'id' => 'post-mission-disclaimer-checkbox-input'
+));
 ?>
 
-<p>
-	<?php echo elgg_echo('missions:first_post:paragraph_one');?>
-</p>
-<div>
-	<table class="mission-post-table">
-		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-name-text-input'><?php echo elgg_echo('missions:your_name') . '*:';?></label><br />
-			</td>
-			<td class="mission-post-table-righty">
-				<div>
-				<?php echo $input_name; ?>
-			</div>
-			</td>
-		</tr>
-		<tr>
-			<td class="mission-post-table-lefty"><label for='post-mission-department-text-input'><?php echo elgg_echo('missions:your_department') . '*:';?></label><br />
-			</td>
-			<td class="mission-post-table-righty">
-				<div>
-				<?php echo $input_department; ?>
-			</div>
-			</td>
-		</tr>
-	</table>
+<h4><?php echo elgg_echo('missions:first_post_form_title'); ?></h4></br>
+<div class="form-group">
+	<label for='post-mission-name-text-input' class="col-sm-3" style="text-align:right;">
+		<?php echo elgg_echo('missions:your_name') . '*:';?>
+	</label>
+	<div class="col-sm-3">
+		<?php echo $input_name; ?>
+	</div>
 </div>
-<p>
-	<?php echo elgg_echo('missions:first_post:paragraph_two');?>
-</p>
-<div>
-	<table class="mission-post-table">
-		<td class="mission-post-table-lefty"><label for='post-mission-email-text-input'><?php echo elgg_echo('missions:your_email') . '*:';?></label><br />
-		</td>
-		<td class="mission-post-table-righty">
-			<div>
-			<?php echo $input_email; ?>
-		</div>
-		</td>
-	</table>
+<div class="form-group">
+	<label for='post-mission-department-text-input' class="col-sm-3" style="text-align:right;">
+		<?php echo elgg_echo('missions:your_department') . '*:';?>
+	</label>
+	<div class="col-sm-3">
+		<?php echo $input_department; ?>
+	</div>
 </div>
-<p>
-	<?php echo elgg_echo('missions:first_post:paragraph_three');?>
-</p>
-<div>
-	<table class="mission-post-table">
-		<td class="mission-post-table-lefty"><label for='post-mission-phone-text-input'><?php echo elgg_echo('missions:your_phone') . ':';?></label><br />
-		</td>
-		<td class="mission-post-table-righty">
-			<div>
-			<?php echo $input_phone; ?>
-		</div>
-		</td>
-	</table>
+<div class="form-group">
+	<label for='post-mission-email-text-input' class="col-sm-3" style="text-align:right;">
+		<?php echo elgg_echo('missions:your_email') . '*:';?>
+	</label>
+	<div class="col-sm-3">
+		<?php echo $input_email; ?>
+	</div>
 </div>
-<p>
-	<?php echo elgg_echo('missions:first_post:paragraph_four');?>
-</p>
-<p>
-	<?php echo elgg_echo('missions:required_fields_star');?>
-</p>
-<div class="form-button"> <?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:next'))); ?> </div>
+<div class="form-group">
+	<label for='post-mission-phone-text-input' class="col-sm-3" style="text-align:right;">
+		<?php echo elgg_echo('missions:your_phone') . ':';?>
+	</label>
+	<div class="col-sm-3">
+		<?php echo $input_phone; ?>
+		<p style="font-style:italic;">
+			<?php echo elgg_echo('missions:post_contact_disclaimer')?>
+		</p>
+	</div>
+</div>
+<div class="form-group">
+	<label for='post-mission-phone-text-input' class="col-sm-1" style="text-align:right;">
+		<?php echo $input_dislaimer;?>
+	</label>
+	<div class="col-sm-11">
+		<?php echo elgg_echo('missions:post_disclaimer'); ?>
+	</div>
+</div>
+<div> 
+	<?php 
+		echo elgg_view('input/submit', array(
+			'value' => elgg_echo('missions:next'),
+			'class' => 'elgg-button btn btn-primary',
+			'style' => 'float:right;'
+		)); 
+	?>
+</div>

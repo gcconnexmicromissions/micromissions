@@ -14,7 +14,8 @@ gatekeeper();
 
 $current_uri = $_SERVER['REQUEST_URI'];
 $blast_radius = explode('/', $current_uri);
-$mission = get_entity(array_pop($blast_radius));
+$mission_guid = mm_clean_url_segment(array_pop($blast_radius));
+$mission = get_entity($mission_guid);
 
 $title = elgg_echo('missions:mission_view');
 $content = elgg_view_entity($mission);

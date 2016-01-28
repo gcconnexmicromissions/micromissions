@@ -13,5 +13,6 @@ return array(
 		'gcconnex_profile:opt:peer_coaching' => 'Peer Coaching',
 		'gcconnex_profile:opt:opt_in_access' => 'Who can see my opt-in choices: ',
 		'gcconnex_profile:opt:yes' => 'Yes',
-		'gcconnex_profile:opt:no' => 'No'
+		'gcconnex_profile:opt:no' => 'No',
+		'gcconnex_profile:completed_missions' => 'Completed Missions'
 );

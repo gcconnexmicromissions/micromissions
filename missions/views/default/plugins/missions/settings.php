@@ -36,6 +36,11 @@ if (empty($mission_developer_tools_on)) {
     $mission_developer_tools_on = 'YES';
 }
 
+$mission_front_page_limit = $vars['entity']->mission_front_page_limit;
+if (empty($mission_front_page_limit)) {
+	$mission_developer_tools_on = 3;
+}
+
 /*$hour_string = ' ,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23';
 elgg_set_plugin_setting('hour_string', $hour_string, 'missions');
 
@@ -62,105 +67,72 @@ elgg_set_plugin_setting('duration_string', $duration_string, 'missions');*/
 <div>
 	<?php echo elgg_echo('missions:settings:developer_tools'); ?>
 	<?php
-
-echo elgg_view('input/dropdown', array(
-    'name' => 'params[mission_developer_tools_on]',
-    'options' => array(
-        'YES',
-        'NO'
-    ),
-    'value' => $mission_developer_tools_on
-));
-?>
+		echo elgg_view('input/dropdown', array(
+    			'name' => 'params[mission_developer_tools_on]',
+    			'options' => array('YES','NO'),
+    			'value' => $mission_developer_tools_on
+		));
+	?>
 <div>
 	<?php echo elgg_echo('missions:settings:search_limit'); ?>
 	<?php
-
-echo elgg_view('input/dropdown', array(
-    'name' => 'params[search_limit]',
-    'options' => array(
-        '20',
-        '40',
-        '60',
-        '80',
-        '100',
-        '120',
-        '140',
-        '160',
-        '180',
-        '200'
-    ),
-    'value' => $search_limit
-));
-?>
+		echo elgg_view('input/dropdown', array(
+    			'name' => 'params[search_limit]',
+    			'options' => array('20','40','60','80','100','120','140','160','180','200'),
+    			'value' => $search_limit
+		));
+	?>
 </div>
 <div>
 	<?php echo elgg_echo('missions:settings:message_limit'); ?>
 	<?php
-
-echo elgg_view('input/dropdown', array(
-    'name' => 'params[river_message_limit]',
-    'options' => array(
-        '50',
-        '100',
-        '150',
-        '200',
-        '250',
-        '300'
-    ),
-    'value' => $river_message_limit
-));
-?>
+		echo elgg_view('input/dropdown', array(
+    			'name' => 'params[river_message_limit]',
+    			'options' => array('50','100','150','200','250','300'),
+    			'value' => $river_message_limit
+		));
+	?>
 </div>
 <div>
 	<?php echo elgg_echo('missions:settings:river_element_limit'); ?>
 	<?php
-
-echo elgg_view('input/dropdown', array(
-    'name' => 'params[river_element_limit]',
-    'options' => array(
-        5,
-        10,
-        15,
-        20,
-        25
-    ),
-    'value' => $river_element_limit
-));
-?>
+		echo elgg_view('input/dropdown', array(
+    			'name' => 'params[river_element_limit]',
+    			'options' => array(5,10,15,20,25),
+    			'value' => $river_element_limit
+		));
+	?>
 </div>
 <div>
 	<?php echo elgg_echo('missions:settings:advanced_element_limit'); ?>
 	<?php
-
-echo elgg_view('input/dropdown', array(
-    'name' => 'params[advanced_element_limit]',
-    'options' => array(
-        4,
-        6,
-        8,
-        10
-    ),
-    'value' => $advanced_element_limit
-));
-?>
+		echo elgg_view('input/dropdown', array(
+    		'name' => 'params[advanced_element_limit]',
+    		'options' => array(4,6,8,10),
+    		'value' => $advanced_element_limit
+		));
+	?>
 </div>
 
 <div>
 	<?php echo elgg_echo('missions:settings:search_result_per_page'); ?>
 	<?php
-
-echo elgg_view('input/dropdown', array(
-    'name' => 'params[search_result_per_page]',
-    'options' => array(
-        4,
-        6,
-        8,
-        10
-    ),
-    'value' => $search_result_per_page
-));
-?>
+		echo elgg_view('input/dropdown', array(
+    			'name' => 'params[search_result_per_page]',
+    			'options' => array(6,9,12,15),
+    			'value' => $search_result_per_page
+		));
+	?>
+</div>
+<div>
+	<?php echo elgg_echo('missions:settings:mission_front_page_limit'); ?>
+	<?php
+		echo elgg_view('input/dropdown', array(
+    			'name' => 'params[mission_front_page_limit]',
+    			'options' => array(3,6,9),
+    			'value' => $mission_front_page_limit
+		));
+	?>
 </div>
 <!--</br>
 <p>

@@ -14,6 +14,11 @@ gatekeeper();
 
 $search_typing = $_SESSION['mission_search_switch'];
 
+$title = elgg_echo('missions:search_results_display');
+
+elgg_push_breadcrumb(elgg_echo('missions:micromissions'), elgg_get_site_url() . 'missions/main');
+elgg_push_breadcrumb($title);
+
 // Variables to help set up pagination
 $count = $_SESSION[$search_typing . '_count'];
 $offset = (int) get_input('offset', 0);
@@ -29,25 +34,17 @@ if($search_typing == 'mission') {
     $list_class = 'mission-gallery';
 }
 
+$content = elgg_view_title($title);
+
 // Displays the missions as a list with custom class mission-gallery
-$content = elgg_view_entity_list(array_slice($search_set, $offset, $max), array(
-    'count' => $count,
-    'offset' => $offset,
-    'limit' => $max,
-    'pagination' => true,
-    'list_type' => $list_typing,
-    'gallery_class' => $list_class
+$content .= elgg_view_entity_list(array_slice($search_set, $offset, $max), array(
+	    'count' => $count,
+	    'offset' => $offset,
+	    'limit' => $max,
+	    'pagination' => true,
+	    'list_type' => $list_typing,
+	    'gallery_class' => $list_class,
+		'missions_full_view' => false
 ), $offset, $max);
 
-$sidebar = elgg_view_menu('mission_main', array(
-    'sort_by' => 'priority'
-));
-// $sidebar .= elgg_view_menu('mission_refine', array('sort_by' => 'priority'));
-// $sidebar .= elgg_view_menu('mission_browse', array('sort_by' => 'priority'));
-
-$body = elgg_view_layout('one_sidebar', array(
-    'content' => $content,
-    'sidebar' => $sidebar
-));
-
-echo elgg_view_page(elgg_echo('missions:search_results_display'), $body);
+echo elgg_view_page($title, $content);

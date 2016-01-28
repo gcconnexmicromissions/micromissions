@@ -19,11 +19,18 @@ $mission = get_entity($mission_guid);
 
 $title = elgg_echo('missions:edit_mission');
 
+elgg_push_breadcrumb(elgg_echo('missions:micromissions'), elgg_get_site_url() . 'missions/main');
+elgg_push_breadcrumb($mission->job_title);
+
 $content = elgg_view_title($title);
 $content .= elgg_view_form('missions/change-mission-form', array(
-    'class' => 'mission-form'
+    'class' => 'form-horizontal'
 ), array(
     'entity' => $mission
+));
+
+$content .= elgg_view('page/elements/related-candidates', array(
+		'entity' => $mission
 ));
 
 echo elgg_view_page($title, $content);

@@ -13,5 +13,6 @@ return array(
 		'gcconnex_profile:opt:peer_coaching' => 'Pair Entraineur',
 		'gcconnex_profile:opt:opt_in_access' => "Qui peut voir mes choix d'engagement :",
 		'gcconnex_profile:opt:yes' => 'Oui',
-		'gcconnex_profile:opt:no' => 'Non'
+		'gcconnex_profile:opt:no' => 'Non',
+		'gcconnex_profile:completed_missions' => 'Missions accomplies'
 );

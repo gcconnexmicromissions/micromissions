@@ -54,7 +54,6 @@ if ($err != '') {
     $mission->number = $second_form['number'];
     $mission->start_date = $second_form['start_date'];
     $mission->completion_date = $second_form['completion_date'];
-    $mission->key_skills = $second_form['key_skills'];
     $mission->deadline = $second_form['deadline'];
     $mission->descriptor = $second_form['description'];
     
@@ -62,11 +61,29 @@ if ($err != '') {
     //$mission->flexibility = $third_form['flexibility'];
     $mission->security = $third_form['security'];
     $mission->location = $third_form['location'];
+    $mission->time_commitment = $third_form['time_commitment'];
+    $mission->time_interval = $third_form['time_interval'];
+    $mission->timezone = $third_form['timezone'];
+    
+    $count = 0;
+    $key_skills = '';
+    foreach($third_form as $key => $value) {
+    	if(!(strpos($key, 'skill') === false) && $value) {
+    		if($count == 0) {
+    			$key_skills .= $value;
+    		}
+    		else {
+    			$key_skills .= ', ' . $value;
+    		}
+    		$count++;
+    	}
+    }
+    $mission->key_skills = $key_skills;
     
     $mission->english = mm_pack_language($third_form['lwc_english'], $third_form['lwe_english'], $third_form['lop_english'], 'english');
     $mission->french = mm_pack_language($third_form['lwc_french'], $third_form['lwe_french'], $third_form['lop_french'], 'french');
     
-    $mission->mon_start = mm_pack_time($third_form['mon_start_hour'], $third_form['mon_start_min'], 'mon_start');
+    /*$mission->mon_start = mm_pack_time($third_form['mon_start_hour'], $third_form['mon_start_min'], 'mon_start');
     $mission->mon_duration = mm_pack_time($third_form['mon_duration_hour'], $third_form['mon_duration_min'], 'mon_duration');
     $mission->tue_start = mm_pack_time($third_form['tue_start_hour'], $third_form['tue_start_min'], 'tue_start');
     $mission->tue_duration = mm_pack_time($third_form['tue_duration_hour'], $third_form['tue_duration_min'], 'tue_duration');
@@ -79,9 +96,23 @@ if ($err != '') {
     $mission->sat_start = mm_pack_time($third_form['sat_start_hour'], $third_form['sat_start_min'], 'sat_start');
     $mission->sat_duration = mm_pack_time($third_form['sat_duration_hour'], $third_form['sat_duration_min'], 'sat_duration');
     $mission->sun_start = mm_pack_time($third_form['sun_start_hour'], $third_form['sun_start_min'], 'sun_start');
-    $mission->sun_duration = mm_pack_time($third_form['sun_duration_hour'], $third_form['sun_duration_min'], 'sun_duration');
+    $mission->sun_duration = mm_pack_time($third_form['sun_duration_hour'], $third_form['sun_duration_min'], 'sun_duration');*/
+    $mission->mon_start = $third_form['mon_start'];
+    $mission->mon_duration = $third_form['mon_duration'];
+    $mission->tue_start = $third_form['tue_start'];
+    $mission->tue_duration = $third_form['tue_duration'];
+    $mission->wed_start = $third_form['wed_start'];
+    $mission->wed_duration = $third_form['wed_duration'];
+    $mission->thu_start = $third_form['thu_start'];
+    $mission->thu_duration = $third_form['thu_duration'];
+    $mission->fri_start = $third_form['fri_start'];
+    $mission->fri_duration = $third_form['fri_duration'];
+    $mission->sat_start = $third_form['sat_start'];
+    $mission->sat_duration = $third_form['sat_duration'];
+    $mission->sun_start = $third_form['sun_start'];
+    $mission->sun_duration = $third_form['sun_duration'];
     
-    $mission->timezone = $third_form['timezone'];
+    $mission->state = 'posted';
     
     // Sends the object and all its metadata to the database
     $mission->save();
@@ -105,5 +136,7 @@ if ($err != '') {
     elgg_clear_sticky_form('ldropfill');
     elgg_clear_sticky_form('tdropfill');
     
-    forward($mission->getURL());
+    unset($_SESSION['tab_context']);
+    
+    forward(elgg_get_site_url() . 'missions/main');
 }

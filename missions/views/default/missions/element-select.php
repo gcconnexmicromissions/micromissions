@@ -13,10 +13,9 @@
  */
 $dropdown_name = $vars['caller_name'];
 $dropdown_value = $vars['caller_value'];
-$further = $vars['caller_further'];
+$second = $vars['caller_second'];
 
 $content = '';
-$append = '';
 $array_sec = explode(',', elgg_get_plugin_setting('security_string', 'missions'));
 $array_lang = explode(',', elgg_get_plugin_setting('language_string', 'missions'));
 $array_day = explode(',', elgg_get_plugin_setting('day_string', 'missions'));
@@ -26,48 +25,33 @@ $array_duration = explode(',', elgg_get_plugin_setting('duration_string', 'missi
 
 // Builds input field content depending on what type the user selected.
 // This handles input fields for mission and candidate searching.
-if($further == 'true') {
+if($second == 'true') {
+	// This section handles second javascript type selection.
     switch ($dropdown_value) {
         case elgg_echo('missions:publication_date'):
-        	$content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/dropdown', array(
+        case elgg_echo('missions:end_year'):
+            $content .= '<div>' . elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_operand',
                 'value' => '=',
-                'options' => array('=', '>=', '<='),
-                'class' => 'advanced-element'
-            ));
-            $content .= '</span>';
-            $content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/date', array(
-                'name' => $dropdown_name . '_value',
-                'value' => '',
-                'class' => 'advanced-element'
-            ));
-            $content .= '</span>';
+                'options' => array('=', '>=', '<=')
+            )) . '</div>';
+            
+            $content .= '<div>' . elgg_view('input/date', array(
+            		'name' => $dropdown_name . '_value',
+            		'value' => ''
+            )) . '</div>';
             break;
             
-        case elgg_echo('missions:end_year'):
-        	$content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/dropdown', array(
-                'name' => $dropdown_name . '_operand',
-                'value' => '=',
-                'options' => array('=', '>=', '<='),
-                'class' => 'advanced-element'
-            ));
-            $content .= '</span>';
-            
         default:
-        	$content .= '<span class="missions-inline-drop">';
             $content .= elgg_view('input/text', array(
                 'name' => $dropdown_name . '_value',
-                'value' => '',
-                'class' => 'advanced-element'
+                'value' => ''
             ));
-            $content .= '</span>';
             break;
     }
 }
 else {
+	// This section handles first javascript type selection.
     switch ($dropdown_value) {
         case '':
             break;
@@ -76,8 +60,7 @@ else {
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element',
                 'value' => '',
-                'options' => array('', elgg_echo('missions:title')/*, elgg_echo('missions:publication_date')*/),
-                'class' => 'advanced-element',
+                'options' => array('', elgg_echo('missions:title'), /*elgg_echo('missions:publication_date')*/),
                 'onchange' => 'element_switch(this)'
             ));
             break;
@@ -87,7 +70,6 @@ else {
                 'name' => $dropdown_name . '_element',
                 'value' => '',
                 'options' => array('', elgg_echo('missions:title'), elgg_echo('missions:degree'), elgg_echo('missions:field'), elgg_echo('missions:end_year')),
-                'class' => 'advanced-element',
                 'onchange' => 'element_switch(this)'
             ));
             break;
@@ -97,100 +79,106 @@ else {
                 'name' => $dropdown_name . '_element',
                 'value' => '',
                 'options' => array('', elgg_echo('missions:title'), elgg_echo('missions:organization'), elgg_echo('missions:end_year')),
-                'class' => 'advanced-element',
                 'onchange' => 'element_switch(this)'
             ));
             break;
         
         case elgg_echo('missions:duration'):
-        case elgg_echo('missions:time'):
-            if($dropdown_value == elgg_echo('missions:time')) {
-                $time_or_duration = $array_hour;
-            }
-            if($dropdown_value == elgg_echo('missions:duration')) {
-                $time_or_duration = $array_duration;
-            }
+        case elgg_echo('missions:start_time'):
+        	$content .= elgg_view('input/dropdown', array(
+        			'name' => $dropdown_name . '_operand',
+        			'value' => '=',
+        			'options' => array('=', '>=', '<='),
+        			'style' => 'display:inline-block'
+        	));
+        	
+            $content .= elgg_view('input/text', array(
+                	'name' => $dropdown_name . '_element',
+                	'value' => '',
+                	'placeholder' => 'HH:mm',
+        			'style' => 'display:inline-block'
+            ));
             
             $content .= elgg_view('input/dropdown', array(
-                'name' => $dropdown_name . '_element',
-                'value' => elgg_echo('missions:mon'),
-                'options' => $array_day,
-                'class' => 'advanced-element'
+            		'name' => $dropdown_name . '_element_day',
+            		'value' => elgg_echo('missions:mon'),
+            		'options' => $array_day
             ));
-            $content .= '</br>';
-            $content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/dropdown', array(
-                'name' => $dropdown_name . '_element_hour',
-                'value' => '',
-                'options' => $time_or_duration,
-                'class' => 'advanced-element time-dropdown'
-            ));
-            $content .= '</span>';
-            $content .= '<span style="font-size:16pt;"> :</span>';
-            $content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/dropdown', array(
-                'name' => $dropdown_name . '_element_min',
-                'value' => '',
-                'options' => $array_min,
-                'class' => 'advanced-element time-dropdown'
-            ));
-            $content .= '</span>';
             break;
+            
+        case elgg_echo('missions:time'):
+        	$content .= elgg_view('input/dropdown', array(
+        			'name' => $dropdown_name . '_operand',
+        			'value' => '=',
+        			'options' => array('=', '>=', '<='),
+        			'style' => 'display:inline-block'
+        	));
+        	 
+        	$content .= elgg_view('input/text', array(
+        			'name' => $dropdown_name . '_element',
+        			'value' => '',
+        			'style' => 'display:inline-block'
+        	));
+        	break;
+        	
+        case elgg_echo('missions:period'):
+        	$content .= elgg_view('input/dropdown', array(
+        			'name' => $dropdown_name . '_element',
+        			'value' => '',
+        			'options' => explode(',', elgg_get_plugin_setting('time_rate_string', 'missions'))
+        	));
+        	break;
         
         case elgg_echo('missions:language'):
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element',
                 'value' => elgg_echo('missions:english'),
-                'options' => array(
-                    elgg_echo('missions:english'),
-                    elgg_echo('missions:french')
-                ),
-                'class' => 'advanced-element'
+                'options' => array( elgg_echo('missions:english'),elgg_echo('missions:french'))
             ));
             $content .= '</br>';
-            $content .= elgg_echo('missions:reading') . ':';
-            $content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/dropdown', array(
+            
+            $content .= '<div class="col-sm-6">' . elgg_echo('missions:reading') . ':</div>';
+            $content .= '<div class="col-sm-6">' . elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_lwc',
                 'value' => '',
-                'options' => $array_lang,
-                'class' => 'advanced-element language-dropdown'
-            ));
-            $content .= '</span>';
-            $content .= elgg_echo('missions:writing') . ':';
-            $content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/dropdown', array(
+                'options' => $array_lang
+            )) . '</div>';
+            
+            $content .= '<div class="col-sm-6">' . elgg_echo('missions:writing') . ':</div>';
+            $content .= '<div class="col-sm-6">' . elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_lwe',
                 'value' => '',
-                'options' => $array_lang,
-                'class' => 'advanced-element language-dropdown'
-            ));
-            $content .= '</span>';
-            $content .= elgg_echo('missions:oral') . ':';
-            $content .= '<span class="missions-inline-drop">';
-            $content .= elgg_view('input/dropdown', array(
+                'options' => $array_lang
+            )) . '</div>';
+            
+            $content .= '<div class="col-sm-6">' . elgg_echo('missions:oral') . ':</div>';
+            $content .= '<div class="col-sm-6">' . elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element_lop',
                 'value' => '',
-                'options' => $array_lang,
-                'class' => 'advanced-element language-dropdown'
-            ));
-            $content .= '</span>';
+                'options' => $array_lang
+            )) . '</div>';
             break;
         
         case elgg_echo('missions:security_clearance'):
             $content .= elgg_view('input/dropdown', array(
-                'name' => $dropdown_name . '_element' . $append,
+                'name' => $dropdown_name . '_element',
                 'value' => '',
-                'options' => $array_sec,
-                'class' => 'advanced-element'
+                'options' => $array_sec
             ));
             break;
+            
+        case elgg_echo('missions:type'):
+        	$content .= elgg_view('input/dropdown', array(
+        			'name' => $dropdown_name . '_element',
+        			'value' => '',
+        			'options' => explode(',', elgg_get_plugin_setting('opportunity_type_string', 'missions'))
+        	));
+        	break;
         
         default:
             $content .= elgg_view('input/text', array(
                 'name' => $dropdown_name . '_element',
-                'value' => '',
-                'class' => 'advanced-element'
+                'value' => ''
             ));
     }
 }

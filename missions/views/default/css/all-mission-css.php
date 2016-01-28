@@ -9,22 +9,18 @@
 	box-shadow: 1px 1px 5px #CCC; 
 }
 
-.missions-tab-bar-table { 
-	border-spacing: 6px 0px; 
-	border-collapse: separate; 
-} 
-
-.missions-tab-bar-table td { 
+.missions-tab{ 
 	background-color: #055959;
 	font-size: 18px; 
 	font-weight: bold; 
 	border-style: solid;
 	border-color: #055959; 
 	border-radius: 6px; 
-	padding: 5px; 
+	padding: 5px;
+	color: white
 } 
 
-.missions-tab-bar-table td, .missions-tab-bar-table a, .missions-tab-bar-table a:visited {
+.missions-tab a, .missions-tab a:visited {
 	color: white;
 }
 
@@ -32,16 +28,12 @@
 	color: #055959;
 }
 
-input { 
-	height: initial; 
-} 
-
 .mission-post-table {
 	table-layout: fixed; 
 	align: center;
 } 
 
-.mission-post-table td, .mission-post-table-two td {
+.mission-post-table td {
 	padding-top: 4px;
 	padding-bottom: 4px;
 }
@@ -50,10 +42,6 @@ input {
 	text-align: right; 
 	padding-right: 6px;
 	width: 280px; 
-} 
-
-.form-button { 
-	text-align: right; 
 }
 
 .mission-post-table-righty { 
@@ -63,43 +51,6 @@ input {
 
 .mission-post-table-righty div { 
 	width: 250px; 
-} 
-
-.mission-post-table-two { 
-	table-layout:fixed; 
-	align: center; width: 500px; 
-}
-
-.mission-post-table-two .mission-post-table-lefty { 
-	text-align: right;
-	vertical-align: middle;
-	padding-right: 6px; 
-	width: 280px; 
-}
-
-.mission-post-table-two .mission-post-table-center { 
-	text-align: center;
-	width: 100px; 
-} 
-
-.mission-post-table-two .mission-post-table-righty {
-	text-align: center; 
-	width: 110px; 
-} 
-
-.language-dropdown, .time-dropdown {
-	width: 70px !important; 
-} 
-
-.mission-post-table-inner { 
-	margin-right: auto; 
-	margin-left: 10%; 
-	margin-bottom: 15px;
-}
-
-.mission-post-table-inner td { 
-	text-align: center; 
-	padding-right: 8px; 
 }
 
 .mission-post-table-day {
@@ -119,91 +70,38 @@ input {
 .mission-printer { 
 	border-style: none; 
 	border-width: 4px; 
-	padding: 16px;
+	padding: 10px;
 	position: relative;
 } 
 
-.mission-less { 
+.mission-less {
+	display: inline-block;
 	border-style: solid; 
-	width: 360px; 
-	height: 480px; 
+	width: 340px;
 }
 
-.mission-more { } 
-
-.mission-printer .short-table { 
-	table-layout: fixed;
-	height: 100px; 
-} 
-
-.mission-printer h3 { 
+.mission-printer h5 { 
 	display: inline; 
-}
-
-.mission-printer div { 
-	margin-top: 6px; 
-} 
-
-.mission-printer img { 
-	height: 100px; 
-} 
-
-.mission-printer .long-table td { 
-	padding-right: 16px; 
 }
 
 .mission-printer .elgg-button {
 	margin: 4px;
-	vertical-align: center;
-} 
-
-.mission-printer span { 
-	margin: 0px 8px; 
-}
-
-.mission-gallery { 
-	width: 800px; 
-	margin: 2px; 
+	vertical-align: middle;
 } 
 
 .mission-gallery li {
 	padding: 10px; 
 	border-bottom: none; 
 	vertical-align: top; 
-} 
+}
+
+.pagination {
+	position: relative;
+	left: 40%;
+}
 
 .elgg-menu {
 	padding: 0px 15px; 
-} 
-
-.advanced-table td { 
-	padding: 4px 16px; 
-}
-
-.advanced-table h2 { 
-	padding-left: 16px; 
-} 
-
-.advanced-element { 
-	width: 130px; 
-	margin-left: 4px; 
-	margin-right: 8px; 
-} 
-
-.advanced-drop { 
-	width: 200px; 
-} 
-
-.mission-search-simple-button { 
-	margin-left: 10px; 
-}
-
-.advanced-text-email { 
-	width: 300px; 
-}
-
-.tab {
-	margin-left: 16px;
 }
 
 .mission-emphasis {
@@ -217,42 +115,50 @@ input {
 	font-size: 1.17em;
 }
 
-.bottom-padding-priority {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
-}
-
 .mission-button-set {
 	position: absolute;
 	bottom: 4px;
-}
-
-.missions-inline-drop {
-	display: inline-block;
-}
-
-.btn-mission {
-	margin: 4px;
-	padding: 2px;
-}
-
-.pagination {
-    position: relative;
-    left: 40%;
-}
-
-.mm-raise {
-	vertical-align: top;
-}
-
-.mm-drab-back {
-	background-color: #D3D3D3;
+	text-align: center;
+	width: 94%;
 }
 
 .mission-hr {
 	color: #af3c43;
 	border-color: #af3c43;
 	background-color: #af3c43;
+}
+
+li.link-disabled a {
+	pointer-events: none;
+	cursor: default;
+}
+
+.mission-tab > li {
+	width: 25%;
+	text-align: center;
+}
+
+.mission-tab > li a {
+	border-bottom-color: rgb(227,227,227); 
+}
+
+.mission-tab > .elgg-state-selected {
+	width: 15%;
+	text-align: center;
+}
+
+.tt-dropdown-menu {
+    width: 310px;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+    padding: 3px 20px;
+    font-size: 18px;
+    line-height: 24px;
 }

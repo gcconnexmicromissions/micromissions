@@ -6,8 +6,9 @@ elgg_set_plugin_setting('search_limit', '100', 'missions');
 elgg_set_plugin_setting('river_message_limit', '100', 'missions');
 elgg_set_plugin_setting('advanced_element_limit', 6, 'missions');
 elgg_set_plugin_setting('river_element_limit', 10, 'missions');
-elgg_set_plugin_setting('search_result_per_page', 4, 'missions');
-elgg_set_plugin_setting('mission_developer_tools_on', 'YES', 'missions');
+elgg_set_plugin_setting('search_result_per_page', 9, 'missions');
+elgg_set_plugin_setting('mission_developer_tools_on', 'NO', 'missions');
+elgg_set_plugin_setting('mission_front_page_limit', 3, 'missions');
 
 $hour_string = ' ,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23';
 elgg_set_plugin_setting('hour_string', $hour_string, 'missions');
@@ -25,8 +26,14 @@ elgg_set_plugin_setting('day_string', $day_string, 'missions');
 $security_string = ' ,' . elgg_echo('missions:enhanced_reliability') . ',' . elgg_echo('missions:secret') . ',' . elgg_echo('missions:top_secret');
 elgg_set_plugin_setting('security_string', $security_string, 'missions');
 
-$timezone_string = ' ,Canada/Pacific (-8),Canada/Mountain (-7),Canada/Central (-6),Canada/Eastern (-5),Canada/Atlantic (-4),Canada/Newfoundland (-3.5)';
+$timezone_string = 'Canada/Pacific (-8),Canada/Mountain (-7),Canada/Central (-6),Canada/Eastern (-5),Canada/Atlantic (-4),Canada/Newfoundland (-3.5)';
 elgg_set_plugin_setting('timezone_string', $timezone_string, 'missions');
 
 $duration_string = ' ,1,2,3,4,5,6,7,8';
 elgg_set_plugin_setting('duration_string', $duration_string, 'missions');
+
+$time_rate_string = elgg_echo('missions:total') . ',' . elgg_echo('missions:per_week') . ',' . elgg_echo('missions:per_month');
+elgg_set_plugin_setting('time_rate_string', $time_rate_string, 'missions');
+
+$opportunity_type_string = elgg_echo('missions:micro_mission') . ',' .elgg_echo('missions:job_swap') . ',' . elgg_echo('missions:mentoring') . ',' . elgg_echo('missions:shadowing') . ',' . elgg_echo('missions:peer_coaching');
+elgg_set_plugin_setting('opportunity_type_string', $opportunity_type_string, 'missions');

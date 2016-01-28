@@ -1,5 +1,6 @@
 This plugin adds micro mission functionality to the GCConnex webpage. 
-Current functionality includes posting a job opportunity, displaying the job opportunity and searching for a job opportunity with a simple and advanced search.
+Current functionality includes posting a job opportunity, displaying the job opportunity, searching for a job opportunity or candidate with a simple and advanced search, editing a mission, 
+inviting a candidate to a mission, completing or cancelling a mission and providing feedback for a completed mission.
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -60,6 +61,28 @@ Users who have not opted in can not be invited to micro missions.
 Users who have opted in will be displayed first in a candidate search.
 Users who have not opted in can not post a mission.
 Users who apply to a missions are opted in if they were not previously.
+
+4)
+Layout changes were made to comply with wireframes provided by TBS.
+
+Mission manager can now complete or cancel their missions by clicking the appropriate button in the mission view.
+Missions can not be completed unless there is at least one user who has accepted an invitation to the mission.
+
+When a mission is completed, managers can provide feedback to the mission participants and the participants can provide feedback to the manager.
+This feedback consists of a text input which will send a message to the target and a checkbox for endorsing the target.
+The feedback message can only be sent once to the target.
+
+Key skill inputs now have autocomplete features that match those found in b_extended_profile.
+Some larger page elements (time table and language inputs and advanced search) are now contained within hidden fields which are displayed by a click on the field title.
+
+Users who are not opted in will be directed to a splash page where they can search for missions, view a sample of missions and opt in to Micro Missions.
+Once opted in, users will be taken to a main page with two tabs and both these tabs have a create opportunity button.
+The first tab (the default tab) will have simple and advanced searches for missions as well as a selection of the latest posted missions.
+The second tab will have a list of missions related to the user as well as a section which displays unfinished feedback (this section does not appear if there is no unfinished feedback.
+Posting, viewing and editing an opportunity are all the same as in previous versions.
+Clicking on the invite button for a mission will take the user to a candidate search page with simple and advanced searches.
+Completing a mission or clicking on an unfinished feedback link will take the user to a page with all the unfinished feedback forms for that mission.
+
 
 --------------------------------------------------------------------------------------------------------------
 

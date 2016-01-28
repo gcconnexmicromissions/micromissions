@@ -13,16 +13,24 @@
  */
 gatekeeper();
 
-$title = elgg_echo('missions:apply_to_mission');
+$current_uri = $_SERVER['REQUEST_URI'];
+$blast_radius = explode('/', $current_uri);
+$entity = get_entity(array_pop($blast_radius));
+
+$title = elgg_echo('missions:apply_for_mission', array($entity->job_title));
+
+elgg_push_breadcrumb(elgg_echo('missions:micromissions'), elgg_get_site_url() . 'missions/main');
+elgg_push_breadcrumb($entity->job_title, $entity->getURL());
+elgg_push_breadcrumb($title);
 
 $content = elgg_view_title($title);
 $content .= elgg_echo('missions:application_paragraph');
-$content .= elgg_view_form('missions/application-form', array(
-    'class' => 'mission-form'
-));
+$content .= '<div class="col-sm-offset-1">' . elgg_view_form('missions/application-form', array(
+    'class' => 'form-horizontal'
+)) . '</div>';
 
 $body = elgg_view_layout('one_sidebar', array(
     'content' => $content
 ));
 
-echo elgg_view_page($title, $body);
+echo elgg_view_page($title, $content);
