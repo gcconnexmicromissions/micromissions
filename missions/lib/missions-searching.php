@@ -90,6 +90,41 @@ function mm_analyze_selection($place, $array)
         // Returns an empty array if
         case '':
             break;
+        
+        case elgg_echo('missions:opt_in'):
+        	if($array['selection_' . $place . '_element'] != '') {
+        		$name_option = '';
+	        	switch($array['selection_' . $place . '_element']) {
+	        		case elgg_echo('gcconnex_profile:opt:micro_mission'):
+	        			$name_option = 'opt_in_missions';
+	        			break;
+	        		case elgg_echo('gcconnex_profile:opt:job_swap'):
+	        			$name_option = 'opt_in_swap';
+	        			break;
+	        		case elgg_echo('gcconnex_profile:opt:mentored'):
+	        			$name_option = 'opt_in_mentored';
+	        			break;
+	        		case elgg_echo('gcconnex_profile:opt:mentoring'):
+	        			$name_option = 'opt_in_mentoring';
+	        			break;
+	        		case elgg_echo('gcconnex_profile:opt:shadowed'):
+	        			$name_option = 'opt_in_shadowed';
+	        			break;
+	        		case elgg_echo('gcconnex_profile:opt:shadowing'):
+	        			$name_option = 'opt_in_shadowing';
+	        			break;
+	        		case elgg_echo('gcconnex_profile:opt:peer_coached'):
+	        			$name_option = 'opt_in_peer_coached';
+	        			break;
+	        		case elgg_echo('gcconnex_profile:opt:peer_coaching'):
+	        			$name_option = 'opt_in_peer_coaching';
+	        			break;
+	        	}
+	        	$returner['name'] = $name_option;
+                $returner['operand'] = '=';
+	        	$returner['value'] = 'gcconnex_profile:opt:yes';
+        	}
+        	break;
             
         case elgg_echo('missions:portfolio'):
             if($array['selection_' . $place . '_element_value'] != '') {
@@ -562,6 +597,31 @@ function mm_adv_search_candidate_database($query_array, $query_operand) {
             }
             // Notes that attributes have been searched during this function call.
             $is_attribute_searched = true;
+        }
+        
+        else if(strpos($array['name'], 'opt_in') !== false) {
+        	$options_attribute['type'] = 'user';
+        	$options_metadata['metadata_name_value_pairs'] = array(array('name' => $array['name'], 'operand' => $array['operand'], 'value' => $array['value']));
+        	$options_metadata['limit'] = elgg_get_plugin_setting('search_limit', 'missions');
+        	$options_metadata['metadata_case_sensitive'] = false;
+        	$entities = elgg_get_entities_from_metadata($options_metadata);
+        	
+        	$entity_owners = array();
+        	$count = 0;
+        	foreach($entities as $entity) {
+        		$entity_owners[$count] = $entity->guid;
+        		$count++;
+        	}
+        	
+        	// Adds the results of the query to a pool of results.
+        	if(empty($users_returned_by_metadata)) {
+        		$users_returned_by_metadata = array_unique($entity_owners);
+        	}
+        	else {
+        		$users_returned_by_metadata = array_unique(array_intersect($users_returned_by_metadata, $entity_owners));
+        	}
+        	// Notes that metadata have been searched during this function call.
+        	$is_metadata_searched = true;
         }
 
         // Sets up metadata serach.

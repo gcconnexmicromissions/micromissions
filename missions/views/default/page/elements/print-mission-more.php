@@ -96,7 +96,7 @@ if ($mission->mon_start) {
     		$unpacked_array['mon_duration_hour'],
     		$unpacked_array['mon_duration_min']
     )) . '</br>';*/
-    $unpacked_time .= $mission->mon_start . ' ' . elgg_echo('missions:to') . ' ' . $mission->mon_duration . '</br>';
+    $unpacked_time .= $mission->mon_start . elgg_echo('missions:to') . $mission->mon_duration . '</br>';
 }
 if ($mission->tue_start) {
     $unpacked_time .= '<h5>' . elgg_echo('missions:tue') . ': </h5>';
@@ -106,7 +106,7 @@ if ($mission->tue_start) {
     		$unpacked_array['tue_duration_hour'],
     		$unpacked_array['tue_duration_min']
     )) . '</br>';*/
-    $unpacked_time .= $mission->tue_start . ' ' . elgg_echo('missions:to') . ' ' . $mission->tue_duration . '</br>';
+    $unpacked_time .= $mission->tue_start . elgg_echo('missions:to') . $mission->tue_duration . '</br>';
 }
 if ($mission->wed_start) {
     $unpacked_time .= '<h5>' . elgg_echo('missions:wed') . ': </h5>';
@@ -116,7 +116,7 @@ if ($mission->wed_start) {
     		$unpacked_array['wed_duration_hour'],
     		$unpacked_array['wed_duration_min']
     )) . '</br>';*/
-    $unpacked_time .= $mission->wed_start . ' ' . elgg_echo('missions:to') . ' ' . $mission->wed_duration . '</br>';
+    $unpacked_time .= $mission->wed_start . elgg_echo('missions:to') . $mission->wed_duration . '</br>';
 }
 if ($mission->thu_start) {
     $unpacked_time .= '<h5>' . elgg_echo('missions:thu') . ': </h5>';
@@ -126,7 +126,7 @@ if ($mission->thu_start) {
     		$unpacked_array['thu_duration_hour'],
     		$unpacked_array['thu_duration_min']
     )) . '</br>';*/
-    $unpacked_time .= $mission->thu_start . ' ' . elgg_echo('missions:to') . ' ' . $mission->thu_duration . '</br>';
+    $unpacked_time .= $mission->thu_start . elgg_echo('missions:to') . $mission->thu_duration . '</br>';
 }
 if ($mission->fri_start) {
     $unpacked_time .= '<h5>' . elgg_echo('missions:fri') . ': </h5>';
@@ -136,7 +136,7 @@ if ($mission->fri_start) {
     		$unpacked_array['fri_duration_hour'],
     		$unpacked_array['fri_duration_min']
     )) . '</br>';*/
-    $unpacked_time .= $mission->fri_start . ' ' . elgg_echo('missions:to') . ' ' . $mission->fri_duration . '</br>';
+    $unpacked_time .= $mission->fri_start . elgg_echo('missions:to') . $mission->fri_duration . '</br>';
 }
 if ($mission->sat_start) {
     $unpacked_time .= '<h5>' . elgg_echo('missions:sat') . ': </h5>';
@@ -146,7 +146,7 @@ if ($mission->sat_start) {
     		$unpacked_array['sat_duration_hour'],
     		$unpacked_array['sat_duration_min']
     )) . '</br>';*/
-    $unpacked_time .= $mission->sat_start . ' ' . elgg_echo('missions:to') . ' ' . $mission->sat_duration . '</br>';
+    $unpacked_time .= $mission->sat_start . elgg_echo('missions:to') . $mission->sat_duration . '</br>';
 }
 if ($mission->sun_start) {
     $unpacked_time .= '<h5>' . elgg_echo('missions:sun') . ': </h5>';
@@ -156,7 +156,7 @@ if ($mission->sun_start) {
     		$unpacked_array['sun_duration_hour'],
     		$unpacked_array['sun_duration_min']
     )) . '</br>';*/
-    $unpacked_time .= $mission->sun_start . ' ' . elgg_echo('missions:to') . ' ' . $mission->sun_duration . '</br>';
+    $unpacked_time .= $mission->sun_start . elgg_echo('missions:to') . $mission->sun_duration . '</br>';
 }
 if (empty($unpacked_time)) {
     $unpacked_time = elgg_echo('missions:none_required');

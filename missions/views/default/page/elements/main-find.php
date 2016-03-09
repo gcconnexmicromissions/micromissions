@@ -53,14 +53,14 @@ $latest_missions .= elgg_view_entity_list(array_slice($entity_list, $offset, $ma
 <div>
 	<?php echo $create_button; ?>
 </div>
-</br>
+<br>
 <div>
 	<?php 
 		echo $simple_search_form;
 		echo $advanced_field;
 	?>
 </div>
-</br>
+<br>
 <div>
 	<h4><?php echo elgg_echo('missions:latest_opportunities'); ?></h4>
 	<?php echo $latest_missions; ?>

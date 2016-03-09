@@ -1,6 +1,7 @@
 This plugin adds micro mission functionality to the GCConnex webpage. 
 Current functionality includes posting a job opportunity, displaying the job opportunity, searching for a job opportunity or candidate with a simple and advanced search, editing a mission, 
 inviting a candidate to a mission, completing or cancelling a mission and providing feedback for a completed mission.
+
 This plugin currently must be placed after missions_organization and requries that plugin to be active.
 
 --------------------------------------------------------------------------------------------------------------
@@ -86,6 +87,21 @@ Completing a mission or clicking on an unfinished feedback link will take the us
 
 5)
 Micro mission edit and post opportunity first form now use the new organization path input found in missions_organization.
+
+6)
+From the main page, users may now click on the Analytics tab which takes them to the graph interval input page.
+
+The graph interval input page allows the user to decide on the graph type they want whcih currently consist of bar or pie graphs.
+Bar graphs also allow the user to input a time period, a start month and year, and an end month and year.
+Pie graphs don't have time inputs. Pie graphs are always for all existing missions.
+
+Once the user has input their graph type they are taken to page with an empty graph and an organization path input.
+Selecting and submitting an organization department will search for all missions connected to that department and that department's children (within the given time range).
+The user will be returned to the page with the department data in the graph. Up to 5 departments can be added to the bar graph and only 1 department can be added to the pie graph.
+The user may also remove any of the added departments via a set of buttons below the graph.
+The user can also download an image of the graph with another button below the graph.
+
+From the main page, users may now click on the Users by opt-in tab in order to search for users according to which opt-in options they have checked in their profile page.
 
 --------------------------------------------------------------------------------------------------------------
 

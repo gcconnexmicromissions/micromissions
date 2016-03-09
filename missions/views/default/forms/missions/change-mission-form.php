@@ -48,10 +48,11 @@ $input_title = elgg_view('input/text', array(
 		'value' => $mission->job_title,
 		'id' => 'edit-mission-title-text-input'
 ));
-$input_type = elgg_view('input/text', array(
+$input_type = elgg_view('input/dropdown', array(
 		'name' => 'job_type',
-		'value' => $mission->job_type,
-		'id' => 'edit-mission-type-text-input'
+		'value' => $job_type,
+		'options' => explode(',', elgg_get_plugin_setting('opportunity_type_string', 'missions')),
+		'id' => 'edit-mission-type-dropdown-input'
 ));
 $input_number_of = elgg_view('input/dropdown', array(
 		'name' => 'number',
@@ -154,7 +155,7 @@ $button_set = mm_create_button_set_full($mission);
 		<label class="col-sm-3" for="edit-mission-title-text-input" style="text-align:right;">
 			<?php echo elgg_echo('missions:opportunity_title') . ':';?>
 		</label> 
-		<div>
+		<div class="col-sm-3">
 			<?php echo $input_title;?>
 		</div>
 	</div>
@@ -162,15 +163,15 @@ $button_set = mm_create_button_set_full($mission);
 		<label class="col-sm-3" for="edit-mission-type-text-input" style="text-align:right;">
 			<?php echo elgg_echo('missions:opportunity_type') . ':';?>
 		</label> 
-		<div>
+		<div class="col-sm-3">
 			<?php echo $input_type;?>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3" for="edit-mission-description-plaintext-input" style="text-align:right;">
-			<?php echo elgg_echo('missions:opportunity_type') . ':';?>
+			<?php echo elgg_echo('missions:opportunity_description') . ':';?>
 		</label> 
-		<div>
+		<div class="col-sm-7">
 			<?php echo $input_description;?>
 		</div>
 	</div>
@@ -182,7 +183,7 @@ $button_set = mm_create_button_set_full($mission);
 		<label class="col-sm-3" for="edit-mission-name-text-input" style="text-align:right;">
 			<?php echo elgg_echo('missions:manager_name')  . ':';?>
 		</label>
-		<div>
+		<div class="col-sm-3">
 			<?php echo $input_name;?>
 		</div>
 	</div>
@@ -190,7 +191,7 @@ $button_set = mm_create_button_set_full($mission);
 		<label class="col-sm-3" for="edit-mission-department-text-input" style="text-align:right;">
 			<?php echo elgg_echo('missions:department')  . ':';?>
 		</label> 
-		<div class="col-sm-7">
+		<div class="col-sm-5">
 			<?php echo $input_department;?>
 		</div>
 	</div>
@@ -198,7 +199,7 @@ $button_set = mm_create_button_set_full($mission);
 		<label class="col-sm-3" for="edit-mission-email-text-input" style="text-align:right;">
 			<?php echo elgg_echo('missions:manager_email') . ':';?>
 		</label>
-		<div>
+		<div class="col-sm-3">
 			<?php echo $input_email;?>
 		</div>
 	</div>
@@ -206,7 +207,7 @@ $button_set = mm_create_button_set_full($mission);
 		<label class="col-sm-3" for="edit-mission-phone-text-input" style="text-align:right;">
 			<?php echo elgg_echo('missions:your_phone') . ':';?>
 		</label> 
-		<div>
+		<div class="col-sm-3">
 			<?php echo $input_phone;?>
 		</div>
 	</div>
@@ -219,7 +220,7 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-number-dropdown-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:opportunity_number')  . ':';?>
 			</label> 
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_number_of;?>
 			</div>
 		</div>
@@ -227,7 +228,7 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-start-date-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:ideal_start_date') . ':';?>
 			</label>
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_start_date;?>
 			</div>
 		</div>
@@ -235,7 +236,7 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-completion-date-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:ideal_completion_date') . ':';?>
 			</label>
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_completion_date;?>
 			</div>
 		</div>
@@ -243,7 +244,7 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-deadline-date-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:deadline') . ':';?>
 			</label>
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_deadline;?>
 			</div>
 		</div>
@@ -251,7 +252,7 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-remotely-checkbox-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:work_remotely') . ':';?>
 			</label>
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_remotely;?>
 			</div>
 		</div>
@@ -259,7 +260,7 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-location-text-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:location') . ':';?>
 			</label> 
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_location;?>
 			</div>
 		</div>
@@ -267,7 +268,7 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-security-dropdown-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:security_level') . ':';?>
 			</label> 
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_security;?>
 			</div>
 		</div>
@@ -299,15 +300,18 @@ $button_set = mm_create_button_set_full($mission);
 			<label class="col-sm-3" for="edit-mission-time-commitment-text-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:time_commitment') . ':';?>
 			</label>
-			<div>
-				<?php echo $input_time_commit . $input_time_interval;?>
+			<div class="col-sm-1">
+				<?php echo $input_time_commit; ?>
+			</div>
+			<div class="col-sm-2">
+				<?php echo $input_time_interval; ?>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3" for="edit-mission-timezone-dropdown-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:timezone') . ':';?>
 			</label>
-			<div>
+			<div class="col-sm-3">
 				<?php echo $input_timezone;?>
 			</div>
 		</div>
@@ -331,7 +335,8 @@ $button_set = mm_create_button_set_full($mission);
 		echo elgg_view('input/submit', array(
 				'value' => elgg_echo('missions:save'),
 				'class' => 'elgg-button btn btn-primary',
-				'style' => 'float:right;'
+				'style' => 'float:right;',
+				'id' => 'mission-edit-form-submission-button'
 		));
 	?> 
 </div>

@@ -35,6 +35,11 @@ $input_simple_text = elgg_view('input/text', array(
 		<?php echo $input_simple_text; ?> 
 	</div>
 	<div style="display:inline-block;vertical-align:middle;">
-		<?php echo elgg_view('input/submit', array('value' => elgg_echo('missions:search'))); ?>
+		<?php 
+			echo elgg_view('input/submit', array(
+					'value' => elgg_echo('missions:search'),
+					'id' => 'mission-simple-search-form-submission-button'
+			)); 
+		?>
 	</div>
 </div>

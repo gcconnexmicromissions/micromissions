@@ -17,6 +17,7 @@ elgg_register_event_handler('init', 'system', missions_init);
 function missions_init()
 {
 	elgg_register_js('typeahead', 'mod/missions/vendors/typeahead/dist/typeahead.bundle.min.js');
+	elgg_register_js('googlecharts', 'mod/missions/vendors/googlecharts/googlecharts.js');
 	
     // Register the custom library of methods for use in the plugin
     elgg_register_library('elgg:missions', elgg_get_plugins_path() . 'missions/lib/missions.php');
@@ -26,9 +27,7 @@ function missions_init()
     elgg_load_library('elgg:missions-searching');
     elgg_load_library('elgg:missions-errors');
 
-    if(elgg_is_active_plugin('missions_organization')) {
-   		elgg_load_library('elgg:missions-organization');
-    }
+   	elgg_load_library('elgg:missions-organization');
 
     //Register to run unit tests
 	register_plugin_hook('unit_test', 'system', 'missions_unit_tests');
@@ -78,6 +77,10 @@ function missions_init()
     elgg_register_action("missions/cancel-mission", elgg_get_plugins_path() . "missions/actions/missions/cancel-mission.php");
     elgg_register_action("missions/reopen-mission", elgg_get_plugins_path() . "missions/actions/missions/reopen-mission.php");
     elgg_register_action("missions/refine-my-missions-form", elgg_get_plugins_path() . "missions/actions/missions/refine-my-missions-form.php");
+    elgg_register_action("missions/graph-interval-form", elgg_get_plugins_path() . "missions/actions/missions/graph-interval-form.php");
+    elgg_register_action("missions/graph-data-form", elgg_get_plugins_path() . "missions/actions/missions/graph-data-form.php");
+    elgg_register_action("missions/remove-department-from-graph", elgg_get_plugins_path() . "missions/actions/missions/remove-department-from-graph.php");
+    elgg_register_action("missions/users-by-opt-in-form", elgg_get_plugins_path() . "missions/actions/missions/users-by-opt-in-form.php");
 
     // Register a new subtype of object for categorizing our mission object.
     elgg_register_entity_type('object', 'mission');
@@ -303,6 +306,18 @@ function missions_main_page_handler($segments)
         case 'mission-candidate-search':
             include elgg_get_plugins_path() . 'missions/pages/missions/mission-candidate-search.php';
             break;
+        case 'graph-interval':
+        	include elgg_get_plugins_path() . 'missions/pages/missions/graph-interval.php';
+        	break;
+        case 'graph-data':
+        	include elgg_get_plugins_path() . 'missions/pages/missions/graph-data.php';
+        	break;
+        case 'graph-department-pie':
+        	include elgg_get_plugins_path() . 'missions/pages/missions/graph-department-pie.php';
+        	break;
+        case 'users-by-opt-in':
+        	include elgg_get_plugins_path() . 'missions/pages/missions/users-by-opt-in.php';
+        	break;
     }
 }
 

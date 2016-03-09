@@ -35,7 +35,8 @@ if($mission->state == 'completed' || $mission->state == 'cancelled') {
 $manager = get_entity($mission->owner_guid);
 $manager_profile = elgg_view('output/url', array(
 		'href' => elgg_get_site_url() . 'profile/' . $manager->username,
-		'text' => $mission->name
+		'text' => $mission->name,
+		'id' => 'mission-user-link-' . $manager->guid
 ));
 ?>
 

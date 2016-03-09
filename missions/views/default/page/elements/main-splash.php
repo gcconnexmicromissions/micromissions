@@ -76,7 +76,8 @@ $advanced_field = elgg_view('page/elements/hidden-field', array(
 				'text' => elgg_echo('missions:missioning'),
 				'is_action' => true,
 				'class' => 'elgg-button btn btn-primary',
-				'style' => 'float:right;'
+				'style' => 'float:right;',
+				'id' => 'mission-opt-in-button'
 		));
 	?>
 </div>

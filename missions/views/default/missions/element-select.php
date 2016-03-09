@@ -56,6 +56,24 @@ else {
         case '':
             break;
         
+        case elgg_echo('missions:opt_in'):
+        	$content .= elgg_view('input/dropdown', array(
+        			'name' => $dropdown_name . '_element',
+        			'value' => '',
+        			'options' => array(
+        					'', 
+        					elgg_echo('gcconnex_profile:opt:micro_mission'), 
+        					elgg_echo('gcconnex_profile:opt:job_swap'), 
+        					elgg_echo('gcconnex_profile:opt:mentored'),
+        					elgg_echo('gcconnex_profile:opt:mentoring'),
+        					elgg_echo('gcconnex_profile:opt:shadowed'),
+        					elgg_echo('gcconnex_profile:opt:shadowing'),
+        					elgg_echo('gcconnex_profile:opt:peer_coached'),
+        					elgg_echo('gcconnex_profile:opt:peer_coaching')
+        			)
+        	));
+        	break;
+            
         case elgg_echo('missions:portfolio'):
             $content .= elgg_view('input/dropdown', array(
                 'name' => $dropdown_name . '_element',

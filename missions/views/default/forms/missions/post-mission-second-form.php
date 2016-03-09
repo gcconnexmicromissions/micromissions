@@ -64,7 +64,7 @@ $input_description = elgg_view('input/plaintext', array(
 	<label for='post-mission-title-text-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:opportunity_title') . '*:';?>
 	</label>
-	<div class="col-sm-9">
+	<div class="col-sm-5">
 		<?php echo $input_title; ?>
 	</div>
 </div>
@@ -72,7 +72,7 @@ $input_description = elgg_view('input/plaintext', array(
 	<label for='post-mission-type-text-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:opportunity_type') . '*:';?>
 	</label>
-	<div class="col-sm-9">
+	<div class="col-sm-3">
 		<?php echo $input_type; ?>
 	</div>
 </div>
@@ -80,7 +80,7 @@ $input_description = elgg_view('input/plaintext', array(
 	<label for='post-mission-number-dropdown-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:opportunity_number') . '*:';?>
 	</label>
-	<div class="col-sm-9">
+	<div class="col-sm-1">
 		<?php echo $input_number_of; ?>
 	</div>
 </div>
@@ -88,7 +88,7 @@ $input_description = elgg_view('input/plaintext', array(
 	<label for='post-mission-start-date-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:ideal_start_date') . '*:';?>
 	</label>
-	<div class="col-sm-9">
+	<div class="col-sm-3">
 		<?php echo $input_start_date; ?>
 	</div>
 </div>
@@ -96,7 +96,7 @@ $input_description = elgg_view('input/plaintext', array(
 	<label for='post-mission-completion-date-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:ideal_completion_date') . '*:';?>
 	</label>
-	<div class="col-sm-9">
+	<div class="col-sm-3">
 		<?php echo $input_completion_date; ?>
 	</div>
 </div>
@@ -104,7 +104,7 @@ $input_description = elgg_view('input/plaintext', array(
 	<label for='post-mission-deadline-date-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:application_deadline') . '*:';?>
 	</label>
-	<div class="col-sm-9">
+	<div class="col-sm-3">
 		<?php echo $input_deadline; ?>
 	</div>
 </div>
@@ -112,7 +112,7 @@ $input_description = elgg_view('input/plaintext', array(
 	<label for='post-mission-description-plaintext-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:opportunity_description') . ':';?>
 	</label>
-	<div class="col-sm-9">
+	<div class="col-sm-7">
 		<?php echo $input_description; ?>
 	</div>
 </div>
@@ -120,14 +120,16 @@ $input_description = elgg_view('input/plaintext', array(
 <div> 
 	<?php
 		echo elgg_view('output/url', array(
-			'href' => elgg_get_site_url() . 'missions/mission-post/step-one',
-			'text' => elgg_echo('missions:back'),
-			'class' => 'elgg-button btn btn-default'
+				'href' => elgg_get_site_url() . 'missions/mission-post/step-one',
+				'text' => elgg_echo('missions:back'),
+				'class' => 'elgg-button btn btn-default',
+				'id' => 'mission-post-opportunity-second-form-back-button'
 		));
 		echo elgg_view('input/submit', array(
-			'value' => elgg_echo('missions:next'),
-			'class' => 'elgg-button btn btn-primary',
-			'style' => 'float:right;'
+				'value' => elgg_echo('missions:next'),
+				'class' => 'elgg-button btn btn-primary',
+				'style' => 'float:right;',
+				'id' => 'mission-post-opportunity-second-form-submission-button'
 		)); 
 	?> 
 </div>
