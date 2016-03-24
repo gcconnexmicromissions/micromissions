@@ -25,7 +25,9 @@ $input_dropdown = elgg_view('input/dropdown', array(
         		elgg_echo('gcconnex_profile:opt:shadowed'),
         		elgg_echo('gcconnex_profile:opt:shadowing'),
         		elgg_echo('gcconnex_profile:opt:peer_coached'),
-        		elgg_echo('gcconnex_profile:opt:peer_coaching')
+        		elgg_echo('gcconnex_profile:opt:peer_coaching'),
+        		elgg_echo('gcconnex_profile:opt:skill_sharing'),
+        		elgg_echo('gcconnex_profile:opt:job_sharing')
         )
 ));
 ?>

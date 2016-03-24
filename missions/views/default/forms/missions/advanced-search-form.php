@@ -42,6 +42,7 @@ if($_SESSION['mission_search_switch'] == 'candidate') {
     }
     
     $subtitle = elgg_echo('missions:advanced_search_for_candidates');
+	$limit_options = array(10,25,50,100);
 }
 else {
     $search_fields = array(
@@ -56,11 +57,21 @@ else {
 	        elgg_echo('missions:time'),
 	        elgg_echo('missions:period'),
 	        elgg_echo('missions:start_time'),
-	        elgg_echo('missions:duration')
+	        elgg_echo('missions:duration'),
+	        elgg_echo('missions:work_remotely'),
+	        elgg_echo('missions:program_area')
     );
     
     $subtitle = elgg_echo('missions:advanced_search_for_opportunities');
+	$limit_options = array(9,18,30,60,120);
 }
+
+$input_advanced_limit = elgg_view('input/dropdown', array(
+		'name' => 'limit',
+		'value' => $limit,
+		'options' => $limit_options,
+		'id' => 'search-mission-limit-dropdown-input'
+));
 
 $number_of_rows = elgg_get_plugin_setting('advanced_element_limit', 'missions');
 $content = '<div class="form-group">';
@@ -87,15 +98,21 @@ for ($i = 0; $i < $number_of_rows; $i ++) {
     $content .= '<noscript>';
     $content .= elgg_view('input/text', array(
         'name' => 'backup_' . $i,
-        'value' => $variable_array[$i],
+        'value' => '',
         'id' => 'search-mission-advanced-selection-' . $i . '-dropdown-input-backup'
     ));
     $content .= '</noscript></div>';
 }
 $content .= '</table>';
+
+$hidden_input = elgg_view('input/hidden', array(
+    'name' => 'hidden_return',
+    'value' => $vars['return_to_referer']
+));
 ?>
 
 <h4><?php echo $subtitle . ':'; ?></h4>
+<?php echo $hidden_input; ?>
 <?php echo $content; ?>
 <p>
 	<?php echo elgg_echo('missions:advanced_note_paragraph_one'); ?>
@@ -105,6 +122,11 @@ $content .= '</table>';
 	<?php echo elgg_echo('missions:advanced_note_paragraph_two'); ?>
 </p>
 </noscript>
+
+<label for="search-mission-limit-dropdown-input" style="display:inline-block;"><?php echo elgg_echo('missions:search_limit') . ': '; ?></label>
+<div style="display:inline-block">
+	<?php echo $input_advanced_limit; ?>
+</div>
 
 <div style="text-align:right;"> 
 	<?php

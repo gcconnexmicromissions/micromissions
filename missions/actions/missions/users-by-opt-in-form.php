@@ -40,6 +40,12 @@ switch($option) {
 	case elgg_echo('gcconnex_profile:opt:peer_coaching'):
 		$name_option = 'opt_in_peer_coaching';
 		break;
+	case elgg_echo('gcconnex_profile:opt:skill_sharing'):
+		$name_option = 'opt_in_skill_sharing';
+		break;
+	case elgg_echo('gcconnex_profile:opt:job_sharing'):
+		$name_option = 'opt_in_job_sharing';
+		break;
 }
 	
 $options_attribute['type'] = 'user';

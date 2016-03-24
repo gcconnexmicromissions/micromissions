@@ -42,7 +42,7 @@ $advanced_search_form = elgg_view_form('missions/advanced-search-form', array(
 		'class' => 'form-horizontal'
 ));
 $advanced_field = elgg_view('page/elements/hidden-field', array(
-		'toggle_text' => elgg_echo('missions:filter_search'),
+		'toggle_text' => elgg_echo('missions:advanced_search'),
 		'toggle_id' => 'advanced-search',
 		'hidden_content' => $advanced_search_form
 ));

@@ -89,10 +89,14 @@
 	vertical-align: middle;
 } 
 
+.mission-gallery {
+	vertical-align:baseline
+}
+
 .mission-gallery li {
 	padding: 10px; 
 	border-bottom: none; 
-	vertical-align: top; 
+	vertical-align: baseline; 
 }
 
 .pagination {
@@ -122,6 +126,12 @@
 	width: 94%;
 }
 
+.mission-user-card-info {
+	position:absolute;
+	bottom: 50px;
+	text-align:center;
+}
+
 .mission-hr {
 	color: #af3c43;
 	border-color: #af3c43;
@@ -134,7 +144,7 @@ li.link-disabled a {
 }
 
 .mission-tab > li {
-	width: 25%;
+	width: 20%;
 	text-align: center;
 }
 
@@ -157,6 +167,8 @@ li.link-disabled a {
     font-size: 18px;
     line-height: 24px;
 }
+
+
 
 #mission-graph-spinner {
 	display:none;

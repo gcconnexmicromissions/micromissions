@@ -21,7 +21,7 @@ $advanced_search_form = elgg_view_form('missions/advanced-search-form', array(
 		'class' => 'form-horizontal'
 ));
 $advanced_field = elgg_view('page/elements/hidden-field', array(
-		'toggle_text' => elgg_echo('missions:filter_search'),
+		'toggle_text' => elgg_echo('missions:advanced_search'),
 		'toggle_id' => 'advanced-search',
 		'hidden_content' => $advanced_search_form,
 		'field_bordered' => true
@@ -65,4 +65,4 @@ $latest_missions .= elgg_view_entity_list(array_slice($entity_list, $offset, $ma
 	<h4><?php echo elgg_echo('missions:latest_opportunities'); ?></h4>
 	<?php echo $latest_missions; ?>
 </div>
-
+<div hidden name="mission-total-count"><?php echo $count; ?></div>

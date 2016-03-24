@@ -1009,6 +1009,8 @@ function saveProfile(event) {
             opt_in_set[5] = $options.find('#gcconnex-opt-in-shadowing-check').is(':checked');
             opt_in_set[6] = $options.find('#gcconnex-opt-in-peer-coached-check').is(':checked');
             opt_in_set[7] = $options.find('#gcconnex-opt-in-peer-coaching-check').is(':checked');
+            opt_in_set[8] = $options.find('#gcconnex-opt-in-skill-sharing-check').is(':checked');
+            opt_in_set[9] = $options.find('#gcconnex-opt-in-job-sharing-check').is(':checked');
                     
             for(i=0;i<opt_in_set.length;i++) {
                 if(opt_in_set[i]) {

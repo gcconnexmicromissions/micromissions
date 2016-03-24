@@ -81,6 +81,7 @@ function missions_init()
     elgg_register_action("missions/graph-data-form", elgg_get_plugins_path() . "missions/actions/missions/graph-data-form.php");
     elgg_register_action("missions/remove-department-from-graph", elgg_get_plugins_path() . "missions/actions/missions/remove-department-from-graph.php");
     elgg_register_action("missions/users-by-opt-in-form", elgg_get_plugins_path() . "missions/actions/missions/users-by-opt-in-form.php");
+    elgg_register_action("missions/wire-post", elgg_get_plugins_path() . "missions/actions/missions/wire-post.php");
 
     // Register a new subtype of object for categorizing our mission object.
     elgg_register_entity_type('object', 'mission');
@@ -318,6 +319,9 @@ function missions_main_page_handler($segments)
         case 'users-by-opt-in':
         	include elgg_get_plugins_path() . 'missions/pages/missions/users-by-opt-in.php';
         	break;
+        case 'archive':
+        	include elgg_get_plugins_path() . 'missions/pages/missions/archive.php';
+        	break;
     }
 }
 
@@ -352,11 +356,16 @@ function mission_set_url($hook, $type, $returnvalue, $params) {
 function alter_mission_user_view($hook, $type, $returnvalue, $params) {
     $current_uri = $_SERVER['REQUEST_URI'];
     
-    if(strpos($current_uri, 'display-search-set') === false) {
+    if(strpos($current_uri, 'missions') === false) {
         return $returnvalue;
     }
     else {
-        return $returnvalue . elgg_view('user/mission-candidate', array('user' => $params['vars']['entity']));
+    	if(strpos($current_uri, 'missions/view') === false && strpos($current_uri, 'missions/mission-invitation') === false && strpos($current_uri, 'missions/mission-edit') === false) {
+        	return elgg_view('user/mission-candidate', array('user' => $params['vars']['entity']));
+    	}
+    	else {
+    		return $returnvalue;
+    	}
     }
 }
 

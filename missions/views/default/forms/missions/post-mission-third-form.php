@@ -38,15 +38,16 @@ $input_remotely = elgg_view('input/checkbox', array(
 	    'checked' => $remotely,
 	    'id' => 'post-mission-remotely-checkbox-input'
 ));
-$input_location = elgg_view('input/text', array(
+$input_location = elgg_view('input/dropdown', array(
 	    'name' => 'location',
 	    'value' => $location,
+	    'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('province_string', 'missions')),
 	    'id' => 'post-mission-location-text-input'
 ));
 $input_security = elgg_view('input/dropdown', array(
 	    'name' => 'security',
 	    'value' => $security,
-	    'options' => explode(',', elgg_get_plugin_setting('security_string', 'missions')),
+	    'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('security_string', 'missions')),
 	    'id' => 'post-mission-security-dropdown-input'
 ));
 $input_timezone = elgg_view('input/dropdown', array(
@@ -65,7 +66,7 @@ $input_time_commit = elgg_view('input/text', array(
 $input_time_interval = elgg_view('input/dropdown', array(
 		'name' => 'time_interval',
 		'value' => $time_interval,
-		'options' => explode(',', elgg_get_plugin_setting('time_rate_string', 'missions')),
+		'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('time_rate_string', 'missions')),
 		'id' => 'post-mission-time-interval-dropdown-input',
 		'style' => 'display:inline-block;margin-left:4px;'
 ));
@@ -161,7 +162,7 @@ $add_skill_button = elgg_view('output/url', array(
 <div> 
 	<?php
 		echo elgg_view('output/url', array(
-				'href' => elgg_get_site_url() . 'missions/mission-post/step-one',
+				'href' => elgg_get_site_url() . 'missions/mission-post/step-two',
 				'text' => elgg_echo('missions:back'),
 				'class' => 'elgg-button btn btn-default',
 				'id' => 'mission-post-opportunity-third-form-back-button'

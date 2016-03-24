@@ -45,12 +45,11 @@ $missions_list = '<div style="display:block;">' . elgg_view_entity_list(array_sl
 		'limit' => $max,
 		'pagination' => true,
 		'list_type' => 'gallery',
-		'gallery_class' => 'mission-gallery',
 		'mission_full_view' => false
 ), $offset, $max) . '</div>';
 
 // Form which gives options to refine or unrefine the missions displayed.
-$refine_missions_form .= elgg_view_form('missions/refine-my-missions-form', array(
+$refine_missions_form = elgg_view_form('missions/refine-my-missions-form', array(
 		'class' => 'form-horizontal'
 ));
 
@@ -70,3 +69,4 @@ $unfinished_feedback = elgg_view('page/elements/unfinished-feedback', array(
 <div class="col-sm-offset-1">
 	<?php echo $refine_missions_form; ?>
 </div>
+<div hidden name="mission-total-count"><?php echo $count; ?></div>

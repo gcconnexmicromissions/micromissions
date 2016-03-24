@@ -95,7 +95,7 @@ for($i=1;$i<count($data_array);$i++) {
 			'text' => elgg_echo('missions:remove') . ' ' . $abbr,
 		    'is_action' => true,
 			'class' => 'elgg-button btn btn-danger',
-			'confirm' => true
+			'confirm' => elgg_echo('missions:confirm:remove_department')
 	)) . '</div>';
 	
 	/*$content .= '<div id="pie-graph-button-department-' . $i . '" style="display:inline-block;">' . elgg_view('output/url', array(

@@ -11,15 +11,28 @@
  * Form which allows a manager to modify their mission.
  * This form includes all the same input fields as the post opportunity forms and they are formatted similarly..
  */
- 
+
 $mission = $vars['entity'];
 $unpacked = mm_unpack_mission($mission);
 $vars['mission_metadata'] = $unpacked;
 elgg_load_js('typeahead');
 
+$department_string = $mission->department;
+$ancestor_array = mo_get_all_ancestors($department_string);
+$progenitor = get_entity($ancestor_array[0]);
+
+$department_abbr = $progenitor->abbr;
+if(get_current_language() == 'fr') {
+	$department_abbr = $progenitor->abbr_french;
+}
+
 $remotely = false;
 if($mission->remotely == 'on') {
 	$remotely = true;
+}
+$openess = false;
+if($mission->openess == 'on') {
+	$openess = true;
 }
 
 $input_name = elgg_view('input/text', array(
@@ -50,9 +63,15 @@ $input_title = elgg_view('input/text', array(
 ));
 $input_type = elgg_view('input/dropdown', array(
 		'name' => 'job_type',
-		'value' => $job_type,
-		'options' => explode(',', elgg_get_plugin_setting('opportunity_type_string', 'missions')),
+		'value' => $mission->job_type,
+		'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('opportunity_type_string', 'missions')),
 		'id' => 'edit-mission-type-dropdown-input'
+));
+$input_area = elgg_view('input/dropdown', array(
+	    'name' => 'job_area',
+	    'value' => $mission->program_area,
+		'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('program_area_string', 'missions')),
+	    'id' => 'edit-mission-area-dropdown-input'
 ));
 $input_number_of = elgg_view('input/dropdown', array(
 		'name' => 'number',
@@ -80,21 +99,27 @@ $input_description = elgg_view('input/plaintext', array(
 		'value' => $mission->description,
 		'id' => 'edit-mission-description-plaintext-input'
 ));
+$input_openess = elgg_view('input/checkbox', array(
+	    'name' => 'openess',
+	    'checked' => $openess,
+	    'id' => 'edit-mission-openess-checkbox-input'
+));
 
 $input_remotely = elgg_view('input/checkbox', array(
 		'name' => 'remotely',
 		'checked' => $remotely,
 		'id' => 'edit-mission-remotely-checkbox-input'
 ));
-$input_location = elgg_view('input/text', array(
+$input_location = elgg_view('input/dropdown', array(
 		'name' => 'location',
 		'value' => $mission->location,
-		'id' => 'edit-mission-location-text-input'
+	    'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('province_string', 'missions')),
+		'id' => 'edit-mission-location-dropdown-input'
 ));
 $input_security = elgg_view('input/dropdown', array(
 		'name' => 'security',
 		'value' => $mission->security,
-		'options' => explode(',', elgg_get_plugin_setting('security_string', 'missions')),
+		'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('security_string', 'missions')),
 		'id' => 'edit-mission-security-dropdown-input'
 ));
 $input_timezone = elgg_view('input/dropdown', array(
@@ -117,7 +142,7 @@ $input_time_commit = elgg_view('input/text', array(
 $input_time_interval = elgg_view('input/dropdown', array(
 		'name' => 'time_interval',
 		'value' => $mission->time_interval,
-		'options' => explode(',', elgg_get_plugin_setting('time_rate_string', 'missions')),
+		'options_values' => mm_echo_explode_setting_string(elgg_get_plugin_setting('time_rate_string', 'missions')),
 		'id' => 'edit-mission-time-interval-dropdown-input',
 		'style' => 'display:inline-block;margin-left:4px;'
 ));
@@ -217,6 +242,14 @@ $button_set = mm_create_button_set_full($mission);
 			<h4><?php echo elgg_echo('mission:opportunity_details') . ':'; ?></h4>
 		</div>
 		<div class="form-group">
+			<label for='edit-mission-area-dropdown-input' class="col-sm-3" style="text-align:right;">
+				<?php echo elgg_echo('missions:program_area') . ':';?>
+			</label>
+			<div class="col-sm-3">
+				<?php echo $input_area; ?>
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="col-sm-3" for="edit-mission-number-dropdown-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:opportunity_number')  . ':';?>
 			</label> 
@@ -257,7 +290,15 @@ $button_set = mm_create_button_set_full($mission);
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-3" for="edit-mission-location-text-input" style="text-align:right;">
+			<label for='edit-mission-openess-checkbox-input' class="col-sm-3" style="text-align:right;">
+				<?php echo elgg_echo('missions:openess_sentence', array($department_abbr)) . ':';?>
+			</label>
+			<div class="col-sm-7">
+				<?php echo $input_openess; ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3" for="edit-mission-location-dropdown-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:location') . ':';?>
 			</label> 
 			<div class="col-sm-3">
@@ -320,18 +361,25 @@ $button_set = mm_create_button_set_full($mission);
 		<?php echo $time_content; ?>
 	</div>
 	</br>
-	</br>
-	<div>
-		<?php
-			foreach ($button_set as $value) {
-			    echo $value;
-			}
-		?>
-	</div>
 </div>
 
-<div style="text-align:right;"> 
+<div style="float:left;display:inline">
 	<?php
+		foreach ($button_set as $value) {
+			echo $value;
+		}
+	?>
+</div>
+<div style="float:right;display:inline;">
+	<?php
+		echo elgg_view('output/url', array(
+				'href' => $_SERVER['HTTP_REFERER'],
+				'text' => elgg_echo('missions:cancel_changes'),
+				'class' => 'elgg-button btn btn-danger',
+				'id' => 'mission-edit-form-cancel-changes-button',
+				'style' => 'margin-right:10px;'
+		));
+	
 		echo elgg_view('input/submit', array(
 				'value' => elgg_echo('missions:save'),
 				'class' => 'elgg-button btn btn-primary',

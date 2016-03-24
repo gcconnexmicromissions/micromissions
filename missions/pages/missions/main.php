@@ -33,9 +33,14 @@ else {
 	
 	$highlight_one = false;
 	$highlight_two = false;
+	$highlight_three = false;
 	
 	// The opted in main page has a regular view and a my missions view.
 	switch($last_segment) {
+		case 'members':
+			$main_content = elgg_view('page/elements/main-members');
+			$highlight_three = true;
+			break;
 		case 'mine':
 			$main_content = elgg_view('page/elements/main-mine');
 			$highlight_two = true;
@@ -53,21 +58,32 @@ else {
 					'id' => 'mission-navigate-to-find-opportunity'
 			),
 			array(
+					'text' => elgg_echo('missions:find_members'),
+					'href' => elgg_get_site_url() . 'missions/main/members',
+					'selected' => $highlight_three,
+					'id' => 'mission-navigate-to-member-search'
+			),
+			array(
 					'text' => elgg_echo('missions:my_opportunities'),
 					'href' => elgg_get_site_url() . 'missions/main/mine',
 					'selected' => $highlight_two,
 					'id' => 'mission-navigate-to-my-opportunities'
 			),
 			array(
+					'text' => elgg_echo('missions:archive'),
+					'href' => elgg_get_site_url() . 'missions/archive',
+					'id' => 'mission-navigate-to-archive'
+			),
+			array(
 					'text' => elgg_echo('missions:analytics'),
 					'href' => elgg_get_site_url() . 'missions/graph-interval',
 					'id' => 'mission-navigate-to-analytics'
-			),
+			)/*,
 			array(
 					'text' => elgg_echo('missions:users_by_opt_in'),
 					'href' => elgg_get_site_url() . 'missions/users-by-opt-in',
 					'id' => 'mission-navigate-to-users-by-opt-in'
-			)
+			)*/
 	);
 	
 	$content .= elgg_view('navigation/tabs', array(
@@ -76,13 +92,15 @@ else {
 	));
 	
 	// Links to the post opportunity pages.
-	$content .= elgg_view('output/url', array(
-			'href' => elgg_get_site_url() . 'missions/mission-post',
-			'text' => elgg_echo('missions:create_opportunity'),
-			'class' => 'elgg-button btn btn-primary',
-			'style' => 'float:right;',
-			'id' => 'mission-create-opportunity-button'
-	)) . '</br>';
+	if($last_segment != 'members') {
+		$content .= elgg_view('output/url', array(
+				'href' => elgg_get_site_url() . 'missions/mission-post',
+				'text' => elgg_echo('missions:create_opportunity'),
+				'class' => 'elgg-button btn btn-primary',
+				'style' => 'float:right;',
+				'id' => 'mission-create-opportunity-button'
+		)) . '</br>';
+	}
 	
 	$content .= $main_content;
 	
