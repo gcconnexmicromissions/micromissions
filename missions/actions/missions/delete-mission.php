@@ -15,6 +15,7 @@ $guid = (int) get_input('mission_guid');
 $mission = get_entity($guid);
 $mission_count = $_SESSION['mission_count'];
 $mission_set = $_SESSION['mission_search_set'];
+$from_admin = get_input('MISSION_ADMIN_ACTION_FLAG');
 
 $key = '';
 // If the element is in a currently saved search set then we remove it from the set.
@@ -26,5 +27,11 @@ if (($key = array_search($mission, $mission_set)) !== false) {
 $_SESSION['mission_count'] = $mission_count;
 $_SESSION['mission_search_set'] = $mission_set;
 
+system_message(elgg_echo('missions:has_been_deleted', array($mission->job_title)));
+
 $mission->delete();
+
+if($from_admin) {
+	forward(REFERER);
+}
 forward(elgg_get_site_url() . 'missions/main');
