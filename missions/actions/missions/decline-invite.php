@@ -17,7 +17,7 @@ $manager = get_user($mission->owner_guid);
 $reason = get_input('reason');
 if($reason == 'missions:other') {
 	$reason = get_input('other_text');
-	if(empty(trim($reason))) {
+	if(trim($reason) == '') {
 		$reason = elgg_echo('missions:none_given');
 	}
 }
