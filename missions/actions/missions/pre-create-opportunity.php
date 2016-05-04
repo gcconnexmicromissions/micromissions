@@ -7,10 +7,7 @@
  * Copyright: Her Majesty the Queen in Right of Canada, 2015
  */
 
-/*
- * Sets the number of mission or candidate entities seen on a single page.
- */
-$typing = get_input('hidden_type');
-$_SESSION[$typing . '_entities_per_page'] = get_input('number_per');
+$_SESSION['mission_uncheck_post_mission_disclaimer'] = true;
+unset($_SESSION['tab_context']);
 
-forward(REFERER);
+forward(elgg_get_site_url() . 'missions/mission-post');
