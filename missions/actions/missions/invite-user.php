@@ -54,17 +54,12 @@ if($applicant->opt_in_missions != 'gcconnex_profile:opt:yes') {
 
 if($err == '') {
 	$invitation_link = elgg_view('output/url', array(
-			'href' => elgg_get_site_url() . 'missions/mission-invitation/' . $mission->guid,
+			'href' => elgg_get_site_url() . 'missions/view/' . $mission->guid,
 			'text' => elgg_echo('missions:mission_invitation')
 	));
 	
 	$subject = $mission->name . elgg_echo('missions:invited_you', array(), $applicant->language) . $mission->title;
 	$body = $invitation_link;
-	$params = array(
-			'object' => $mission,
-			'action' => 'invite-user',
-			'summary' => $subject
-	);
 	
 	mm_notify_user($applicant->guid, $mission->guid, $subject, $body);
 	

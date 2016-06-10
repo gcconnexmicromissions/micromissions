@@ -17,11 +17,11 @@ $current_uri = $_SERVER['REQUEST_URI'];
 $blast_radius = explode('/', $current_uri);
 $entity = get_entity(array_pop($blast_radius));
 
-$title = elgg_echo('missions:apply_for_mission', array(elgg_get_excerpt($entity->job_title, elgg_get_plugin_setting('mission_job_title_card_cutoff', 'missions'))));
+$title = elgg_echo('missions:apply_for_mission', array($entity->job_title));
 
 elgg_push_breadcrumb(elgg_echo('missions:micromissions'), elgg_get_site_url() . 'missions/main');
 elgg_push_breadcrumb(elgg_get_excerpt($entity->job_title, elgg_get_plugin_setting('mission_job_title_card_cutoff', 'missions')), $entity->getURL());
-elgg_push_breadcrumb($title);
+elgg_push_breadcrumb(elgg_echo('missions:application'));
 
 $content = elgg_view_title($title);
 

@@ -14,7 +14,6 @@ gatekeeper();
 
 $search_typing = $_SESSION['mission_search_switch'];
 
-
 if($_SESSION[$search_typing . '_entities_per_page']) {
 	$entities_per_page = $_SESSION[$search_typing . '_entities_per_page'];
 }
@@ -56,6 +55,7 @@ if($search_typing == 'mission') {
     $list_class = 'mission-gallery';
 }
 
+// Function which sorts the search set according to a given value in ascending or descending order.
 $search_set = mm_sort_mission_decider($_SESSION['missions_sort_field_value'], $_SESSION['missions_order_field_value'], $search_set);
 
 $content = elgg_view_title($title);
@@ -91,6 +91,7 @@ $content .= '<div class="col-sm-12">' . elgg_view_form('missions/change-entities
 		'number_per' => $entities_per_page
 )) . '</div>';
 
+// Only displays sort form if the search set is missions.
 if($search_typing == 'mission') {
 	$content .= '<div class="col-sm-12">' . elgg_view_form('missions/sort-missions-form', array(
 			'class' => 'form-horizontal'

@@ -38,7 +38,7 @@ if(elgg_get_logged_in_user_entity()->opt_in_missions == 'gcconnex_profile:opt:ye
 	if(elgg_get_plugin_setting('mission_analytics_on', 'missions') != 'NO') {
 		$navigation_tabs[4] = array(
 				'text' => elgg_echo('missions:analytics'),
-				'href' => elgg_get_site_url() . 'missions/graph-interval',
+				'href' => elgg_get_site_url() . 'missions/main/analytics',
 				'selected' => $vars['highlight_five'],
 				'id' => 'mission-navigate-to-analytics'
 		);

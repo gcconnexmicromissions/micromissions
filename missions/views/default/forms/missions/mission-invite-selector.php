@@ -39,7 +39,7 @@ $hidden_user_guid = elgg_view('input/hidden', array(
 		echo elgg_view('input/submit', array(
 				'value' => elgg_echo('missions:invite_to_apply'),
 				'id' => 'invitable-missions-submission-button-' . $user_guid,
-				'style' => 'width:100%;'
+				'style' => 'width:100%;height:100%;'
 		));
 		echo elgg_view('page/elements/one-click-restrictor', array('restricted_element_id' => 'invitable-missions-submission-button-' . $user_guid));
 	?>

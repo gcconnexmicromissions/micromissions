@@ -42,7 +42,7 @@ foreach ($applicant_relationships as $applicant_relation) {
 						'class' => 'elgg-button btn btn-danger',
 						'style' => 'width:120px;margin:4px;',
 						'id' => 'fill-mission-applicant-' . $applicant_relation->guid_two . '-remove-button',
-						'confirm' => elgg_echo('missions:confirm:remove_participant')
+						'confirm' => elgg_echo('missions:placeholder_i')
 				)) . '</div>';
 			}
 		}
@@ -120,7 +120,7 @@ foreach ($applicant_relationships as $applicant_relation) {
 							'class' => 'elgg-button btn btn-danger',
 							'style' => 'width:120px;margin:4px;',
 							'id' => 'fill-mission-applicant-' . $applicant_relation->guid_two . '-remove-button',
-							'confirm' => elgg_echo('missions:confirm:remove_applicant')
+							'confirm' => elgg_echo('missions:placeholder_i2')
 					));
 					
 					$tentative .= '</div>';

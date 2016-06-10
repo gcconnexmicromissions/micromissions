@@ -71,6 +71,8 @@ else {
 if ($err != '') {
     register_error($err);
 }
+else {
+	system_message(elgg_echo('missions:acceptance_has_been_sent', array($mission->job_title)));
+}
 
-system_message(elgg_echo('missions:acceptance_has_been_sent', array($mission->job_title)));
 forward($mission->getURL());

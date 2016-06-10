@@ -103,12 +103,6 @@ $content = elgg_view_title($title);
 
 $content .= elgg_view('page/elements/mission-tabs');
 
-/*$skill_match_override = $_SESSION['mission_skill_match_is_interlude'];
-if($skill_match_override) {
-	unset($_SESSION['mission_skill_match_is_interlude']);
-	$content .= elgg_view('page/elements/skill-match-interlude');
-}*/
-
 $content .= elgg_view('navigation/tabs', array(
 		'class' => 'elgg-menu elgg-menu-filter list-inline mrgn-lft-sm elgg-menu-filter-default mission-tab',
 		'tabs' => $navigation_tabs
