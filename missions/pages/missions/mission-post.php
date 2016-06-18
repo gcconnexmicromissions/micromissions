@@ -16,7 +16,7 @@ gatekeeper();
 
 $disclaimer_uncheck = $_SESSION['mission_uncheck_post_mission_disclaimer'];
 
-if(elgg_get_logged_in_user_entity()->opt_in_missions != 'gcconnex_profile:opt:yes') {
+if(!check_if_opted_in(elgg_get_logged_in_user_entity())) {
 	forward(elgg_get_site_url() . 'missions/main');
 }
 

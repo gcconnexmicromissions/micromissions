@@ -43,7 +43,7 @@ $input_order_field = elgg_view('input/dropdown', array(
 ));
 ?>
 
-<div class="col-sm-5" style="border:solid;padding:4px;">
+<div class="col-sm-12" style="border:solid;padding:4px;">
 	<div>
 		<label for="missions-sort-missions-sort-field-text-input" class="col-sm-6" style="margin:4px;">
 			<?php echo elgg_echo('missions:sort_by') . ': '; ?>

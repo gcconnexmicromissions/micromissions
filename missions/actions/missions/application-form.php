@@ -175,7 +175,7 @@ else {
 	}
 	
 	// Opt in applicant if they are not opted in yet.
-	if($applicant->opt_in_missions != 'gcconnex_profile:opt:yes') {
+	if(!check_if_opted_in($applicant)) {
 		$applicant->opt_in_missions = 'gcconnex_profile:opt:yes';
 		$applicant->save();
 	}

@@ -269,7 +269,7 @@ function mm_create_button_set_base($mission, $full_view=false) {
 		}
 	}
 	else {
-		if(elgg_get_logged_in_user_entity()->opt_in_missions == 'gcconnex_profile:opt:yes') {
+		if(check_if_opted_in(elgg_get_logged_in_user_entity())) {
 			$button_three = '<div id="duplicate-button-mission-' . $mission->guid . '" name="duplicate-button" style="display:inline-block;">' . elgg_view('output/url', array(
 					'href' => elgg_get_site_url() . 'action/missions/duplicate-mission?mid=' . $mission->guid,
 					'text' => elgg_echo('missions:duplicate'),
@@ -518,7 +518,8 @@ function mm_get_invitable_missions($user_guid) {
 		$invited_already = false;
 		if(check_entity_relationship($entity->guid, 'mission_accepted', $user_guid) ||
 				check_entity_relationship($entity->guid, 'mission_applied', $user_guid) ||
-				check_entity_relationship($entity->guid, 'mission_tentative', $user_guid)) {
+				check_entity_relationship($entity->guid, 'mission_tentative', $user_guid) ||
+				check_entity_relationship($entity->guid, 'mission_offered', $user_guid)) {
 			$invited_already = true;
 		}
 		
@@ -689,7 +690,7 @@ function mm_cmp_mission_by_type($a, $b) {
 	if(elgg_echo($a->job_type) == elgg_echo($b->job_type)) {
 		return 0;
 	}
-	return (elgg_echo($a->job_type) < elgg_echo($b->job_type)) ? -1 : 1;
+	return (elgg_echo($a->job_type) < elgg_echo($b->job_type)) ? 1 : -1;
 }
 
 /*
@@ -699,7 +700,7 @@ function mm_cmp_mission_by_posted_date($a, $b) {
 	if($a->time_created == $b->time_created) {
 		return 0;
 	}
-	return ($a->time_created < $b->time_created) ? -1 : 1;
+	return ($a->time_created < $b->time_created) ? 1 : -1;
 }
 /*
  * Compares missions by the closing timestamp.
@@ -708,7 +709,7 @@ function mm_cmp_mission_by_closed_date($a, $b) {
 	if($a->time_closed == $b->time_closed) {
 		return 0;
 	}
-	return ($a->time_closed < $b->time_closed) ? -1 : 1;
+	return ($a->time_closed < $b->time_closed) ? 1 : -1;
 }
 
 /*
@@ -718,5 +719,28 @@ function mm_cmp_mission_by_deadline($a, $b) {
 	if($a->deadline == $b->deadline) {
 		return 0;
 	}
-	return ($a->deadline < $b->deadline) ? -1 : 1;
+	return ($a->deadline < $b->deadline) ? 1 : -1;
+}
+
+function check_if_opted_in($current_user) {
+	if($current_user->opt_in_missions == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+	if($current_user->opt_in_swap == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+	if($current_user->opt_in_mentored == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+	if($current_user->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+	if($current_user->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+	if($current_user->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+	
+	return false;
 }

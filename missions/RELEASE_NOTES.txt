@@ -187,6 +187,19 @@ Some additional bugs were found and fixed and two minor feedback points were imp
 
 Some code for analytics is present but it is still in its development stage.
 
+12)
+Users may now opt-in to any opt-in option to gain access to the plugin (no longer just Micro-Missions).
+
+When searching for a user to invite to an opportunity, managers without an active opportunity will no longer have an empty dropdown appear next to the user display in the search results.
+
+All users now see the number of applicants in the opportunity view.
+If there are 0 applicants then it still displays 'Nobody'.
+
+The sort box is now displayed like advanced search.
+If a user clicks on sort options above and to the right of the opportunity cards, then the full sort box will be displayed.
+
+Additional minor bug fixes were made in order to match feedback given on Saturday June 18th.
+
 --------------------------------------------------------------------------------------------------------------
 
 SOLUTIONS:

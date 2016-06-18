@@ -19,6 +19,7 @@ function missions_init()
 	elgg_register_js('typeahead', 'mod/missions/vendors/typeahead/dist/typeahead.bundle.min.js');
 	//elgg_register_js('googlecharts', 'mod/missions/vendors/googlecharts/googlecharts.js');
 	elgg_register_js('missions_flot', 'mod/wet4/js/deps/jquery.flot.js');
+	elgg_register_js('missions_flot_stack_patched', 'mod/missions/vendors/flot_extra/jquery.flot.stack.patched.js');
 	
     // Register the custom library of methods for use in the plugin
     elgg_register_library('elgg:missions', elgg_get_plugins_path() . 'missions/lib/missions.php');
@@ -105,7 +106,7 @@ function missions_init()
     elgg_register_menu_item('site', array(
     		'name' => 'mission_main',
     		'href' => elgg_get_site_url() . 'missions/main',
-    		'text' => elgg_echo('missions:micromissions')
+    		'text' => elgg_echo('missions:micromissions_menu')
     ));
     
     // Adds a menu item to the admin page under the administer section in the right hand bar.

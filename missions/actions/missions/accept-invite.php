@@ -60,7 +60,7 @@ else {
 			mm_notify_user($mission->guid, $applicant->guid, $subject, $body);
 			
 			// Opts in the candidate if they are not opted in already.
-			if($applicant->opt_in_missions != 'gcconnex_profile:opt:yes') {
+			if(!check_if_opted_in($applicant)) {
 				$applicant->opt_in_missions = 'gcconnex_profile:opt:yes';
 				$applicant->save();
 			}

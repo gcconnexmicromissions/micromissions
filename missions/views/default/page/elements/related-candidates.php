@@ -127,17 +127,25 @@ foreach ($applicant_relationships as $applicant_relation) {
 				}
 				
 				$applicants_none_tentative = false;
-				$applicant_count++;
 			}
+			$applicant_count++;
 		}
 	}
 }
 // Display something if there are no applicants.
-if ($applicants_none_accepted) {
-	$accepted .= '<span name="no-accepted-candidate">' . elgg_echo('missions:nobody') . '</span>';
+if($applicants_none_accepted) {
+	$accepted .= '<div name="no-accepted-candidate" class="col-sm-12">' . elgg_echo('missions:nobody') . '</div>';
 }
-if ($applicants_none_tentative) {
-	$tentative .= '<span name="no-tentative-candidate">' . elgg_echo('missions:nobody') . '</span>';
+if($applicants_none_tentative && $applicant_count == 0) {
+	$tentative .= '<div name="no-tentative-candidate" class="col-sm-12">' . elgg_echo('missions:nobody') . '</div>';
+}
+else {
+	$s_or_not = '';
+	if($applicant_count > 1) {
+		$s_or_not = 's';
+	}
+	
+	$tentative .= '<div name="applicant_count" class="col-sm-12">' . elgg_echo('missions:applicant_count', array($applicant_count, $s_or_not)) . '</div>';
 }
 
 $accepted .= $hidden_participant_count = elgg_view('input/hidden', array(

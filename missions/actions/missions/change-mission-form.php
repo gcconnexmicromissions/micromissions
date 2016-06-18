@@ -69,6 +69,7 @@ if ($err != '') {
     $mission->completion_date = $edit_form['completion_date'];
     $mission->deadline = $edit_form['deadline'];
     $mission->descriptor = $edit_form['description'];
+    $mission->openess = $edit_form['openess'];
     $mission->remotely = $edit_form['remotely'];
     $mission->security = $edit_form['security'];
     $mission->location = $edit_form['location'];

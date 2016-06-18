@@ -28,7 +28,7 @@ $content = elgg_view_title($title);
 $content .= elgg_view('page/elements/mission-tabs');
 
 // Notifies users that an application will opt them in to Micro-Missions.
-if(elgg_get_logged_in_user_entity()->opt_in_missions != 'gcconnex_profile:opt:yes') {
+if(!check_if_opted_in(elgg_get_logged_in_user_entity())) {
 	$content .= '<p>' . elgg_echo('missions:you_will_be_opted_in') . '</p>';
 }
 

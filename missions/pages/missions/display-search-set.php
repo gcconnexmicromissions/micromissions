@@ -18,6 +18,17 @@ if($_SESSION[$search_typing . '_entities_per_page']) {
 	$entities_per_page = $_SESSION[$search_typing . '_entities_per_page'];
 }
 
+$sort_missions_form .= elgg_view_form('missions/sort-missions-form', array(
+		'class' => 'form-horizontal'
+));
+$sort_field = elgg_view('page/elements/hidden-field', array(
+		'toggle_text' => elgg_echo('missions:sort_options'),
+		'toggle_text_hidden' => elgg_echo('missions:sort_options'),
+		'toggle_id' => 'sort_options',
+		'hidden_content' => $sort_missions_form,
+		'alignment' => 'right'
+));
+
 $title = elgg_echo('missions:display_search_results');
 if($search_typing == 'candidate') {
 	$title = elgg_echo('missions:display_find_results');
@@ -71,6 +82,11 @@ if(($offset + $max) >= elgg_get_plugin_setting('search_limit', 'missions') && $c
 	$content .= '<div class="col-sm-12" style="font-style:italic;">' . elgg_echo('missions:reached_maximum_entities') . '</div>';
 }
 
+// Only displays sort form if the search set is missions.
+if($search_typing == 'mission') {
+	$content .= '<div class="col-sm-5 col-sm-offset-7">' . $sort_field . '</div>';
+}
+
 // Displays the missions as a list with custom class mission-gallery
 $content .= '<div class="col-sm-12">' . elgg_view_entity_list(array_slice($search_set, $offset, $max), array(
 	    'count' => $count,
@@ -90,12 +106,5 @@ $content .= '<div class="col-sm-12">' . elgg_view_form('missions/change-entities
 		'entity_type' => $search_typing,
 		'number_per' => $entities_per_page
 )) . '</div>';
-
-// Only displays sort form if the search set is missions.
-if($search_typing == 'mission') {
-	$content .= '<div class="col-sm-12">' . elgg_view_form('missions/sort-missions-form', array(
-			'class' => 'form-horizontal'
-	)) . '</div>';
-}
 
 echo elgg_view_page($title, $content);
