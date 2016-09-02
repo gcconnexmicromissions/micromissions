@@ -654,5 +654,6 @@ return array(
 		"missions:second(s)" => "%s seconde%s",
 		"missions:error:analytics:select_graph_type" => "S'il vous plaît sélectionner un type de graphique.",
 		"missions:error:analytics:no_opportunities_in_data" => "Il n'y a pas de possibilités au sein de l'ensemble de données résultant de vos paramètres d'entrée.",
-		"missions:error:analytics:no_intervals_in_x_axis" => "Création des intervalles d'axe horizontal a échoué."
+		"missions:error:analytics:no_intervals_in_x_axis" => "Création des intervalles d'axe horizontal a échoué.",
+		"missions:average_number_of_applicants" => "Nombre moyen de candidats"
 );

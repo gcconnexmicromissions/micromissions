@@ -653,5 +653,6 @@ return array(
 		"missions:second(s)" => "%s second%s",
 		"missions:error:analytics:select_graph_type" => "Please select a graph type.",
 		"missions:error:analytics:no_opportunities_in_data" => "There are no opportunities within the dataset resulting from your input parameters.",
-		"missions:error:analytics:no_intervals_in_x_axis" => "Creation of the horizontal axis intervals has failed."
+		"missions:error:analytics:no_intervals_in_x_axis" => "Creation of the horizontal axis intervals has failed.",
+		"missions:average_number_of_applicants" => "Average number of applicants"
 );
